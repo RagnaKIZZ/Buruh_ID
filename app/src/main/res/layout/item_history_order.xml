@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_70sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="@dimen/_15sdp"
+    android:layout_marginStart="@dimen/_15sdp"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    android:elevation="@dimen/_5sdp"
+    android:layout_marginEnd="@dimen/_20sdp">
+
+    <RelativeLayout
+        android:background="@color/color_gray_new"
+        android:layout_width="match_parent"
+        android:padding="@dimen/_3sdp"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:id="@+id/img_history_order"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_centerVertical="true"
+            app:civ_border_width="@dimen/_2sdp"
+            app:civ_border_color="@android:color/white"
+            tools:src="@drawable/solo_worker"/>
+        <TextView
+            android:id="@+id/txt_title_history_order"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            tools:text="@string/individu_worker"
+            android:textSize="@dimen/_9sdp"
+            android:layout_toEndOf="@id/img_history_order"
+            android:fontFamily="@font/open_sans"
+            android:textStyle="bold"/>
+
+        <View
+            android:id="@+id/view_history_order"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/txt_title_history_order"
+            android:layout_toEndOf="@+id/img_history_order"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_3sdp"/>
+
+        <TextView
+            android:id="@+id/txt_desc_history_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/individu_worker"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_below="@id/view_history_order"
+            android:layout_toEndOf="@id/img_history_order"
+            android:fontFamily="@font/open_sans"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txt_price_history_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Rp. 500000"
+            android:textSize="@dimen/_9sdp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_below="@id/txt_desc_history_order"
+            android:layout_toEndOf="@id/img_history_order"
+            android:fontFamily="@font/open_sans"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txt_date_history_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24 Maret 1999"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textSize="@dimen/_9sdp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/txt_price_history_order"
+            android:fontFamily="@font/open_sans"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/txt_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/open_sans"
+            android:layout_margin="@dimen/_10sdp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_layout"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_your_order"
+                        android:background="@drawable/bg_btn_left_click"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:text="@string/your_order"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@android:color/black"
+                        android:textAllCaps="false"/>
+                    <Button
+                        android:id="@+id/btn_history_order"
+                        android:fontFamily="@font/open_sans"
+                        android:background="@drawable/bg_btn_right_unclick"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:text="@string/history"
+                        android:textColor="@android:color/black"
+                        android:textAllCaps="false"/>
+
+                </LinearLayout>
+
+                <com.xw.repo.widget.BounceScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rc_order"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                </com.xw.repo.widget.BounceScrollView>
+
+
+
+            </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
