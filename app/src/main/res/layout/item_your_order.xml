@@ -9,7 +9,7 @@
     android:layout_marginBottom="@dimen/_10sdp"
     android:elevation="@dimen/_2sdp"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_140sdp">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/rv_yo_1"
@@ -18,12 +18,25 @@
         <LinearLayout
             android:id="@+id/ll_yo"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/liner"
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_code_your_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_8ssp"
+                tools:text="Code order: OR08213123"/>
+
             <TextView
                 android:id="@+id/txt_nama_your_order"
                 android:layout_width="wrap_content"
@@ -32,8 +45,8 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:fontFamily="@font/open_sans"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12ssp"
                 tools:text="Faozi"/>
 
             <TextView
@@ -41,58 +54,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans"
-                android:textColor="@android:color/black"
-                tools:textSize="@dimen/_8sdp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_8ssp"
                 android:text="@string/individu_worker"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_8ssp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Job description:"/>
 
             <TextView
                 android:id="@+id/txt_desc_your_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/open_sans"
                 android:maxLines="2"
+                android:textStyle="bold"
                 tools:text="Cat Rumah, Cat Pagar, membersihkan rumput dan lainlain"
-                android:textColor="@android:color/black"
-                tools:textSize="@dimen/_10sdp" />
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:gravity="top"
-                    android:textColor="@android:color/black"
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/_12sdp"
-                    android:fontFamily="@font/open_sans"
-                    android:layout_height="wrap_content"
-                    android:text="Rating : "/>
-                <androidx.appcompat.widget.AppCompatRatingBar
-                    android:id="@+id/rating_your_order"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    tools:rating="2.5"
-                    android:enabled="false"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/txt_rating_your_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="(4.5)"
-                    android:fontFamily="@font/open_sans"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginStart="@dimen/_2sdp"
-                    android:textSize="@dimen/_10sdp"
-                    />
-
-            </LinearLayout>
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_10ssp" />
 
         </LinearLayout>
 
@@ -101,23 +86,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
             android:orientation="vertical">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_your_order"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 app:civ_border_width="@dimen/_3sdp"
                 app:civ_border_color="@android:color/white"
                 tools:src="@drawable/solo_worker"/>
-
-            <ImageView
-                android:id="@+id/img_call_your_order"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/ic_local_phone_w_24dp"
-                android:layout_gravity="center"
-                />
 
         </LinearLayout>
 
@@ -128,24 +106,25 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_height="@dimen/_1sdp"
         android:layout_below="@id/rv_yo_1"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/white"/>
 
     <LinearLayout
       android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:layout_below="@id/view_yo_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status :"
+            android:textSize="@dimen/_9ssp"
             android:fontFamily="@font/open_sans"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:id="@+id/txt_status_your_order"
@@ -153,16 +132,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
             tools:text="Waiting Worker"
+            android:textSize="@dimen/_9ssp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:fontFamily="@font/open_sans"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/txt_price_your_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewEnd"
-            tools:text="Rp. 500000"
             android:fontFamily="@font/open_sans"
             android:textColor="@android:color/black"/>
 

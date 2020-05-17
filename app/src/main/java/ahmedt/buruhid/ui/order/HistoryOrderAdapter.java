@@ -1,6 +1,7 @@
 package ahmedt.buruhid.ui.order;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ahmedt.buruhid.R;
+import ahmedt.buruhid.ui.order.modelHistoryOrder.DataItem;
+import ahmedt.buruhid.utils.UrlServer;
 
 public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<HistoryOrderItem> list = new ArrayList<>();
+    private ArrayList<DataItem> list = new ArrayList<>();
 
     private OnItemClickListener mItemClickListener;
 
-    public HistoryOrderAdapter(Context context, ArrayList<HistoryOrderItem> list) {
+    public HistoryOrderAdapter(Context context, ArrayList<DataItem> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void updateList(ArrayList<HistoryOrderItem> list){
+    public void updateList(ArrayList<DataItem> list){
         this.list = list;
         notifyDataSetChanged();
     }
@@ -44,18 +49,45 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
     @Override
     public void onBindViewHolder(@NonNull HistoryOrderAdapter.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder){
-         final HistoryOrderItem item = getItem(position);
+         final DataItem item = getItem(position);
          ViewHolder genericViewHolder = (ViewHolder) holder;
+         String time = "";
+         String type = "";
+            if (item.getAnggota().matches("1")){
+                type = "Individu worker";
+            }else{
+                type = "Team worker : "+item.getAnggota()+" people";
+            }
 
-         genericViewHolder.txtType.setText(item.getType());
-         genericViewHolder.txtDesc.setText(item.getDesc());
-         genericViewHolder.txtDate.setText(item.getDate());
-         genericViewHolder.txtPrice.setText(item.getPrice());
+            if (item.getFinishDate() != null){
+                time = item.getFinishDate();
+            }else{
+                time = item.getOrderDate();
+            }
 
-            Glide.with(context)
-                    .load(item.getPhoto())
-                    .apply(new RequestOptions().override(70,70))
-                    .into(genericViewHolder.imgHistoryOrder);
+          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try{
+                Date date = format.parse(time);
+                SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yyyy");
+                String realTime = format1.format(date);
+                genericViewHolder.txtDate.setText(realTime);
+            }catch(Exception e){
+                Log.d("ASD", "onBindViewHolder: "+e.getMessage());
+            }
+         genericViewHolder.txtType.setText(type);
+         genericViewHolder.txtDesc.setText(item.getJobdesk());
+
+            if (item.getFoto().isEmpty()){
+                Glide.with(context)
+                        .load(R.drawable.blank_profile)
+                        .apply(new RequestOptions().override(120,120))
+                        .into(genericViewHolder.imgHistoryOrder);
+            }else {
+                Glide.with(context)
+                        .load(UrlServer.URL_FOTO_TUKANG+item.getFoto())
+                        .apply(new RequestOptions().override(120,120))
+                        .into(genericViewHolder.imgHistoryOrder);
+            }
 
         }
     }
@@ -69,12 +101,12 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
         this.mItemClickListener = mItemClickListener;
     }
 
-    private HistoryOrderItem getItem(int position){
+    private DataItem getItem(int position){
         return list.get(position);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, HistoryOrderItem model);
+        void onItemClick(View view, int position, DataItem model);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

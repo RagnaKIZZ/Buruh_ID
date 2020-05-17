@@ -1,12 +1,12 @@
 package ahmedt.buruhid.ui.order.modelOrder;
 
-import javax.annotation.Generated;
+
 import com.google.gson.annotations.SerializedName;
 
-@Generated("com.robohorse.robopojogenerator")
+
 public class DataItem{
 
-	@SerializedName("end_date")
+    @SerializedName("end_date")
 	private String endDate;
 
 	@SerializedName("tukang_id")

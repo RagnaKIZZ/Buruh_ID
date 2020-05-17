@@ -1,6 +1,7 @@
 package ahmedt.buruhid.ui.order;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import ahmedt.buruhid.R;
+import ahmedt.buruhid.ui.order.modelOrder.DataItem;
+import ahmedt.buruhid.utils.UrlServer;
 
 public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<YourOrderItem> list = new ArrayList<>();
+    private ArrayList<DataItem> list = new ArrayList<>();
 
     private OnItemClickListener mItemClickListener;
 
-    public YourOrderAdapter(Context context, ArrayList<YourOrderItem> list) {
+    public YourOrderAdapter(Context context, ArrayList<DataItem> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void updateList(ArrayList<YourOrderItem> list){
+    public void updateList(ArrayList<DataItem> list){
         this.list = list;
         notifyDataSetChanged();
     }
@@ -44,23 +49,52 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
     @Override
     public void onBindViewHolder(@NonNull YourOrderAdapter.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder){
-         final YourOrderItem item = getItem(position);
+         final DataItem item = getItem(position);
          ViewHolder genericViewHolder = (ViewHolder) holder;
+            Locale locale = new Locale("in", "ID");
+            NumberFormat format = NumberFormat.getCurrencyInstance(locale);
 
-         genericViewHolder.txtName.setText(item.getName());
-         genericViewHolder.txtType.setText(item.getType());
-         genericViewHolder.txtDesc.setText(item.getDesc());
-         genericViewHolder.txtStatus.setText(item.getStatus());
-         genericViewHolder.txtPrice.setText(item.getPrice());
+         String type = "";
+         String status = "";
+         int color = Color.WHITE;
 
-            Glide.with(context)
-                    .load(item.getPhoto())
-                    .apply(new RequestOptions().override(100,100))
-                    .into(genericViewHolder.imgYourOrder);
+         if (item.getAnggota().matches("1")){
+             type = "Individu worker";
+         }else{
+             type = "Team worker : "+item.getAnggota()+" people";
+         }
 
-            genericViewHolder.ratingBar.setRating(item.getRating());
-            genericViewHolder.txtRating.setText(String.valueOf(item.getRating()));
+         if (item.getStatusOrder().matches("1")){
+             status = "Waiting confirmation from worker...";
+             color = Color.YELLOW;
+         }else if (item.getStatusOrder().matches("2")){
+             status = "Order accepted!, waiting to start job...";
+             color = Color.GREEN;
+         }else if (item.getStatusOrder().matches("3")){
+             status = "Working...";
+             color = Color.GREEN;
+         }else{
+             status = "error!";
+             color = Color.RED;
+         }
+         genericViewHolder.txtCode.setText("Order code: "+item.getCodeOrder());
+         genericViewHolder.txtName.setText(item.getNama());
+         genericViewHolder.txtType.setText(type);
+         genericViewHolder.txtDesc.setText(item.getJobdesk());
+         genericViewHolder.txtStatus.setText(status);
+         genericViewHolder.txtStatus.setTextColor(color);
 
+         if (item.getFoto().isEmpty()){
+             Glide.with(context)
+                     .load(R.drawable.blank_profile)
+                     .apply(new RequestOptions().override(120,120))
+                     .into(genericViewHolder.imgYourOrder);
+         }else {
+             Glide.with(context)
+                     .load(UrlServer.URL_FOTO_TUKANG+item.getFoto())
+                     .apply(new RequestOptions().override(120,120))
+                     .into(genericViewHolder.imgYourOrder);
+         }
         }
     }
 
@@ -73,18 +107,17 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
         this.mItemClickListener = mItemClickListener;
     }
 
-    private YourOrderItem getItem(int position){
+    private DataItem getItem(int position){
         return list.get(position);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, YourOrderItem model);
+        void onItemClick(View view, int position, DataItem model);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtName, txtType, txtDesc, txtStatus, txtPrice, txtRating;
+        private TextView txtName, txtType, txtDesc, txtStatus, txtCode;
         private ImageView imgYourOrder;
-        private RatingBar ratingBar;
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
@@ -92,10 +125,8 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
             this.txtType = (TextView) itemView.findViewById(R.id.txt_jenis_your_order);
             this.txtDesc = (TextView) itemView.findViewById(R.id.txt_desc_your_order);
             this.txtStatus = (TextView) itemView.findViewById(R.id.txt_status_your_order);
-            this.txtPrice = (TextView) itemView.findViewById(R.id.txt_price_your_order);
+            this.txtCode = (TextView) itemView.findViewById(R.id.txt_code_your_order);
             this.imgYourOrder = (ImageView) itemView.findViewById(R.id.img_your_order);
-            this.ratingBar = (RatingBar) itemView.findViewById(R.id.rating_your_order);
-            this.txtRating = (TextView) itemView.findViewById(R.id.txt_rating_your_order);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
