@@ -45,7 +45,7 @@
                         android:layout_height="@dimen/_30sdp"
                         android:text="@string/your_order"
                         android:fontFamily="@font/open_sans"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textAllCaps="false"/>
                     <Button
                         android:id="@+id/btn_history_order"

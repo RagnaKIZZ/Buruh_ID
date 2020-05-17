@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                         hud.dismiss();
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
+                                Prefs.putString(SessionPrefs.U_ID, response.getData().getUserId());
                                 Prefs.putString(SessionPrefs.NAMA, response.getData().getNama());
                                 Prefs.putString(SessionPrefs.EMAIL, response.getData().getEmail());
                                 Prefs.putString(SessionPrefs.TELEPON, response.getData().getTelepon());

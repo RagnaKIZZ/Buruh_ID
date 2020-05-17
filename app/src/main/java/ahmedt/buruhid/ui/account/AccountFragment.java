@@ -47,8 +47,7 @@ public class AccountFragment extends Fragment {
     private TextView txtName, txtEmail, txtPhone;
     private ImageView imgAcc;
     private TextView txtHi;
-    private String uid = Prefs.getString(SessionPrefs.U_ID, "");
-    private String token_login = Prefs.getString(SessionPrefs.TOKEN_LOGIN, "");
+
 
 
     public AccountFragment() {
@@ -94,7 +93,7 @@ public class AccountFragment extends Fragment {
                     .into(imgAcc);
         }else {
             Glide.with(getActivity())
-                    .load(R.drawable.ic_account_circle_black_24dp)
+                    .load(R.drawable.blank_profile)
                     .into(imgAcc);
         }
 
@@ -131,10 +130,10 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (getActivity() != null){
+                            String uid = Prefs.getString(SessionPrefs.U_ID, "");
+                            String token_login = Prefs.getString(SessionPrefs.TOKEN_LOGIN, "");
+                            Log.d(TAG, "onClick: "+token_login);
                             logoutUser(uid, token_login);
-                            Prefs.clear();
-                            startActivity(new Intent(getActivity(), LoginActivity.class));
-                            getActivity().finish();
                         }
                     }
                 })
@@ -161,7 +160,12 @@ public class AccountFragment extends Fragment {
                             hud.dismiss();
                             if (okHttpResponse.isSuccessful()){
                                 if (response.getCode() == 200){
-                                    Toasty.warning(getActivity(),R.string.suc_logout, Toast.LENGTH_SHORT, true).show();
+                                    Toasty.success(getActivity(),R.string.suc_logout, Toast.LENGTH_SHORT, true).show();
+                                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                    Prefs.clear();
+                                    startActivity(intent);
+                                    getActivity().finish();
                                 }else{
                                     Toasty.warning(getActivity(), R.string.something_wrong, Toast.LENGTH_SHORT, true).show();
                                 }

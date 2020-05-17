@@ -237,9 +237,11 @@
                         android:fontFamily="@font/open_sans"
                         android:focusable="false"
                         android:hint="@string/address"
+                        android:lines="3"
+                        android:maxLines="3"
                         android:textSize="@dimen/_12ssp"
                         android:enabled="false"
-                        android:inputType="text"
+                        android:inputType="text|textMultiLine"
                         android:imeOptions="actionNext"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -328,7 +330,7 @@
                 </LinearLayout>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cd_promo"
+                    android:id="@+id/cv_promo"
                     android:visibility="gone"
                     tools:visibility="visible"
                     android:layout_marginStart="@dimen/_20sdp"
@@ -399,6 +401,7 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/txt_before_promo"
                         android:fontFamily="@font/open_sans"
                         android:text="Before Promo"
                         android:layout_width="wrap_content"
@@ -418,6 +421,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ln_promo"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

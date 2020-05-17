@@ -1,5 +1,6 @@
 package ahmedt.buruhid.ui.order;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,8 @@ public class OrderFragment extends Fragment {
         btnYourOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnYourOrder.setTextColor(Color.WHITE);
+                btnHistoryOrder.setTextColor(Color.BLACK);
                 btnYourOrder.setBackground(getResources().getDrawable(R.drawable.bg_btn_left_click));
                 btnHistoryOrder.setBackground(getResources().getDrawable(R.drawable.bg_btn_right_unclick));
                 rv_order.setAdapter(adapter);
@@ -85,6 +88,8 @@ public class OrderFragment extends Fragment {
         btnHistoryOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnHistoryOrder.setTextColor(Color.WHITE);
+                btnYourOrder.setTextColor(Color.BLACK);
                 btnYourOrder.setBackground(getResources().getDrawable(R.drawable.bg_btn_left_unclick));
                 btnHistoryOrder.setBackground(getResources().getDrawable(R.drawable.bg_btn_right_click));
                 rv_order.setAdapter(adapter2);

@@ -15,9 +15,6 @@ public class Data{
 	@SerializedName("nama_promo")
 	private String namaPromo;
 
-	@SerializedName("kuota")
-	private String kuota;
-
 	@SerializedName("min_harga")
 	private String minHarga;
 
@@ -52,14 +49,6 @@ public class Data{
 
 	public String getNamaPromo(){
 		return namaPromo;
-	}
-
-	public void setKuota(String kuota){
-		this.kuota = kuota;
-	}
-
-	public String getKuota(){
-		return kuota;
 	}
 
 	public void setMinHarga(String minHarga){
@@ -100,8 +89,7 @@ public class Data{
 			"Data{" + 
 			"kode_promo = '" + kodePromo + '\'' + 
 			",end_date = '" + endDate + '\'' + 
-			",nama_promo = '" + namaPromo + '\'' + 
-			",kuota = '" + kuota + '\'' + 
+			",nama_promo = '" + namaPromo + '\'' +
 			",min_harga = '" + minHarga + '\'' + 
 			",id = '" + id + '\'' + 
 			",isi_promo = '" + isiPromo + '\'' + 

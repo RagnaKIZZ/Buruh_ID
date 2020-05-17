@@ -1,5 +1,6 @@
 package ahmedt.buruhid.ui.payment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,7 @@ public class PaymentFragment extends Fragment {
         adapter.updateList(list);
     }
 
-    private void findView(View view){
+    private void findView(View view) {
         btnBill = view.findViewById(R.id.btn_payment);
         btnHistory = view.findViewById(R.id.btn_history_payment);
         recyclerView = view.findViewById(R.id.rc_payment);
@@ -62,10 +63,11 @@ public class PaymentFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-
         btnBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnBill.setTextColor(Color.WHITE);
+                btnHistory.setTextColor(Color.BLACK);
                 btnBill.setBackground(getResources().getDrawable(R.drawable.bg_btn_left_click));
                 btnHistory.setBackground(getResources().getDrawable(R.drawable.bg_btn_right_unclick));
                 recyclerView.setAdapter(adapter);
@@ -75,6 +77,8 @@ public class PaymentFragment extends Fragment {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnBill.setTextColor(Color.BLACK);
+                btnHistory.setTextColor(Color.WHITE);
                 btnBill.setBackground(getResources().getDrawable(R.drawable.bg_btn_left_unclick));
                 btnHistory.setBackground(getResources().getDrawable(R.drawable.bg_btn_right_click));
                 recyclerView.setAdapter(adapter2);

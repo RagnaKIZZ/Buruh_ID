@@ -10,6 +10,10 @@ public class SessionPrefs {
 
     public static String CURRENT_PRICE = "price";
 
+    public static String UNICODE = "unicode";
+
+    public static String CODE_PROMO = "id_promo";
+
     //session user
     public static String U_ID = "uid";
     public static String NAMA = "nama";

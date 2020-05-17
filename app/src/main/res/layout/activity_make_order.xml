@@ -353,6 +353,39 @@
                     android:layout_marginStart="@dimen/_10sdp"/>
             </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_5sdp">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txt_mo_vill"
+                        android:layout_width="@dimen/_210sdp"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_mo_vill"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans"
+                            android:hint="@string/village"
+                            android:textSize="@dimen/_12ssp"
+                            android:inputType="none"
+                            android:imeOptions="actionNext"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageButton
+                        android:id="@+id/btn_vill"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:src="@drawable/ic_menu_black_24dp"
+                        android:background="@drawable/bg_button"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_10sdp"/>
+                </LinearLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_mo_address"
                     android:layout_width="match_parent"
@@ -367,7 +400,7 @@
                         android:fontFamily="@font/open_sans"
                         android:hint="@string/address"
                         android:textSize="@dimen/_12ssp"
-                        android:inputType="text"
+                        android:inputType="textCapWords"
                         android:imeOptions="actionNext"/>
                 </com.google.android.material.textfield.TextInputLayout>
 

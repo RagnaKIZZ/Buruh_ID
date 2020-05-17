@@ -32,7 +32,7 @@
     <string name="valid_email">Please enter a valid email address</string>
     <string name="cant_empty">Field can\'t be empty!</string>
     <string name="doesnt_match">Must match as password!</string>
-    <string name="password_must_contains">Password must contains number, lowercase, and uppercase</string>
+    <string name="password_must_contains">Password min 8 character and must contains number, lowercase, uppercase</string>
     <string name="valid_number">Please enter a valid number</string>
     <string name="not_checked">Must be checked to continue</string>
     <string name="select_worker">Select Worker</string>
@@ -79,5 +79,9 @@
     <string name="something_wrong">Something wrong!</string>
     <string name="total_payment">Total Payment</string>
     <string name="sub_districts">Sub-districts</string>
+    <string name="lengkapi">Complete your data!</string>
+    <string name="pleasecekorder">Please check your order again!</string>
+    <string name="village">Village</string>
+    <string name="server_error">Server error!</string>
 
 </resources>

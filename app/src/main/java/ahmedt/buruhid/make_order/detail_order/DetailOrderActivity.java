@@ -1,14 +1,17 @@
 package ahmedt.buruhid.make_order.detail_order;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +25,11 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Random;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.make_order.OrderDoneActivity;
+import ahmedt.buruhid.make_order.detail_order.model.MakeOrderModel;
 import ahmedt.buruhid.make_order.detail_order.model.PromoModel;
 import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
@@ -37,15 +42,21 @@ public class DetailOrderActivity extends AppCompatActivity {
     private TextInputEditText edtType, edtCount, edtStartDate, edtEndDate, edtStartHour,
     edtTotalDays, edtCity, edtAddress, edtNameWorker, edtJobdesk, edtPromo;
     private TextInputLayout txtPromo;
-    private TextView txtTotalPayment;
+    private TextView txtTotalPayment, txtNamePromo, txtIsiPromo, txtMinPromo, txtAfterPromo, txtBefore;
     private ImageButton btnBack;
+    private LinearLayout ln_after;
+    private CardView cv_promo;
     private Button btnDone;
     private Button btnPromo;
     private Context ctx;
     String id = Prefs.getString(SessionPrefs.U_ID, "");
     String token = Prefs.getString(SessionPrefs.TOKEN_LOGIN, "");
+    String id_promo = "";
+    String kode_promo = "";
+    String nama_promo = "";
+    String isi_promo = "";
+
     int workerAndDays;
-    int promo = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,42 +83,59 @@ public class DetailOrderActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_detail_order_back);
         btnDone = findViewById(R.id.btn_detail_done);
         btnPromo = findViewById(R.id.btn_promo);
+        cv_promo = findViewById(R.id.cv_promo);
+        txtNamePromo = findViewById(R.id.txt_promo_name);
+        txtIsiPromo = findViewById(R.id.txt_promo_percent);
+        txtMinPromo = findViewById(R.id.txt_promo_min);
+        ln_after = findViewById(R.id.ln_promo);
+        txtAfterPromo = findViewById(R.id.txt_total_payment_after);
+        txtBefore = findViewById(R.id.txt_before_promo);
 
+        ln_after.setVisibility(View.GONE);
+        cv_promo.setVisibility(View.GONE);
+        txtBefore.setVisibility(View.GONE);
 
         Intent i = getIntent();
         String type = i.getStringExtra("type");
+        final String tukang_id = i.getStringExtra("tukang_id");
         String startDate = i.getStringExtra("startDate");
-        String endDate = i.getStringExtra("endDate");
+        final String endDate = i.getStringExtra("endDate");
         String startHour = i.getStringExtra("startHour");
         String nameWorker = i.getStringExtra("name_worker");
-        String jobdesk = i.getStringExtra("jobdesk");
+        final String jobdesk = i.getStringExtra("jobdesk");
         String amountDays = i.getStringExtra("amountDays");
         String city = i.getStringExtra("city");
+        String subdis = i.getStringExtra("subdis");
+        String vill = i.getStringExtra("vill");
         String address = i.getStringExtra("address");
-
+        Log.d(TAG, "findView: "+id+ " " +token);
         String day = " day";
 
         if (Integer.parseInt(amountDays) > 1){
             day = " days";
         }
-
+        String countWorker;
         if (i.getBooleanExtra("isTeam", true)){
-            String countWorker = i.getStringExtra("counter");
+            countWorker = i.getStringExtra("counter");
             workerAndDays = Integer.parseInt(countWorker)*Integer.parseInt(amountDays);
             edtCount.setVisibility(View.VISIBLE);
             edtCount.setText(countWorker+ " People");
         }else {
+            countWorker = i.getStringExtra("counter");
             edtCount.setVisibility(View.GONE);
             workerAndDays = Integer.parseInt(amountDays);
         }
+
+        final String alamat = address+", "+vill+", "+subdis+", "+city;
+        final String startdate = startDate+" "+startHour;
 
         edtType.setText(type);
         edtStartDate.setText(startDate);
         edtEndDate.setText(endDate);
         edtStartHour.setText(startHour);
         edtTotalDays.setText(amountDays+day);
-        edtCity.setText(city);
-        edtAddress.setText(address);
+        edtCity.setVisibility(View.GONE);
+        edtAddress.setText(address+", "+vill+", "+subdis+", "+city);
         edtNameWorker.setText(nameWorker);
         edtJobdesk.setText(jobdesk);
 
@@ -127,8 +155,11 @@ public class DetailOrderActivity extends AppCompatActivity {
         NumberFormat format = NumberFormat.getCurrencyInstance(locale);
 
         final double totalPayment = workerAndDays* Prefs.getDouble(SessionPrefs.CURRENT_PRICE, 0);
+        Random rand = new Random();
+        final int selected = rand.nextInt(999);
+        final double totalPaymentNew = totalPayment+((double) selected);
 
-        txtTotalPayment.setText(format.format(totalPayment));
+        txtTotalPayment.setText(format.format(totalPaymentNew));
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +174,7 @@ public class DetailOrderActivity extends AppCompatActivity {
                 String code = edtPromo.getText().toString().trim();
                 if (!code.isEmpty()){
                     txtPromo.setErrorEnabled(false);
-                    getPromotion(id, token, code, String.valueOf(totalPayment));
+                    getPromotion(id, token, code, String.valueOf(totalPayment), totalPayment, (double) selected);
                 }else {
                     txtPromo.setError(getString(R.string.cant_empty));
                 }
@@ -154,17 +185,18 @@ public class DetailOrderActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetailOrderActivity.this, OrderDoneActivity.class));
-                finish();
+                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPaymentNew), id_promo);
             }
         });
 
     }
 
-    private void getPromotion(String id, String token_login, String code, String nominal){
+    private void getPromotion(String id, String token_login, String code, String nominal, final double total_before, final double unique){
+        Locale locale = new Locale("in", "ID");
+        final NumberFormat format = NumberFormat.getCurrencyInstance(locale);
         final KProgressHUD hud = new KProgressHUD(ctx);
         HelperClass.loading(hud, null, null, false);
-        AndroidNetworking.post(UrlServer.URL_LOGOUT)
+        AndroidNetworking.post(UrlServer.URL_PROMO)
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token_login)
                 .addBodyParameter("kode", code)
@@ -176,9 +208,32 @@ public class DetailOrderActivity extends AppCompatActivity {
                         hud.dismiss();
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
-                                Toasty.warning(ctx,R.string.suc_logout, Toast.LENGTH_SHORT, true).show();
+                                id_promo = response.getData().getId();
+                                nama_promo = response.getData().getNamaPromo();
+                                isi_promo = response.getData().getIsiPromo();
+                                kode_promo = response.getData().getKodePromo();
+                                String min = response.getData().getMinHarga();
+                                double isipromo = 100*Double.parseDouble(isi_promo);
+                                double totalafter = total_before-(total_before*Double.parseDouble(isi_promo))+unique;
+                                double minPro = Double.parseDouble(min);
+                                String form = format.format(minPro);
+                                String afterPromo = format.format(totalafter);
+                                int isiipromo = (int) isipromo;
+                                cv_promo.setVisibility(View.VISIBLE);
+                                txtNamePromo.setText(nama_promo);
+                                txtTotalPayment.setPaintFlags(txtTotalPayment.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                                txtAfterPromo.setText(afterPromo);
+                                txtBefore.setVisibility(View.VISIBLE);
+                                ln_after.setVisibility(View.VISIBLE);
+                                txtMinPromo.setText("Minimum transaction "+form);
+                                txtIsiPromo.setText("Disc "+String.valueOf(isiipromo)+"%");
+                                Toasty.success(ctx,response.getMsg(), Toast.LENGTH_SHORT, true).show();
                             }else{
-                                Toasty.warning(ctx, R.string.something_wrong, Toast.LENGTH_SHORT, true).show();
+                                Toasty.warning(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
+                                txtBefore.setVisibility(View.GONE);
+                                ln_after.setVisibility(View.GONE);
+                                cv_promo.setVisibility(View.GONE);
+                                txtTotalPayment.setPaintFlags(txtTotalPayment.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                             }
                         }
                     }
@@ -186,8 +241,57 @@ public class DetailOrderActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         hud.dismiss();
-                        Toasty.warning(ctx, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        txtBefore.setVisibility(View.GONE);
+                        ln_after.setVisibility(View.GONE);
+                        cv_promo.setVisibility(View.GONE);
+                        txtTotalPayment.setPaintFlags(txtTotalPayment.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                        Toasty.error(ctx, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         Log.d(TAG, "onError: "+anError.getErrorDetail());
+                    }
+                });
+    }
+
+    private void makeOrder(String id, String token, String tukang_id, String alamat, String jobdesk, String start, String end,
+    String nominal, String promoid){
+        KProgressHUD hud  = new KProgressHUD(ctx);
+        HelperClass.loading(hud, null, null, false);
+        AndroidNetworking.post(UrlServer.URL_MAKE_ORDER)
+                .addBodyParameter("id", id)
+                .addBodyParameter("token_login", token)
+                .addBodyParameter("tukang_id", tukang_id)
+                .addBodyParameter("alamat", alamat)
+                .addBodyParameter("jobdesk", jobdesk)
+                .addBodyParameter("start_date", start)
+                .addBodyParameter("end_date", end)
+                .addBodyParameter("nominal", nominal)
+                .addBodyParameter("promo_id", promoid)
+                .build()
+                .getAsOkHttpResponseAndObject(MakeOrderModel.class, new OkHttpResponseAndParsedRequestListener<MakeOrderModel>() {
+                    @Override
+                    public void onResponse(Response okHttpResponse, MakeOrderModel response) {
+                        if (okHttpResponse.isSuccessful()){
+                            if (response.getCode() == 200){
+                                Toasty.success(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
+                                startActivity(new Intent(DetailOrderActivity.this, OrderDoneActivity.class));
+                                finish();
+                            }else{
+                                Toasty.warning(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0){
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(ctx, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d(TAG, "onError: "+anError.getErrorCode());
+                            Log.d(TAG, "onError: "+anError.getErrorBody());
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(ctx, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
                     }
                 });
     }

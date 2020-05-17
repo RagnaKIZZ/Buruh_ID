@@ -47,7 +47,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         if (holder instanceof ViewHolder){
          final DataItem item = getItem(position);
          ViewHolder genericViewHolder = (ViewHolder) holder;
-
             genericViewHolder.txtName.setText(item.getName());
         }
     }

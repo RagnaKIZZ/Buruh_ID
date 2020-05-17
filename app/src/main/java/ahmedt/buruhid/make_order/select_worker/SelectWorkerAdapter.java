@@ -17,20 +17,21 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
-import ahmedt.buruhid.make_order.select_worker.SelectWorkerItem;
+import ahmedt.buruhid.make_order.select_worker.modelWorker.DataItem;
+import ahmedt.buruhid.utils.UrlServer;
 
 public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<SelectWorkerItem> list = new ArrayList<>();
+    private ArrayList<DataItem> list = new ArrayList<>();
 
     private OnItemClickListener mItemClickListener;
 
-    public SelectWorkerAdapter(Context context, ArrayList<SelectWorkerItem> list) {
+    public SelectWorkerAdapter(Context context, ArrayList<DataItem> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void updateList(ArrayList<SelectWorkerItem> list){
+    public void updateList(ArrayList<DataItem> list){
         this.list = list;
         notifyDataSetChanged();
     }
@@ -45,19 +46,35 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
     @Override
     public void onBindViewHolder(@NonNull SelectWorkerAdapter.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder){
-         final SelectWorkerItem item = getItem(position);
+         final DataItem item = getItem(position);
          ViewHolder genericViewHolder = (ViewHolder) holder;
 
-            genericViewHolder.ratingBar.setRating((float) item.getRating());
-            genericViewHolder.txtName.setText(item.getName());
-            genericViewHolder.txtAddress.setText(item.getAddress());
-            genericViewHolder.txtType.setText(item.getType());
-            genericViewHolder.txtRating.setText("("+String.valueOf(item.getRating()+")"));
+            int anggota = Integer.parseInt(item.getAnggota());
+            String jumAnggota = "";
+            String foto = item.getFoto();
+            genericViewHolder.ratingBar.setRating(Float.parseFloat(item.getRating()));
+            genericViewHolder.txtName.setText(item.getNama());
+            genericViewHolder.txtAddress.setText(item.getAlamat());
+            if (anggota == 1){
+                jumAnggota = "Individu worker";
+            }else{
+                jumAnggota = "Team worker : "+item.getAnggota()+" People";
+            }
+            genericViewHolder.txtType.setText(jumAnggota);
+            genericViewHolder.txtRating.setText("("+item.getRating()+")");
 
-            Glide.with(context)
-                    .load(item.getImg())
-                    .apply(new RequestOptions().override(70,70))
-                    .into(genericViewHolder.imgHistoryOrder);
+            if (!foto.isEmpty()){
+                Glide.with(context)
+                        .load(UrlServer.URL_FOTO_TUKANG+item.getFoto())
+                        .apply(new RequestOptions().override(100,100))
+                        .into(genericViewHolder.imgHistoryOrder);
+            }else{
+                Glide.with(context)
+                        .load(R.drawable.blank_profile)
+                        .apply(new RequestOptions().override(100,100))
+                        .into(genericViewHolder.imgHistoryOrder);
+            }
+
 
         }
     }
@@ -71,12 +88,12 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
         this.mItemClickListener = mItemClickListener;
     }
 
-    private SelectWorkerItem getItem(int position){
+    private DataItem getItem(int position){
         return list.get(position);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, SelectWorkerItem model);
+        void onItemClick(View view, int position, DataItem model);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
