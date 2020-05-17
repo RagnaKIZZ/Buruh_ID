@@ -185,7 +185,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPaymentNew), id_promo);
+                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPaymentNew), String.valueOf(selected),id_promo);
             }
         });
 
@@ -245,15 +245,22 @@ public class DetailOrderActivity extends AppCompatActivity {
                         ln_after.setVisibility(View.GONE);
                         cv_promo.setVisibility(View.GONE);
                         txtTotalPayment.setPaintFlags(txtTotalPayment.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                        Toasty.error(ctx, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
-                        Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0){
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(ctx, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d(TAG, "onError: "+anError.getErrorCode());
+                            Log.d(TAG, "onError: "+anError.getErrorBody());
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(ctx, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
                     }
                 });
     }
 
     private void makeOrder(String id, String token, String tukang_id, String alamat, String jobdesk, String start, String end,
-    String nominal, String promoid){
-        KProgressHUD hud  = new KProgressHUD(ctx);
+    String nominal, String angka, String promoid){
+        final KProgressHUD hud  = new KProgressHUD(ctx);
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_MAKE_ORDER)
                 .addBodyParameter("id", id)
@@ -264,6 +271,7 @@ public class DetailOrderActivity extends AppCompatActivity {
                 .addBodyParameter("start_date", start)
                 .addBodyParameter("end_date", end)
                 .addBodyParameter("nominal", nominal)
+                .addBodyParameter("angka", angka)
                 .addBodyParameter("promo_id", promoid)
                 .build()
                 .getAsOkHttpResponseAndObject(MakeOrderModel.class, new OkHttpResponseAndParsedRequestListener<MakeOrderModel>() {
@@ -283,6 +291,7 @@ public class DetailOrderActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
+                        hud.dismiss();
                         if (anError.getErrorCode() != 0){
                             Log.d(TAG, "onError: "+anError.getErrorDetail());
                             Toasty.error(ctx, R.string.server_error, Toast.LENGTH_SHORT, true).show();

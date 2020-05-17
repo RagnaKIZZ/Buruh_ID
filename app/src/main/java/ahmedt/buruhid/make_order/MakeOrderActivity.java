@@ -77,6 +77,7 @@ public class MakeOrderActivity extends AppCompatActivity {
     String id_prov = "31";
     String id_kota = "";
     String id_vill = "";
+    String token = "";
     long start, end;
     int th ;
     int bl ;
@@ -478,7 +479,7 @@ public class MakeOrderActivity extends AppCompatActivity {
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 Prefs.putString(SessionPrefs.UNICODE,"" );
-                                String token = response.getToken();
+                                token = response.getToken();
                                 AndroidNetworking.get(UrlServer.URL_GET_ADDRESS+token+jenis+id)
                                         .setTag("city")
                                         .build()
@@ -515,8 +516,15 @@ public class MakeOrderActivity extends AppCompatActivity {
                                             public void onError(ANError anError) {
                                                 dialog.dismiss();
                                                 progressBar.setVisibility(View.GONE);
-                                                Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
-                                                Log.d(TAG, "onError: "+anError.getErrorDetail());
+                                                if (anError.getErrorCode() != 0){
+                                                    Log.d(TAG, "onError: "+anError.getErrorDetail());
+                                                    Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                                                }else{
+                                                    Log.d(TAG, "onError: "+anError.getErrorCode());
+                                                    Log.d(TAG, "onError: "+anError.getErrorBody());
+                                                    Log.d(TAG, "onError: "+anError.getErrorDetail());
+                                                    Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                                                }
                                             }
                                         });
                             }else {
@@ -531,8 +539,15 @@ public class MakeOrderActivity extends AppCompatActivity {
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
                         dialog.dismiss();
-                        Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
-                        Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0){
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d(TAG, "onError: "+anError.getErrorCode());
+                            Log.d(TAG, "onError: "+anError.getErrorBody());
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
                     }
                 });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -564,58 +579,31 @@ public class MakeOrderActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv_address.setLayoutManager(linearLayoutManager);
         rv_address.setAdapter(adapter);
-
-        AndroidNetworking.get(UrlServer.URL_GET_UNICODE)
+        AndroidNetworking.get(UrlServer.URL_GET_ADDRESS+token+jenis+id)
                 .setTag("city")
                 .build()
-                .getAsOkHttpResponseAndObject(UnicodeModel.class, new OkHttpResponseAndParsedRequestListener<UnicodeModel>() {
+                .getAsOkHttpResponseAndObject(CityModel.class, new OkHttpResponseAndParsedRequestListener<CityModel>() {
                     @Override
-                    public void onResponse(Response okHttpResponse, UnicodeModel response) {
+                    public void onResponse(Response okHttpResponse, CityModel response) {
+                        progressBar.setVisibility(View.GONE);
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
-                                Prefs.putString(SessionPrefs.UNICODE,"" );
-                                String token = response.getToken();
-                                AndroidNetworking.get(UrlServer.URL_GET_ADDRESS+token+jenis+id)
-                                        .setTag("city")
-                                        .build()
-                                        .getAsOkHttpResponseAndObject(CityModel.class, new OkHttpResponseAndParsedRequestListener<CityModel>() {
-                                            @Override
-                                            public void onResponse(Response okHttpResponse, CityModel response) {
-                                                progressBar.setVisibility(View.GONE);
-                                                if (okHttpResponse.isSuccessful()){
-                                                    if (response.getCode() == 200){
-                                                        for (int i = 0; i < response.getData().size() ; i++) {
-                                                            final DataItem item = new DataItem();
-                                                            item.setName(response.getData().get(i).getName());
-                                                            item.setId(response.getData().get(i).getId());
-                                                            list.add(item);
-                                                        }
-                                                        adapter.updateList(list);
-                                                        adapter.SetOnItemClickListener(new AddressAdapter.OnItemClickListener() {
-                                                            @Override
-                                                            public void onItemClick(View view, int position, DataItem model) {
-                                                                edt.setText(model.getName());
-                                                                id_vill = String.valueOf(model.getId());
-                                                                Log.d(TAG, "onItemClick: "+id_vill);
-                                                                dialog.dismiss();
-                                                            }
-                                                        });
-                                                    }else {
-                                                        dialog.dismiss();
-                                                        progressBar.setVisibility(View.GONE);
-                                                        Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onError(ANError anError) {
-                                                dialog.dismiss();
-                                                progressBar.setVisibility(View.GONE);
-                                                Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toasty.LENGTH_SHORT).show();
-                                                Log.d(TAG, "onError: "+anError.getErrorDetail());
-                                            }
-                                        });
+                                for (int i = 0; i < response.getData().size() ; i++) {
+                                    final DataItem item = new DataItem();
+                                    item.setName(response.getData().get(i).getName());
+                                    item.setId(response.getData().get(i).getId());
+                                    list.add(item);
+                                }
+                                adapter.updateList(list);
+                                adapter.SetOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, int position, DataItem model) {
+                                        edt.setText(model.getName());
+                                        id_vill = String.valueOf(model.getId());
+                                        Log.d(TAG, "onItemClick: "+id_vill);
+                                        dialog.dismiss();
+                                    }
+                                });
                             }else {
                                 dialog.dismiss();
                                 progressBar.setVisibility(View.GONE);
@@ -628,8 +616,15 @@ public class MakeOrderActivity extends AppCompatActivity {
                     public void onError(ANError anError) {
                         dialog.dismiss();
                         progressBar.setVisibility(View.GONE);
-                        Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toasty.LENGTH_SHORT).show();
-                        Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0){
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d(TAG, "onError: "+anError.getErrorCode());
+                            Log.d(TAG, "onError: "+anError.getErrorBody());
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
                     }
                 });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -662,57 +657,28 @@ public class MakeOrderActivity extends AppCompatActivity {
         rv_address.setLayoutManager(linearLayoutManager);
         rv_address.setAdapter(adapter);
 
-        AndroidNetworking.get(UrlServer.URL_GET_UNICODE)
+        AndroidNetworking.get(UrlServer.URL_GET_ADDRESS+token+jenis+id)
                 .setTag("city")
                 .build()
-                .getAsOkHttpResponseAndObject(UnicodeModel.class, new OkHttpResponseAndParsedRequestListener<UnicodeModel>() {
+                .getAsOkHttpResponseAndObject(VillModel.class, new OkHttpResponseAndParsedRequestListener<VillModel>() {
                     @Override
-                    public void onResponse(Response okHttpResponse, UnicodeModel response) {
+                    public void onResponse(Response okHttpResponse, VillModel response) {
+                        progressBar.setVisibility(View.GONE);
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
-                                Prefs.putString(SessionPrefs.UNICODE,"" );
-                                final String token = response.getToken();
-                                AndroidNetworking.get(UrlServer.URL_GET_ADDRESS+token+jenis+id)
-                                        .setTag("city")
-                                        .build()
-                                        .getAsOkHttpResponseAndObject(VillModel.class, new OkHttpResponseAndParsedRequestListener<VillModel>() {
-                                            @Override
-                                            public void onResponse(Response okHttpResponse, VillModel response) {
-                                                progressBar.setVisibility(View.GONE);
-                                                if (okHttpResponse.isSuccessful()){
-                                                    if (response.getCode() == 200){
-                                                        for (int i = 0; i < response.getData().size() ; i++) {
-                                                            final DataItem item = new DataItem();
-                                                            item.setName(response.getData().get(i).getName());
-                                                            list.add(item);
-                                                        }
-                                                        adapter.updateList(list);
-                                                        adapter.SetOnItemClickListener(new AddressAdapter.OnItemClickListener() {
-                                                            @Override
-                                                            public void onItemClick(View view, int position, DataItem model) {
-                                                                edt.setText(model.getName());
-                                                                dialog.dismiss();
-                                                            }
-                                                        });
-                                                    }else {
-                                                        dialog.dismiss();
-                                                        progressBar.setVisibility(View.GONE);
-                                                        Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onError(ANError anError) {
-                                                dialog.dismiss();
-                                                Log.d(TAG, "onError: "+anError.getErrorBody());
-                                                Log.d(TAG, "onError: "+anError.getErrorCode());
-                                                Log.d(TAG, "onError: "+"token"+id_vill);
-                                                progressBar.setVisibility(View.GONE);
-                                                Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toasty.LENGTH_SHORT).show();
-                                                Log.d(TAG, "onError: "+anError.getErrorDetail());
-                                            }
-                                        });
+                                for (int i = 0; i < response.getData().size() ; i++) {
+                                    final DataItem item = new DataItem();
+                                    item.setName(response.getData().get(i).getName());
+                                    list.add(item);
+                                }
+                                adapter.updateList(list);
+                                adapter.SetOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, int position, DataItem model) {
+                                        edt.setText(model.getName());
+                                        dialog.dismiss();
+                                    }
+                                });
                             }else {
                                 dialog.dismiss();
                                 progressBar.setVisibility(View.GONE);
@@ -724,10 +690,16 @@ public class MakeOrderActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         dialog.dismiss();
-                        Log.d(TAG, "onError: "+"salah input id or token");
+                        if (anError.getErrorCode() != 0){
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d(TAG, "onError: "+anError.getErrorCode());
+                            Log.d(TAG, "onError: "+anError.getErrorBody());
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
                         progressBar.setVisibility(View.GONE);
-                        Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toasty.LENGTH_SHORT).show();
-                        Log.d(TAG, "onError: "+anError.getErrorDetail());
                     }
                 });
         btnCancel.setOnClickListener(new View.OnClickListener() {
