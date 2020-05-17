@@ -1,9 +1,9 @@
 package ahmedt.buruhid.ui.order.modelOrder;
 
-
+import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
-
+@Generated("com.robohorse.robopojogenerator")
 public class DataItem{
 
 	@SerializedName("end_date")
@@ -11,6 +11,9 @@ public class DataItem{
 
 	@SerializedName("tukang_id")
 	private String tukangId;
+
+	@SerializedName("anggota")
+	private String anggota;
 
 	@SerializedName("jobdesk")
 	private String jobdesk;
@@ -59,6 +62,14 @@ public class DataItem{
 
 	public String getTukangId(){
 		return tukangId;
+	}
+
+	public void setAnggota(String anggota){
+		this.anggota = anggota;
+	}
+
+	public String getAnggota(){
+		return anggota;
 	}
 
 	public void setJobdesk(String jobdesk){
@@ -155,6 +166,7 @@ public class DataItem{
 			"DataItem{" + 
 			"end_date = '" + endDate + '\'' + 
 			",tukang_id = '" + tukangId + '\'' + 
+			",anggota = '" + anggota + '\'' + 
 			",jobdesk = '" + jobdesk + '\'' + 
 			",telepon = '" + telepon + '\'' + 
 			",rating = '" + rating + '\'' + 

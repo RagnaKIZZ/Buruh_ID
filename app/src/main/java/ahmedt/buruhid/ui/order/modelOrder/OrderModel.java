@@ -1,10 +1,10 @@
 package ahmedt.buruhid.ui.order.modelOrder;
 
 import java.util.List;
-
+import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
-
+@Generated("com.robohorse.robopojogenerator")
 public class OrderModel{
 
 	@SerializedName("msg")

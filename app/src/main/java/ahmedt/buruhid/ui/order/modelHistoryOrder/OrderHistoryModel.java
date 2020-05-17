@@ -1,11 +1,11 @@
 package ahmedt.buruhid.ui.order.modelHistoryOrder;
 
 import java.util.List;
-
+import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
-
-public class HistoryOrderModel{
+@Generated("com.robohorse.robopojogenerator")
+public class OrderHistoryModel{
 
 	@SerializedName("msg")
 	private String msg;
@@ -54,7 +54,7 @@ public class HistoryOrderModel{
 	@Override
  	public String toString(){
 		return 
-			"HistoryOrderModel{" + 
+			"OrderHistoryModel{" + 
 			"msg = '" + msg + '\'' + 
 			",item_count = '" + itemCount + '\'' + 
 			",code = '" + code + '\'' + 
