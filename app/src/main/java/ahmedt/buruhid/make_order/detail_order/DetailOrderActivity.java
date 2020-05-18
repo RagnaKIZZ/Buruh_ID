@@ -1,8 +1,5 @@
 package ahmedt.buruhid.make_order.detail_order;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -14,6 +11,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
