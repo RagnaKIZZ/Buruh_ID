@@ -1,12 +1,12 @@
 package ahmedt.buruhid.ui.order;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,6 +53,8 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
          ViewHolder genericViewHolder = (ViewHolder) holder;
          String time = "";
          String type = "";
+         String status = "";
+         int color = 0;
             if (item.getAnggota().matches("1")){
                 type = "Individu worker";
             }else{
@@ -63,6 +65,17 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
                 time = item.getFinishDate();
             }else{
                 time = item.getOrderDate();
+            }
+
+            if (item.getStatusOrder().matches("0")){
+                status = "Canceled!";
+                color = Color.RED;
+            }else if (item.getStatusOrder().matches("4")){
+                status = "Finish!";
+                color = Color.GREEN;
+            }else{
+                status = "error!";
+                color = Color.RED;
             }
 
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -76,7 +89,8 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
             }
          genericViewHolder.txtType.setText(type);
          genericViewHolder.txtDesc.setText(item.getJobdesk());
-
+         genericViewHolder.txtStatus.setText(status);
+         genericViewHolder.txtStatus.setTextColor(color);
             if (item.getFoto().isEmpty()){
                 Glide.with(context)
                         .load(R.drawable.blank_profile)
@@ -110,16 +124,14 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtType, txtDesc, txtDate, txtPrice;
+        private TextView txtType, txtDesc, txtDate, txtStatus;
         private ImageView imgHistoryOrder;
-        private RatingBar ratingBar;
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-
+            this.txtStatus = (TextView) itemView.findViewById(R.id.txt_status_order_history);
             this.txtType = (TextView) itemView.findViewById(R.id.txt_title_history_order);
             this.txtDesc = (TextView) itemView.findViewById(R.id.txt_desc_history_order);
             this.txtDate = (TextView) itemView.findViewById(R.id.txt_date_history_order);
-            this.txtPrice = (TextView) itemView.findViewById(R.id.txt_price_history_order);
             this.imgHistoryOrder = (ImageView) itemView.findViewById(R.id.img_history_order);
 
             itemView.setOnClickListener(new View.OnClickListener() {

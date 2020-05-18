@@ -79,7 +79,7 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try{
                 Date date = format.parse(time);
-                SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+                SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yyyy");
                 String realTime = format1.format(date);
                 genericViewHolder.txtDate.setText(realTime);
             }catch(Exception e){
