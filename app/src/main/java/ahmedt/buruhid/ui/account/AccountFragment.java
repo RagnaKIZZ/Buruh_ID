@@ -36,6 +36,8 @@ import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
 import okhttp3.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -65,6 +67,28 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            String extra = data.getStringExtra("extra");
+            if (requestCode == 1){
+                String name = data.getStringExtra("extra");
+                if (extra.contains(" ")){
+                    extra = extra.substring(0, extra.indexOf(" "));
+                }
+                txtName.setText(name);
+                txtHi.setText("Hi "+extra+",");
+            }else if (requestCode == 2){
+                txtEmail.setText(extra);
+            }else if (requestCode == 3){
+                txtPhone.setText(extra);
+            }else{
+
+            }
+        }
     }
 
     private void findView(View view) {
@@ -212,7 +236,7 @@ public class AccountFragment extends Fragment {
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), EditAccountActivity.class);
                     i.putExtra("code", "1");
-                    startActivity(i);
+                    startActivityForResult(i, 1);
                     dialog.cancel();
 
                 }
@@ -223,7 +247,7 @@ public class AccountFragment extends Fragment {
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), EditAccountActivity.class);
                     i.putExtra("code", "3");
-                    startActivity(i);
+                    startActivityForResult(i, 3);
                     dialog.cancel();
                 }
             });
@@ -233,7 +257,7 @@ public class AccountFragment extends Fragment {
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), EditAccountActivity.class);
                     i.putExtra("code", "2");
-                    startActivity(i);
+                    startActivityForResult(i, 2);
                     dialog.cancel();
                 }
             });
@@ -243,7 +267,7 @@ public class AccountFragment extends Fragment {
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), EditAccountActivity.class);
                     i.putExtra("code", "4");
-                    startActivity(i);
+                    startActivityForResult(i, 4);
                     dialog.cancel();
                 }
             });

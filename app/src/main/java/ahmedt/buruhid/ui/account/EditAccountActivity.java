@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +18,8 @@ import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.pixplicity.easyprefs.library.Prefs;
+
+import java.util.regex.Pattern;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.account.modelEdit.EditModel;
@@ -32,11 +35,26 @@ public class EditAccountActivity extends AppCompatActivity {
     private TextInputLayout txtName, txtEmail, txtPhone, txtNewPass, txtReNewPass, txtPass;
     private Context ctx;
     private Button btnChange;
+    private static  final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +
+                    "(?=.*[a-z])" +
+                    "(?=.*[A-Z])" +
+                    "(?=\\S+$)" +
+                    ".{8,}" +
+                    "$"
+            );
+
+    private static final Pattern PHONE_NUMB
+            = Pattern.compile(
+            "^[+]?[08][0-9]{10,13}$" );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
+        ctx = this;
+        findView();
     }
 
     private void findView(){
@@ -51,6 +69,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         final String code = i.getStringExtra("code");
+        Log.d(TAG, "findView: "+code);
         if (code.equals("1")){
             txtTitle.setText("Change Name");
             txtName.setVisibility(View.VISIBLE);
@@ -72,13 +91,13 @@ public class EditAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (code.equals("1")){
-                   changeName();
+                   changeName(code);
                 }else if (code.equals("2")){
-                 changeEmail();
+                 changeEmail(code);
                 }else if(code.equals("3")){
-                  changePhone();
+                  changePhone(code);
                 }else if (code.equals("4")){
-                  changePass();
+                  changePass(code);
                 }else{
                     Toasty.warning(ctx, R.string.something_wrong, Toast.LENGTH_SHORT, true).show();
                     Log.d(TAG, "findView: ");
@@ -87,51 +106,57 @@ public class EditAccountActivity extends AppCompatActivity {
         });
     }
 
-    private void changeName(){
+    private void changeName(String code){
         String name = txtName.getEditText().getText().toString().trim();
         String pass = txtPass.getEditText().getText().toString().trim();
         if (!name.isEmpty() && !pass.isEmpty()){
-            changeProfile(UrlServer.URL_CHANGE_NAME, "nama", name, pass, SessionPrefs.NAMA);
+            changeProfile(UrlServer.URL_CHANGE_NAME, "nama", name, pass, SessionPrefs.NAMA, code);
         }else{
-            Toasty.warning(ctx, "Please fill all the form!", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(ctx, "Please fill all of the form!", Toast.LENGTH_SHORT, true).show();
         }
     }
 
-    private void changeEmail(){
+    private void changeEmail(String code){
         String email = txtEmail.getEditText().getText().toString().trim();
         String pass = txtPass.getEditText().getText().toString().trim();
-        if (!email.isEmpty() && !pass.isEmpty()){
-            changeProfile(UrlServer.URL_CHANGE_EMAIL, "email", email, pass, SessionPrefs.EMAIL);
+        if (!email.isEmpty() && !pass.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            changeProfile(UrlServer.URL_CHANGE_EMAIL, "email", email, pass, SessionPrefs.EMAIL, code);
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toasty.warning(ctx, R.string.valid_email, Toast.LENGTH_SHORT, true).show();
         }else{
-            Toasty.warning(ctx, "Please fill all the form!", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(ctx, "Please fill all of the form!", Toast.LENGTH_SHORT, true).show();
         }
     }
 
-    private void changePhone(){
+    private void changePhone(String code){
         String phone = txtPhone.getEditText().getText().toString().trim();
         String pass = txtPass.getEditText().getText().toString().trim();
-        if (!phone.isEmpty() && !pass.isEmpty()){
-            changeProfile(UrlServer.URL_CHANGE_TELEPON, "telepon", phone, pass, SessionPrefs.TELEPON);
+        if (!phone.isEmpty() && !pass.isEmpty() && PHONE_NUMB.matcher(phone).matches()){
+            changeProfile(UrlServer.URL_CHANGE_TELEPON, "telepon", phone, pass, SessionPrefs.TELEPON, code);
+        }else if (!PHONE_NUMB.matcher(phone).matches()){
+            Toasty.warning(ctx, R.string.valid_number, Toast.LENGTH_SHORT, true).show();
         }else{
-            Toasty.warning(ctx, "Please fill all the form!", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(ctx, "Please fill all of the form!", Toast.LENGTH_SHORT, true).show();
         }
     }
 
-    private void changePass(){
+    private void changePass(String code){
         String newPass = txtNewPass.getEditText().getText().toString().trim();
         String rePass = txtReNewPass.getEditText().getText().toString().trim();
         String pass = txtPass.getEditText().getText().toString().trim();
-        if (!newPass.isEmpty() && !pass.isEmpty() && rePass.equals(newPass)){
-            changeProfile(UrlServer.URL_CHANGE_TELEPON, "telepon", newPass, pass, SessionPrefs.TELEPON);
+        if (!newPass.isEmpty() && !pass.isEmpty() && rePass.equals(newPass) && PASSWORD_PATTERN.matcher(newPass).matches()){
+            changeProfile(UrlServer.URL_CHANGE_PASSWORD, "password_baru", newPass, pass, "", code);
+        }else if (!PASSWORD_PATTERN.matcher(newPass).matches()){
+            Toasty.warning(ctx, R.string.password_must_contains, Toast.LENGTH_LONG, true).show();
         }else if (!rePass.equals(newPass)){
             Toasty.warning(ctx, R.string.doesnt_match, Toast.LENGTH_SHORT, true).show();
         }
         else{
-            Toasty.warning(ctx, "Please fill all the form!", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(ctx, "Please fill all of the form!", Toast.LENGTH_SHORT, true).show();
         }
     }
 
-    private void changeProfile(String url, String param, final String value, String pass, final String prefsParam){
+    private void changeProfile(String url, String param, final String value, String pass, final String prefsParam, final String code){
         final KProgressHUD hud = new KProgressHUD(ctx);
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(url)
@@ -144,12 +169,19 @@ public class EditAccountActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, EditModel response) {
                         if (okHttpResponse.isSuccessful()){
+                            hud.dismiss();
                             if (response.getCode() == 200){
                                 Toasty.success(ctx, "Change data success!", Toast.LENGTH_SHORT, true).show();
-                                Prefs.putString(prefsParam, value);
+                                if (code != "4"){
+                                    Prefs.putString(prefsParam, value);
+                                }
+                                Intent i = new Intent();
+                                i.putExtra("extra", value);
+                                setResult(RESULT_OK, i);
                                 finish();
                             }else{
-                                Toasty.warning(ctx, R.string.something_wrong, Toast.LENGTH_SHORT, true).show();
+                                Log.d(TAG, "onResponse: "+response.getMsg());
+                                Toasty.warning(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
                             }
                         }
                     }
