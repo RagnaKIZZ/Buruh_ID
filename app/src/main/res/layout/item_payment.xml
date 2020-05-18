@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Rp. 500000"
-            android:textSize="@dimen/_13ssp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             android:fontFamily="@font/open_sans"
             android:textColor="@color/color_payment"/>

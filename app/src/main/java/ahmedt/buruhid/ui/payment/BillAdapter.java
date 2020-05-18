@@ -49,7 +49,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
          final DataItem item = getItem(position);
          ViewHolder genericViewHolder = (ViewHolder) holder;
             String type = "";
-            String time = item.getCreateDate();
+            String time = item.getEndDate();
             String status = "";
             int color = 0;
             double price = Double.parseDouble(item.getNominal());

@@ -49,7 +49,7 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
          final DataItem item = getItem(position);
          ViewHolder genericViewHolder = (ViewHolder) holder;
             String type = "";
-            String time = item.getEndDate();
+            String time = item.getCreateDate();
             String status = "";
             int color = 0;
             double price = Double.parseDouble(item.getNominal());
