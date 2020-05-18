@@ -21,7 +21,7 @@
             android:id="@+id/txt_no_worker_selected"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No worker selected"
+            android:text="@string/no_worker_selected"
             android:textSize="@dimen/_12ssp"
             android:textAlignment="center"
            android:layout_centerInParent="true"

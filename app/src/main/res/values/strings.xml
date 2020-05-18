@@ -83,5 +83,10 @@
     <string name="pleasecekorder">Please check your order again!</string>
     <string name="village">Village</string>
     <string name="server_error">Server error!</string>
+    <string name="re_type_new_password">Re-type New Password</string>
+    <string name="new_password">New Password</string>
+    <string name="code_payment">Code payment</string>
+    <string name="status_payment">Status payment</string>
+    <string name="no_worker_selected">No worker selected</string>
 
 </resources>

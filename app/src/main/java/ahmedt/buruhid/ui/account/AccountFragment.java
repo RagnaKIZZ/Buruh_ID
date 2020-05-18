@@ -6,11 +6,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
@@ -31,7 +30,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.login.LoginActivity;
 import ahmedt.buruhid.ui.account.model.AccountModel;
-import ahmedt.buruhid.utils.DialogMessage;
 import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
@@ -175,8 +173,15 @@ public class AccountFragment extends Fragment {
                         @Override
                         public void onError(ANError anError) {
                             hud.dismiss();
-                            Toasty.warning(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            if (anError.getErrorCode() != 0){
+                                Log.d(TAG, "onError: "+anError.getErrorDetail());
+                                Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                            }else{
+                                Log.d(TAG, "onError: "+anError.getErrorCode());
+                                Log.d(TAG, "onError: "+anError.getErrorBody());
+                                Log.d(TAG, "onError: "+anError.getErrorDetail());
+                                Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                            }
                         }
                     });
         }
@@ -206,7 +211,7 @@ public class AccountFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), EditAccountActivity.class);
-                    i.putExtra("code", "name");
+                    i.putExtra("code", "1");
                     startActivity(i);
                     dialog.cancel();
 
@@ -217,10 +222,9 @@ public class AccountFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), EditAccountActivity.class);
-                    i.putExtra("code", "phone");
+                    i.putExtra("code", "3");
                     startActivity(i);
                     dialog.cancel();
-
                 }
             });
 
@@ -228,7 +232,7 @@ public class AccountFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getActivity(), EditAccountActivity.class);
-                    i.putExtra("code", "email");
+                    i.putExtra("code", "2");
                     startActivity(i);
                     dialog.cancel();
                 }
@@ -237,7 +241,10 @@ public class AccountFragment extends Fragment {
             lnPass.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent i = new Intent(getActivity(), EditAccountActivity.class);
+                    i.putExtra("code", "4");
+                    startActivity(i);
+                    dialog.cancel();
                 }
             });
 

@@ -37,6 +37,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/btn_payment"
                     android:background="@drawable/bg_btn_left_click"
                     android:layout_width="@dimen/_90sdp"
@@ -46,6 +47,7 @@
                     android:textColor="@android:color/white"
                     android:textAllCaps="false"/>
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/btn_history_payment"
                     android:fontFamily="@font/open_sans"
                     android:background="@drawable/bg_btn_right_unclick"

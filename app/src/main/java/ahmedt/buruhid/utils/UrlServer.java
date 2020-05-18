@@ -15,6 +15,10 @@ public class UrlServer {
     public static String URL_LIST_PAYMENT           = BASE_URL+"user/list_payment";
     public static String URL_LIST_PAYMENT_HISTORY   = BASE_URL+"user/list_payment_history";
     public static String URL_PRICE                  = BASE_URL+"user/getCurrentPrice";
+    public static String URL_CHANGE_NAME            = BASE_URL+"user/update_name";
+    public static String URL_CHANGE_PASSWORD        = BASE_URL+"user/update_password";
+    public static String URL_CHANGE_EMAIL           = BASE_URL+"user/update_email";
+    public static String URL_CHANGE_TELEPON         = BASE_URL+"user/update_telepon";
 
     public static String URL_GET_ADDRESS    = "https://x.rajaapi.com/MeP7c5ne";
     public static String URL_GET_KAB        = "/m/wilayah/kabupaten?idpropinsi=";

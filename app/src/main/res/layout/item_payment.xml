@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Code payment"
+            android:text="@string/code_payment"
             android:textSize="@dimen/_7ssp"
             android:textStyle="normal"
             android:fontFamily="@font/open_sans"
@@ -66,7 +66,7 @@
             android:textAlignment="textEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Status payment"
+            android:text="@string/status_payment"
             android:textSize="@dimen/_7ssp"
             android:textStyle="normal"
             android:fontFamily="@font/open_sans"

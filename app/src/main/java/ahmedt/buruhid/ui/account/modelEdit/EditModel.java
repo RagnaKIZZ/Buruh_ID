@@ -1,9 +1,9 @@
 package ahmedt.buruhid.ui.account.modelEdit;
 
-import javax.annotation.Generated;
+
 import com.google.gson.annotations.SerializedName;
 
-@Generated("com.robohorse.robopojogenerator")
+
 public class EditModel{
 
 	@SerializedName("msg")
