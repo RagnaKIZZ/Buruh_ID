@@ -13,5 +13,13 @@
         android:scaleType="centerCrop"
         android:layout_height="@dimen/_200sdp"
         android:src="@drawable/logoburuh"/>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:indeterminateTint="@android:color/white"/>
 
 </RelativeLayout>

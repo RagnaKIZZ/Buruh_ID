@@ -14,6 +14,7 @@ public class UrlServer {
     public static String URL_MAKE_ORDER = BASE_URL+"user/make_order";
     public static String URL_LIST_ORDER = BASE_URL+"user/list_order";
     public static String URL_LIST_ORDER_HISTORY = BASE_URL+"user/list_order_history";
+    public static String URL_PRICE       = BASE_URL+"user/getCurrentPrice";
 
     public static String URL_GET_ADDRESS = "https://x.rajaapi.com/MeP7c5ne";
     public static String URL_GET_KAB = "/m/wilayah/kabupaten?idpropinsi=";

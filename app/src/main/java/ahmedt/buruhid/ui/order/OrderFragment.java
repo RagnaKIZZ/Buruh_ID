@@ -1,7 +1,9 @@
 package ahmedt.buruhid.ui.order;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -151,7 +153,15 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        Toasty.error(getActivity(), R.string.cek_internet, Toasty.LENGTH_SHORT).show();
+                        if (anError.getErrorCode() != 0){
+                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                            Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d("ERR", "onError: "+anError.getErrorCode());
+                            Log.d("ERR", "onError: "+anError.getErrorBody());
+                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                            Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
                     }
                 });
     }
@@ -187,7 +197,7 @@ public class OrderFragment extends Fragment {
                                 }
                                adapter2.updateList(list2);
                             }else{
-                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
+//                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -195,7 +205,15 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        Toasty.error(getActivity(), R.string.cek_internet, Toasty.LENGTH_SHORT).show();
+                        if (anError.getErrorCode() != 0){
+                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                            Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d("ERR", "onError: "+anError.getErrorCode());
+                            Log.d("ERR", "onError: "+anError.getErrorBody());
+                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                            Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
                     }
                 });
 

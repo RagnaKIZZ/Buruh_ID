@@ -154,7 +154,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         Locale locale = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(locale);
 
-        final double totalPayment = workerAndDays* Prefs.getDouble(SessionPrefs.CURRENT_PRICE, 0);
+        final double totalPayment = workerAndDays* Double.parseDouble(Prefs.getString(SessionPrefs.CURRENT_PRICE, ""));
         Random rand = new Random();
         final int selected = rand.nextInt(999);
         final double totalPaymentNew = totalPayment+((double) selected);
@@ -277,6 +277,7 @@ public class DetailOrderActivity extends AppCompatActivity {
                 .getAsOkHttpResponseAndObject(MakeOrderModel.class, new OkHttpResponseAndParsedRequestListener<MakeOrderModel>() {
                     @Override
                     public void onResponse(Response okHttpResponse, MakeOrderModel response) {
+                        hud.dismiss();
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 Toasty.success(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();

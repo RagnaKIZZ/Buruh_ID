@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         Prefs.putInt(SessionPrefs.MONTH, calendar.get(Calendar.MONTH));
         Prefs.putInt(SessionPrefs.DATE, calendar.get(Calendar.DAY_OF_MONTH));
         Prefs.putString(SessionPrefs.isLogin, "1");
-        Prefs.putDouble(SessionPrefs.CURRENT_PRICE, 100000);
         Toolbar toolbar = findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -41,8 +40,5 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-
     }
-
 }

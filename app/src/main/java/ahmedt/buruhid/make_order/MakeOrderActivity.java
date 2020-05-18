@@ -72,6 +72,7 @@ public class MakeOrderActivity extends AppCompatActivity {
     private TextView txtCounter;
     private RelativeLayout lnCounter;
     private int counter = 1;
+    private int jumlAng = 0;
 
     String id_tukang = "";
     String id_prov = "31";
@@ -348,15 +349,15 @@ public class MakeOrderActivity extends AppCompatActivity {
         String nameWorker = txtName.getText().toString();
         String jobdesk = edtJobdesk.getEditText().getText().toString().trim();
         if (!startDate.isEmpty() && !startHour.isEmpty() && !endDate.isEmpty() && !city.isEmpty()
-                && !address.isEmpty() && !nameWorker.isEmpty() && !jobdesk.isEmpty() && !subdis.isEmpty() && !vill.isEmpty()){
+                && !address.isEmpty() && !nameWorker.isEmpty() && !jobdesk.isEmpty() && !subdis.isEmpty() && !vill.isEmpty() && jumlAng != 0){
 
             Intent i = new Intent(MakeOrderActivity.this, DetailOrderActivity.class);
             if (type.matches("Individu Worker")){
                 i.putExtra("isTeam", false);
-                i.putExtra("counter", String.valueOf(counter));
+                i.putExtra("counter", String.valueOf(jumlAng));
             }else {
                 i.putExtra("isTeam", true);
-                i.putExtra("counter", txtCounter.getText());
+                i.putExtra("counter", String.valueOf(jumlAng));
             }
             i.putExtra("tukang_id", id_tukang);
             i.putExtra("type", txtType.getText().toString().trim());
@@ -387,7 +388,6 @@ public class MakeOrderActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK){
             if (requestCode == 111){
                 if (data != null){
-
                     String name = data.getStringExtra(SelectWorkerActivity.NAME_WORKER);
                     String type = data.getStringExtra(SelectWorkerActivity.TYPE_WORKER);
                     String address = data.getStringExtra(SelectWorkerActivity.ADDRESS_WORKER);
@@ -395,6 +395,7 @@ public class MakeOrderActivity extends AppCompatActivity {
                     String img = data.getStringExtra(SelectWorkerActivity.IMAGE_WORKER);
                     id_tukang = data.getStringExtra(SelectWorkerActivity.ID_TUKANG);
                     String tipe = "";
+                    jumlAng = Integer.parseInt(type);
                     rlNoWorker.setVisibility(View.GONE);
                     rlIsWorker.setVisibility(View.VISIBLE);
                     if (type.matches("1")){

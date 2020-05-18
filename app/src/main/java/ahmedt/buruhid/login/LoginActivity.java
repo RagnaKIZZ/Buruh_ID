@@ -25,6 +25,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import ahmedt.buruhid.MainActivity;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.register.RegisterActivity;
+import ahmedt.buruhid.splash.CurrentPriceModel.PriceModel;
 import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
@@ -119,7 +120,6 @@ public class LoginActivity extends AppCompatActivity {
                 .getAsOkHttpResponseAndObject(LoginModel.class, new OkHttpResponseAndParsedRequestListener<LoginModel>() {
                     @Override
                     public void onResponse(Response okHttpResponse, LoginModel response) {
-                        hud.dismiss();
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 Prefs.putString(SessionPrefs.U_ID, response.getData().getUserId());
@@ -128,9 +128,9 @@ public class LoginActivity extends AppCompatActivity {
                                 Prefs.putString(SessionPrefs.TELEPON, response.getData().getTelepon());
                                 Prefs.putString(SessionPrefs.FOTO, response.getData().getFoto());
                                 Prefs.putString(SessionPrefs.TOKEN_LOGIN, response.getData().getTokenLogin());
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
+                                getPrice(response.getData().getUserId(), response.getData().getTokenLogin(), hud);
                             }else{
+                                hud.dismiss();
                                 Toasty.warning(context, response.getMsg(), Toast.LENGTH_SHORT, true).show();
                             }
                         }
@@ -139,8 +139,52 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         hud.dismiss();
-                        Toasty.warning(context, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
-                        Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0){
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(LoginActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d(TAG, "onError: "+anError.getErrorCode());
+                            Log.d(TAG, "onError: "+anError.getErrorBody());
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(LoginActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
+                    }
+                });
+    }
+
+    private void getPrice(String id, String token, final KProgressHUD hud){
+        AndroidNetworking.post(UrlServer.URL_PRICE)
+                .addBodyParameter("id", id)
+                .addBodyParameter("token_login", token)
+                .build()
+                .getAsOkHttpResponseAndObject(PriceModel.class, new OkHttpResponseAndParsedRequestListener<PriceModel>() {
+                    @Override
+                    public void onResponse(Response okHttpResponse, PriceModel response) {
+                        hud.dismiss();
+                        if(okHttpResponse.isSuccessful()){
+                            if (response.getCode() == 200){
+                                Prefs.putString(SessionPrefs.CURRENT_PRICE, response.getData().getHarga());
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                            }else{
+                                hud.dismiss();
+                                Toasty.warning(LoginActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        hud.dismiss();
+                        if (anError.getErrorCode() != 0){
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(LoginActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            Log.d(TAG, "onError: "+anError.getErrorCode());
+                            Log.d(TAG, "onError: "+anError.getErrorBody());
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(LoginActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
                     }
                 });
     }
