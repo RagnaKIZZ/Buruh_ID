@@ -133,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
             tools:text="Waiting Worker"
+            android:textStyle="bold"
             android:textSize="@dimen/_9ssp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:fontFamily="@font/open_sans"

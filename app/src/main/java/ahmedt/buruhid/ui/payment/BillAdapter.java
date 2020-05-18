@@ -58,7 +58,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
             if (item.getStatusPembayaran().matches("0")){
                 status = "Waiting for payment..";
-                color = Color.GREEN;
+                color = Color.GRAY;
             }else if (item.getStatusPembayaran().matches("1")){
                 status = "Rejected! Please send clear proof of payment!";
                 color = Color.RED;
@@ -89,7 +89,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             genericViewHolder.txtStatus.setText(status);
             genericViewHolder.txtType.setText(type);
             genericViewHolder.txtPrice.setText(form.format(price));
-            genericViewHolder.txtWorkU.setText("Created");
+            genericViewHolder.txtWorkU.setText("Work until");
             genericViewHolder.txtCode.setText(item.getCodePembayaran());
 
 

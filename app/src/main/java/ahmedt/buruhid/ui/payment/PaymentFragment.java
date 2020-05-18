@@ -107,7 +107,7 @@ public class PaymentFragment extends Fragment {
     }
 
     private void setAdapter(String id, String token, String page) {
-        AndroidNetworking.post(UrlServer.URL_LIST_PAYMENT_HISTORY)
+        AndroidNetworking.post(UrlServer.URL_LIST_PAYMENT)
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
                 .addBodyParameter("page", page)

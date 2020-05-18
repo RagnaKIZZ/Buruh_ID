@@ -89,7 +89,7 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
             genericViewHolder.txtStatus.setText(status);
             genericViewHolder.txtType.setText(type);
             genericViewHolder.txtPrice.setText(form.format(price));
-            genericViewHolder.txtWorkU.setText("Work until");
+            genericViewHolder.txtWorkU.setText("Created");
             genericViewHolder.txtCode.setText(item.getCodePembayaran());
 
 
