@@ -88,5 +88,8 @@
     <string name="code_payment">Code payment</string>
     <string name="status_payment">Status payment</string>
     <string name="no_worker_selected">No worker selected</string>
+    <string name="fill_all">Please fill all of the form!</string>
+    <string name="change_name">Change name</string>
+    <string name="change_email">Change email</string>
 
 </resources>

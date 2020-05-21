@@ -1,10 +1,12 @@
 package ahmedt.buruhid.ui.account;
 
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +49,7 @@ public class AccountFragment extends Fragment {
     private TextView txtName, txtEmail, txtPhone;
     private ImageView imgAcc;
     private TextView txtHi;
+    private String foto = Prefs.getString(SessionPrefs.FOTO, "");
 
 
 
@@ -137,6 +140,22 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dialogEditProfile();
+            }
+        });
+
+        imgAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), DetailFotoActivity.class);
+                View shareView = imgAcc;
+                String transitionName = getString(R.string.img);
+                ActivityOptions transOpt = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    transOpt = ActivityOptions.makeSceneTransitionAnimation(getActivity(), shareView, transitionName);
+                    startActivity(i, transOpt.toBundle());
+                }else {
+                    startActivity(i);
+                }
             }
         });
     }
@@ -276,5 +295,26 @@ public class AccountFragment extends Fragment {
             dialog.show();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Prefs.getString(SessionPrefs.FOTO,"").isEmpty()){
+            Glide.with(getActivity())
+                    .load(R.drawable.blank_profile)
+                    .into(imgAcc);
+            Log.d(TAG, "onResume: kosong: "+Prefs.getString(SessionPrefs.FOTO,""));
+        }else{
+            if (!foto.equals(Prefs.getString(SessionPrefs.FOTO, ""))){
+                Glide.with(getActivity())
+                        .load(UrlServer.URL_FOTO+Prefs.getString(SessionPrefs.FOTO, ""))
+                        .into(imgAcc);
+                Log.d(TAG, "onResume: beda"+foto);
+                Log.d(TAG, "onResume: beda: "+Prefs.getString(SessionPrefs.FOTO,""));
+            }
+        }
+
+    }
+
 
 }

@@ -8,4 +8,8 @@
     <color name="color_gray">#E2E1E1</color>
     <color name="color_gray_new">#F3F3F3</color>
     <color name="color_payment">#253B80</color>
+
+    <color name="ucrop_color_toolbar">@color/colorPrimary</color>
+    <color name="ucrop_color_statusbar">@color/colorPrimary</color>
+    <color name="ucrop_color_widget_active">@color/colorAccent</color>
 </resources>

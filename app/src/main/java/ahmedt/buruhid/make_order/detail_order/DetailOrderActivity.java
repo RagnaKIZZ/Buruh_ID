@@ -55,7 +55,7 @@ public class DetailOrderActivity extends AppCompatActivity {
     String kode_promo = "";
     String nama_promo = "";
     String isi_promo = "";
-
+    double totalafter = 0;
     int workerAndDays;
 
     @Override
@@ -174,7 +174,7 @@ public class DetailOrderActivity extends AppCompatActivity {
                 String code = edtPromo.getText().toString().trim();
                 if (!code.isEmpty()){
                     txtPromo.setErrorEnabled(false);
-                    getPromotion(id, token, code, String.valueOf(totalPayment), totalPayment, (double) selected);
+                    getPromotion(id, token, code, String.valueOf(totalPayment), totalPayment);
                 }else {
                     txtPromo.setError(getString(R.string.cant_empty));
                 }
@@ -185,13 +185,13 @@ public class DetailOrderActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPaymentNew), String.valueOf(selected),id_promo);
+                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPaymentNew), String.valueOf(totalafter),id_promo);
             }
         });
 
     }
 
-    private void getPromotion(String id, String token_login, String code, String nominal, final double total_before, final double unique){
+    private void getPromotion(String id, String token_login, String code, String nominal, final double total_before){
         Locale locale = new Locale("in", "ID");
         final NumberFormat format = NumberFormat.getCurrencyInstance(locale);
         final KProgressHUD hud = new KProgressHUD(ctx);
@@ -214,7 +214,7 @@ public class DetailOrderActivity extends AppCompatActivity {
                                 kode_promo = response.getData().getKodePromo();
                                 String min = response.getData().getMinHarga();
                                 double isipromo = 100*Double.parseDouble(isi_promo);
-                                double totalafter = total_before-(total_before*Double.parseDouble(isi_promo))+unique;
+                                totalafter = total_before-(total_before*Double.parseDouble(isi_promo));
                                 double minPro = Double.parseDouble(min);
                                 String form = format.format(minPro);
                                 String afterPromo = format.format(totalafter);
@@ -271,7 +271,7 @@ public class DetailOrderActivity extends AppCompatActivity {
                 .addBodyParameter("start_date", start)
                 .addBodyParameter("end_date", end)
                 .addBodyParameter("nominal", nominal)
-                .addBodyParameter("angka", angka)
+                .addBodyParameter("nominal_promo", angka)
                 .addBodyParameter("promo_id", promoid)
                 .build()
                 .getAsOkHttpResponseAndObject(MakeOrderModel.class, new OkHttpResponseAndParsedRequestListener<MakeOrderModel>() {

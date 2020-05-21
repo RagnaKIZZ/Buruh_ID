@@ -7,11 +7,14 @@
     <application
         android:name=".BuruhID"
         android:allowBackup="true"
-        android:networkSecurityConfig="@xml/configurenetwork"
         android:icon="@drawable/icon_logo"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/configurenetwork"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.account.DetailFotoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppPhoto" ></activity>
         <activity
             android:name=".make_order.OrderDoneActivity"
             android:screenOrientation="portrait"

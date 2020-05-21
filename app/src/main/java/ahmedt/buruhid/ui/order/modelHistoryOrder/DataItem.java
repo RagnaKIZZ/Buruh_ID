@@ -18,6 +18,9 @@ public class DataItem{
 	@SerializedName("jobdesk")
 	private String jobdesk;
 
+	@SerializedName("harga_promo")
+	private String hargaPromo;
+
 	@SerializedName("telepon")
 	private String telepon;
 
@@ -27,11 +30,17 @@ public class DataItem{
 	@SerializedName("status_order")
 	private String statusOrder;
 
+	@SerializedName("promo_id")
+	private String promoId;
+
 	@SerializedName("alamat")
 	private String alamat;
 
 	@SerializedName("order_date")
 	private String orderDate;
+
+	@SerializedName("harga")
+	private String harga;
 
 	@SerializedName("nama")
 	private String nama;
@@ -83,6 +92,14 @@ public class DataItem{
 		return jobdesk;
 	}
 
+	public void setHargaPromo(String hargaPromo){
+		this.hargaPromo = hargaPromo;
+	}
+
+	public String getHargaPromo(){
+		return hargaPromo;
+	}
+
 	public void setTelepon(String telepon){
 		this.telepon = telepon;
 	}
@@ -107,6 +124,14 @@ public class DataItem{
 		return statusOrder;
 	}
 
+	public void setPromoId(String promoId){
+		this.promoId = promoId;
+	}
+
+	public String getPromoId(){
+		return promoId;
+	}
+
 	public void setAlamat(String alamat){
 		this.alamat = alamat;
 	}
@@ -121,6 +146,14 @@ public class DataItem{
 
 	public String getOrderDate(){
 		return orderDate;
+	}
+
+	public void setHarga(String harga){
+		this.harga = harga;
+	}
+
+	public String getHarga(){
+		return harga;
 	}
 
 	public void setNama(String nama){
@@ -179,11 +212,14 @@ public class DataItem{
 			",tukang_id = '" + tukangId + '\'' + 
 			",anggota = '" + anggota + '\'' + 
 			",jobdesk = '" + jobdesk + '\'' + 
+			",harga_promo = '" + hargaPromo + '\'' + 
 			",telepon = '" + telepon + '\'' + 
 			",rating = '" + rating + '\'' + 
 			",status_order = '" + statusOrder + '\'' + 
+			",promo_id = '" + promoId + '\'' + 
 			",alamat = '" + alamat + '\'' + 
 			",order_date = '" + orderDate + '\'' + 
+			",harga = '" + harga + '\'' + 
 			",nama = '" + nama + '\'' + 
 			",foto = '" + foto + '\'' + 
 			",finish_date = '" + finishDate + '\'' + 

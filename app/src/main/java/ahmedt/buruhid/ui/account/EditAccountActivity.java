@@ -71,16 +71,16 @@ public class EditAccountActivity extends AppCompatActivity {
         final String code = i.getStringExtra("code");
         Log.d(TAG, "findView: "+code);
         if (code.equals("1")){
-            txtTitle.setText("Change Name");
+            txtTitle.setText(R.string.change_name);
             txtName.setVisibility(View.VISIBLE);
         }else if (code.equals("2")){
-            txtTitle.setText("Change Email");
+            txtTitle.setText(R.string.change_email);
             txtEmail.setVisibility(View.VISIBLE);
         }else if(code.equals("3")){
-            txtTitle.setText("Change Phone Number");
+            txtTitle.setText(R.string.change_phone_number);
             txtPhone.setVisibility(View.VISIBLE);
         }else if (code.equals("4")){
-            txtTitle.setText("Change Password");
+            txtTitle.setText(R.string.change_password);
             txtNewPass.setVisibility(View.VISIBLE);
             txtReNewPass.setVisibility(View.VISIBLE);
         }else{
@@ -112,7 +112,7 @@ public class EditAccountActivity extends AppCompatActivity {
         if (!name.isEmpty() && !pass.isEmpty()){
             changeProfile(UrlServer.URL_CHANGE_NAME, "nama", name, pass, SessionPrefs.NAMA, code);
         }else{
-            Toasty.warning(ctx, "Please fill all of the form!", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(ctx, R.string.fill_all, Toast.LENGTH_SHORT, true).show();
         }
     }
 
@@ -124,7 +124,7 @@ public class EditAccountActivity extends AppCompatActivity {
         }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Toasty.warning(ctx, R.string.valid_email, Toast.LENGTH_SHORT, true).show();
         }else{
-            Toasty.warning(ctx, "Please fill all of the form!", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(ctx, R.string.fill_all, Toast.LENGTH_SHORT, true).show();
         }
     }
 
@@ -136,7 +136,7 @@ public class EditAccountActivity extends AppCompatActivity {
         }else if (!PHONE_NUMB.matcher(phone).matches()){
             Toasty.warning(ctx, R.string.valid_number, Toast.LENGTH_SHORT, true).show();
         }else{
-            Toasty.warning(ctx, "Please fill all of the form!", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(ctx, R.string.fill_all, Toast.LENGTH_SHORT, true).show();
         }
     }
 
@@ -152,9 +152,10 @@ public class EditAccountActivity extends AppCompatActivity {
             Toasty.warning(ctx, R.string.doesnt_match, Toast.LENGTH_SHORT, true).show();
         }
         else{
-            Toasty.warning(ctx, "Please fill all of the form!", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(ctx, R.string.fill_all, Toast.LENGTH_SHORT, true).show();
         }
     }
+
 
     private void changeProfile(String url, String param, final String value, String pass, final String prefsParam, final String code){
         final KProgressHUD hud = new KProgressHUD(ctx);
@@ -200,6 +201,5 @@ public class EditAccountActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 }

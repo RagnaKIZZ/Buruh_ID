@@ -1,8 +1,8 @@
 package ahmedt.buruhid.make_order.select_worker.modelWorker;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 
 public class SelectModel{

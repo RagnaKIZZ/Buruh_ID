@@ -1,6 +1,5 @@
 package ahmedt.buruhid.ui.order;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +22,6 @@ import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.order.modelHistoryOrder.OrderHistoryModel;
@@ -141,6 +138,7 @@ public class OrderFragment extends Fragment {
                                     items.setRating(response.getData().get(i).getRating());
                                     items.setTelepon(response.getData().get(i).getTelepon());
                                     items.setCodeOrder(response.getData().get(i).getCodeOrder());
+                                    items.setHargaPromo(response.getData().get(i).getHargaPromo());
                                     list.add(items);
                                 }
                                 adapter.updateList(list);
@@ -187,6 +185,11 @@ public class OrderFragment extends Fragment {
                                     items.setAnggota(response.getData().get(i).getAnggota());
                                     items.setJobdesk(response.getData().get(i).getJobdesk());
                                     items.setFoto(response.getData().get(i).getFoto());
+                                    items.setHarga(response.getData().get(i).getHarga());
+                                    items.setHargaPromo(response.getData().get(i).getHargaPromo());
+                                    items.setStartDate(response.getData().get(i).getStartDate());
+                                    items.setEndDate(response.getData().get(i).getEndDate());
+                                    items.setPromoId(response.getData().get(i).getPromoId());
                                     items.setStatusOrder(response.getData().get(i).getStatusOrder());
                                     items.setRating(response.getData().get(i).getRating());
                                     items.setTelepon(response.getData().get(i).getTelepon());

@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.BaseRequestOptions;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;

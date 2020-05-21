@@ -1,16 +1,14 @@
 package ahmedt.buruhid.splash;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
@@ -20,7 +18,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 import ahmedt.buruhid.MainActivity;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.intro.IntroActivity;
-import ahmedt.buruhid.make_order.modelUnicode.UnicodeModel;
 import ahmedt.buruhid.splash.CurrentPriceModel.PriceModel;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;

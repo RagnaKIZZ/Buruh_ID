@@ -56,4 +56,6 @@ dependencies {
 //    implementation 'org.glassfish:javax.annotation:10.0-b28'
 
     implementation 'com.github.GrenderG:Toasty:1.4.2'
+
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }

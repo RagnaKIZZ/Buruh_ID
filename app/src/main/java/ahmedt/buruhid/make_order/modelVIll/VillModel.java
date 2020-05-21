@@ -1,8 +1,8 @@
 package ahmedt.buruhid.make_order.modelVIll;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 
 public class VillModel{
