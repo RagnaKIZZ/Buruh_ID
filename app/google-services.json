@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "698825559543",
+    "firebase_url": "https://buruhid-24a2d.firebaseio.com",
+    "project_id": "buruhid-24a2d",
+    "storage_bucket": "buruhid-24a2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698825559543:android:31fc3fbd66452d9a7e32f2",
+        "android_client_info": {
+          "package_name": "ahmedt.buruhid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698825559543-msle5kea48hmkp3ifoie7ijigem32p1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6ldqy_uiH87Zj6MF3W299MQ9oIdhcpeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698825559543-msle5kea48hmkp3ifoie7ijigem32p1f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
