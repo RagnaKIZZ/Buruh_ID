@@ -12,7 +12,9 @@
         android:networkSecurityConfig="@xml/configurenetwork"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.order.detailOrder.DetailYourOrderActivity"></activity>
+        <activity android:name=".ui.order.detailOrder.YourOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" ></activity>
         <activity
             android:name=".ui.account.DetailFotoActivity"
             android:screenOrientation="portrait"

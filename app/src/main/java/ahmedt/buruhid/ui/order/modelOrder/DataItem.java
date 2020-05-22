@@ -1,10 +1,13 @@
 package ahmedt.buruhid.ui.order.modelOrder;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 
-public class DataItem{
+public class DataItem implements Parcelable {
 
 	@SerializedName("end_date")
 	private String endDate;
@@ -56,6 +59,42 @@ public class DataItem{
 
 	@SerializedName("start_date")
 	private String startDate;
+
+	public DataItem(Parcel in) {
+		endDate = in.readString();
+		tukangId = in.readString();
+		anggota = in.readString();
+		jobdesk = in.readString();
+		hargaPromo = in.readString();
+		telepon = in.readString();
+		rating = in.readString();
+		statusOrder = in.readString();
+		promoId = in.readString();
+		alamat = in.readString();
+		orderDate = in.readString();
+		harga = in.readString();
+		nama = in.readString();
+		foto = in.readString();
+		codeOrder = in.readString();
+		id = in.readString();
+		startDate = in.readString();
+	}
+
+	public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
+		@Override
+		public DataItem createFromParcel(Parcel in) {
+			return new DataItem(in);
+		}
+
+		@Override
+		public DataItem[] newArray(int size) {
+			return new DataItem[size];
+		}
+	};
+
+	public DataItem() {
+
+	}
 
 	public void setEndDate(String endDate){
 		this.endDate = endDate;
@@ -216,4 +255,30 @@ public class DataItem{
 			",start_date = '" + startDate + '\'' + 
 			"}";
 		}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(endDate);
+		dest.writeString(tukangId);
+		dest.writeString(anggota);
+		dest.writeString(jobdesk);
+		dest.writeString(hargaPromo);
+		dest.writeString(telepon);
+		dest.writeString(rating);
+		dest.writeString(statusOrder);
+		dest.writeString(promoId);
+		dest.writeString(alamat);
+		dest.writeString(orderDate);
+		dest.writeString(harga);
+		dest.writeString(nama);
+		dest.writeString(foto);
+		dest.writeString(codeOrder);
+		dest.writeString(id);
+		dest.writeString(startDate);
+	}
 }

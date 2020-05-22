@@ -65,7 +65,7 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
 
          if (item.getStatusOrder().matches("1")){
              status = "Waiting confirmation from worker...";
-             color = Color.YELLOW;
+             color = Color.parseColor("#ffd600");
          }else if (item.getStatusOrder().matches("2")){
              status = "Order accepted!, waiting to start job...";
              color = Color.GREEN;

@@ -235,20 +235,11 @@ public class AccountFragment extends Fragment {
             final Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.dialog_edit_profiles);
 
-            LinearLayout lnName, lnPhoto, lnEmail, lnPhone, lnPass;
+            LinearLayout lnName, lnEmail, lnPhone, lnPass;
             lnPhone = dialog.findViewById(R.id.linear_edit_phone);
-            lnPhoto = dialog.findViewById(R.id.linear_edit_photo);
             lnName  = dialog.findViewById(R.id.linear_edit_name);
             lnEmail = dialog.findViewById(R.id.linear_edit_email);
             lnPass = dialog.findViewById(R.id.linear_edit_password);
-
-
-            lnPhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
 
             lnName.setOnClickListener(new View.OnClickListener() {
                 @Override

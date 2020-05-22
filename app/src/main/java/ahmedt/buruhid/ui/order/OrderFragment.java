@@ -1,5 +1,6 @@
 package ahmedt.buruhid.ui.order;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
+import ahmedt.buruhid.ui.order.detailOrder.YourOrderActivity;
 import ahmedt.buruhid.ui.order.modelHistoryOrder.OrderHistoryModel;
 import ahmedt.buruhid.ui.order.modelOrder.DataItem;
 import ahmedt.buruhid.ui.order.modelOrder.OrderModel;
@@ -33,6 +35,8 @@ import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
 import okhttp3.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 public class OrderFragment extends Fragment {
     private Button btnYourOrder, btnHistoryOrder;
@@ -86,7 +90,9 @@ public class OrderFragment extends Fragment {
         adapter.SetOnItemClickListener(new YourOrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, DataItem model) {
-                Toast.makeText(getActivity(), model.getNama(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), YourOrderActivity.class);
+                intent.putExtra("data_item", list.get(position));
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -173,6 +179,9 @@ public class OrderFragment extends Fragment {
                                     items.setAlamat(response.getData().get(i).getAlamat());
                                     items.setAnggota(response.getData().get(i).getAnggota());
                                     items.setJobdesk(response.getData().get(i).getJobdesk());
+                                    items.setStartDate(response.getData().get(i).getStartDate());
+                                    items.setEndDate(response.getData().get(i).getEndDate());
+                                    items.setHarga(response.getData().get(i).getHarga());
                                     items.setFoto(response.getData().get(i).getFoto());
                                     items.setStatusOrder(response.getData().get(i).getStatusOrder());
                                     items.setRating(response.getData().get(i).getRating());
@@ -269,5 +278,17 @@ public class OrderFragment extends Fragment {
                     }
                 });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == 1){
+                list.clear();
+                adapter.updateList(list);
+                setAdapter(id, token, "1");
+            }
+        }
     }
 }

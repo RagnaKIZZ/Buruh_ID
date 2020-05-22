@@ -57,6 +57,7 @@ public class DetailOrderActivity extends AppCompatActivity {
     String isi_promo = "";
     double totalafter = 0;
     int workerAndDays;
+    int select;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +157,8 @@ public class DetailOrderActivity extends AppCompatActivity {
 
         final double totalPayment = workerAndDays* Double.parseDouble(Prefs.getString(SessionPrefs.CURRENT_PRICE, ""));
         Random rand = new Random();
-        final int selected = rand.nextInt(999);
+        int selected = rand.nextInt(999);
+        select = selected;
         final double totalPaymentNew = totalPayment+((double) selected);
 
         txtTotalPayment.setText(format.format(totalPaymentNew));
@@ -214,7 +216,7 @@ public class DetailOrderActivity extends AppCompatActivity {
                                 kode_promo = response.getData().getKodePromo();
                                 String min = response.getData().getMinHarga();
                                 double isipromo = 100*Double.parseDouble(isi_promo);
-                                totalafter = total_before-(total_before*Double.parseDouble(isi_promo));
+                                totalafter = total_before-(total_before*Double.parseDouble(isi_promo))+((double) select);
                                 double minPro = Double.parseDouble(min);
                                 String form = format.format(minPro);
                                 String afterPromo = format.format(totalafter);

@@ -6,9 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="@dimen/_15sdp"
     android:layout_marginStart="@dimen/_15sdp"
-    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_5sdp"
     android:foreground="?android:attr/selectableItemBackground"
-    android:layout_marginBottom="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
     android:elevation="@dimen/_5sdp"
     android:layout_marginEnd="@dimen/_20sdp">
 

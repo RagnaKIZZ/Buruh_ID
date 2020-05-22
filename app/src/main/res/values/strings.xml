@@ -91,5 +91,8 @@
     <string name="fill_all">Please fill all of the form!</string>
     <string name="change_name">Change name</string>
     <string name="change_email">Change email</string>
+    <string name="ordercancel">Order canceled!</string>
+    <string name="sure_cancel">Are you sure want to cancel?</string>
+    <string name="cancel_order">Cancel Order</string>
 
 </resources>

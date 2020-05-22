@@ -12,22 +12,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:id="@+id/linear_edit_photo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="@string/change_photo"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/open_sans"
-                    android:textStyle="bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <LinearLayout
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:id="@+id/linear_edit_name"

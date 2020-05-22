@@ -90,6 +90,7 @@
            android:layout_centerVertical="true"
             android:orientation="vertical">
             <de.hdodenhof.circleimageview.CircleImageView
+                android:transitionName="@string/img"
                 android:id="@+id/img_your_order"
                 android:layout_margin="@dimen/_5sdp"
                 android:layout_width="@dimen/_50sdp"

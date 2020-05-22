@@ -22,6 +22,7 @@ public class UrlServer {
     public static String URL_CHANGE_FOTO            = BASE_URL+"user/update_foto";
     public static String URL_DELETE_FOTO            = BASE_URL+"user/hapus_foto";
     public static String URL_UPDATE_FIREBASE        = BASE_URL+"user/update_firebase_token";
+    public static String URL_CANCEL_ORDER           = BASE_URL+"user/cancel_order";
 
     public static String URL_GET_ADDRESS    = "https://x.rajaapi.com/MeP7c5ne";
     public static String URL_GET_KAB        = "/m/wilayah/kabupaten?idpropinsi=";
