@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
@@ -38,6 +40,8 @@ public class SelectWorkerActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private RecyclerView rvSelectWorker;
     private SelectWorkerAdapter mAdapter;
+    private LinearLayout ln_include;
+    private FloatingActionButton btnRefesh;
     private ArrayList<DataItem> list = new ArrayList<>();
 
 
@@ -52,20 +56,29 @@ public class SelectWorkerActivity extends AppCompatActivity {
         rvSelectWorker = findViewById(R.id.rv_select_worker);
         btnBack = findViewById(R.id.btn_select_worker_back);
         progressBar = findViewById(R.id.progress_bar);
+        ln_include = findViewById(R.id.include_lay);
+        btnRefesh = findViewById(R.id.floatingActionButton);
+        ln_include.setVisibility(View.GONE);
         mAdapter = new SelectWorkerAdapter(SelectWorkerActivity.this, list);
         rvSelectWorker.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SelectWorkerActivity.this);
         rvSelectWorker.setLayoutManager(linearLayoutManager);
         rvSelectWorker.setAdapter(mAdapter);
         Intent i = getIntent();
-        String kota          = i.getStringExtra("city").toLowerCase().trim();
-        String kec           = i.getStringExtra("subdis").toLowerCase().trim();
-        String jumlahAnggota = i.getStringExtra("jumlah").trim();
+        final String kota          = i.getStringExtra("city").toLowerCase().trim();
+        final String kec           = i.getStringExtra("subdis").toLowerCase().trim();
+        final String jumlahAnggota = i.getStringExtra("jumlah").trim();
         setAdapter(kota, kec, jumlahAnggota, String.valueOf(1));
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+        btnRefesh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAdapter(kota, kec, jumlahAnggota, String.valueOf(1));
             }
         });
     }
@@ -85,6 +98,8 @@ public class SelectWorkerActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
+                                list.clear();
+                                ln_include.setVisibility(View.GONE);
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem items = new DataItem();
                                     items.setNama(response.getData().get(i).getNama());
@@ -111,7 +126,8 @@ public class SelectWorkerActivity extends AppCompatActivity {
                                     }
                                 });
                             }else{
-                                Toasty.warning(SelectWorkerActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
+                                ln_include.setVisibility(View.VISIBLE);
+//                                Toasty.warning(SelectWorkerActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -119,6 +135,7 @@ public class SelectWorkerActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
+                        ln_include.setVisibility(View.VISIBLE);
                         Log.d(TAG, "onError: "+anError.getErrorDetail());
                         Toasty.error(SelectWorkerActivity.this, R.string.cek_internet, Toasty.LENGTH_SHORT).show();
                     }

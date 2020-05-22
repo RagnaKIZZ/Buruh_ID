@@ -12,9 +12,11 @@
         android:networkSecurityConfig="@xml/configurenetwork"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.account.DetailFotoActivity"
+        <activity android:name=".ui.order.detailOrder.DetailYourOrderActivity"></activity>
+        <activity
+            android:name=".ui.account.DetailFotoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppPhoto" ></activity>
+            android:theme="@style/AppPhoto" />
         <activity
             android:name=".make_order.OrderDoneActivity"
             android:screenOrientation="portrait"
@@ -63,7 +65,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActBar" />
 
-        <service android:name=".FirebaseMessagingService"
+        <service
+            android:name=".FirebaseMessagingService"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

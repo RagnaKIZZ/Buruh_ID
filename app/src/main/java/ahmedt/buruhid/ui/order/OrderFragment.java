@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
@@ -40,8 +42,11 @@ public class OrderFragment extends Fragment {
     private YourOrderAdapter adapter;
     private HistoryOrderAdapter adapter2;
     private ProgressBar progressBar;
+    private LinearLayout lay_include;
+    private FloatingActionButton btnRefresh;
     String id = Prefs.getString(SessionPrefs.U_ID, "");
     String token = Prefs.getString(SessionPrefs.TOKEN_LOGIN, "");
+    int param = 1;
 
 
 
@@ -55,8 +60,10 @@ public class OrderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setAdapter(id, token, "1");
         setAdapter2(id, token, "1");
+        setAdapter(id, token, "1");
+        param = 1;
+
     }
 
     private void findView(View view){
@@ -66,6 +73,8 @@ public class OrderFragment extends Fragment {
         btnYourOrder = view.findViewById(R.id.btn_your_order);
         rv_order = view.findViewById(R.id.rc_order);
         progressBar = view.findViewById(R.id.progress_bar);
+        lay_include = view.findViewById(R.id.include_lay);
+        btnRefresh = view.findViewById(R.id.floatingActionButton);
         adapter = new YourOrderAdapter(getActivity(), list);
         adapter2 = new HistoryOrderAdapter(getActivity(), list2);
         rv_order.setHasFixedSize(true);
@@ -91,6 +100,11 @@ public class OrderFragment extends Fragment {
         btnYourOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                param = 1;
+                lay_include.setVisibility(View.GONE);
+                if (list.isEmpty()){
+                    lay_include.setVisibility(View.VISIBLE);
+                }
                 btnYourOrder.setTextColor(Color.WHITE);
                 btnHistoryOrder.setTextColor(Color.BLACK);
                 btnYourOrder.setBackground(getResources().getDrawable(R.drawable.bg_btn_left_click));
@@ -103,6 +117,11 @@ public class OrderFragment extends Fragment {
         btnHistoryOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                param = 2;
+                lay_include.setVisibility(View.GONE);
+                if (list2.isEmpty()){
+                    lay_include.setVisibility(View.VISIBLE);
+                }
                 btnHistoryOrder.setTextColor(Color.WHITE);
                 btnYourOrder.setTextColor(Color.BLACK);
                 btnYourOrder.setBackground(getResources().getDrawable(R.drawable.bg_btn_left_unclick));
@@ -111,9 +130,28 @@ public class OrderFragment extends Fragment {
 
             }
         });
+
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (param){
+                    case 1:
+                        lay_include.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        setAdapter(id, token, String.valueOf(1));
+                        break;
+                    case 2:
+                        lay_include.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        setAdapter2(id, token, String.valueOf(1));
+                        break;
+                }
+            }
+        });
     }
 
     private void setAdapter(String id, String token, String page){
+        lay_include.setVisibility(View.GONE);
         AndroidNetworking.post(UrlServer.URL_LIST_ORDER)
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
@@ -125,6 +163,8 @@ public class OrderFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
+                                list.clear();
+                                lay_include.setVisibility(View.GONE);
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem items = new DataItem();
                                     items.setId(response.getData().get(i).getId());
@@ -143,7 +183,8 @@ public class OrderFragment extends Fragment {
                                 }
                                 adapter.updateList(list);
                             }else{
-                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
+                                lay_include.setVisibility(View.VISIBLE);
+//                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -151,6 +192,7 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
+                        lay_include.setVisibility(View.VISIBLE);
                         if (anError.getErrorCode() != 0){
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
                             Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
@@ -176,6 +218,10 @@ public class OrderFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
+                                list2.clear();
+                                if (param == 2){
+                                    lay_include.setVisibility(View.GONE);
+                                }
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final ahmedt.buruhid.ui.order.modelHistoryOrder.DataItem items = new ahmedt.buruhid.ui.order.modelHistoryOrder.DataItem();
                                     items.setId(response.getData().get(i).getId());
@@ -200,6 +246,9 @@ public class OrderFragment extends Fragment {
                                 }
                                adapter2.updateList(list2);
                             }else{
+                                if (param == 2){
+                                    lay_include.setVisibility(View.VISIBLE);
+                                }
 //                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
                         }
