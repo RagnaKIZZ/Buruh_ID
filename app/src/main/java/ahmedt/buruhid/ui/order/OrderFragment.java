@@ -170,6 +170,7 @@ public class OrderFragment extends Fragment {
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 list.clear();
+                                adapter.updateList(list);
                                 lay_include.setVisibility(View.GONE);
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem items = new DataItem();
@@ -228,6 +229,7 @@ public class OrderFragment extends Fragment {
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 list2.clear();
+                                adapter2.updateList(list2);
                                 if (param == 2){
                                     lay_include.setVisibility(View.GONE);
                                 }
