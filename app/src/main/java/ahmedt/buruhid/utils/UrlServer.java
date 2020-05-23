@@ -8,6 +8,7 @@ public class UrlServer {
     public static String URL_LOGIN                  = BASE_URL+"user/login_customer";
     public static String URL_LOGOUT                 = BASE_URL+"user/logout_customer";
     public static String URL_FOTO                   = BASE_URL+"img_customer/";
+    public static String URL_FOTO_PAYMENT           = BASE_URL+"img_payment/";
     public static String URL_PROMO                  = BASE_URL+"user/get_promo";
     public static String URL_MAKE_ORDER             = BASE_URL+"user/make_order";
     public static String URL_LIST_ORDER             = BASE_URL+"user/list_order";
@@ -23,6 +24,8 @@ public class UrlServer {
     public static String URL_DELETE_FOTO            = BASE_URL+"user/hapus_foto";
     public static String URL_UPDATE_FIREBASE        = BASE_URL+"user/update_firebase_token";
     public static String URL_CANCEL_ORDER           = BASE_URL+"user/cancel_order";
+    public static String URL_PAY_ORDER              = BASE_URL+"user/bayar_order";
+
 
     public static String URL_GET_ADDRESS    = "https://x.rajaapi.com/MeP7c5ne";
     public static String URL_GET_KAB        = "/m/wilayah/kabupaten?idpropinsi=";

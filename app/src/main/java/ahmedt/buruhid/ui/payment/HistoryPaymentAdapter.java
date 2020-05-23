@@ -56,7 +56,7 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
             Locale locale = new Locale("in", "ID");
             NumberFormat form = NumberFormat.getCurrencyInstance(locale);
 
-            if (item.getStatusPembayaran().matches("3")){
+            if (item.getStatusPembayaran().matches("2")){
                 status = "Accepted to Buruh ID";
                 color = Color.GREEN;
             }else if (item.getStatusPembayaran().matches("4")){

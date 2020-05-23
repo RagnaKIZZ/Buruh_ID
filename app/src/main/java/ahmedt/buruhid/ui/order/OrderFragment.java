@@ -101,7 +101,7 @@ public class OrderFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position, ahmedt.buruhid.ui.order.modelHistoryOrder.DataItem model) {
                 Intent intent = new Intent(getActivity(), HistoryOrderActivity.class);
-                intent.putExtra("data_item", list.get(position));
+                intent.putExtra("data_item", list2.get(position));
                 startActivity(intent);
             }
         });

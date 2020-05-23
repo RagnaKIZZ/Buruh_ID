@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
-    tools:context=".make_order.detail_order.DetailOrderActivity">
+    android:background="@color/colorPrimary">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_alignParentTop="true"
         android:id="@+id/app_bar"
@@ -113,6 +112,7 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:text="@string/individu_worker"/>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,13 +125,15 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:transitionName="@string/img"
                         android:id="@+id/img_your_order"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="@dimen/_2sdp"
                         android:layout_margin="@dimen/_5sdp"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
                         tools:src="@drawable/solo_worker"/>
                     <LinearLayout
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <TextView
