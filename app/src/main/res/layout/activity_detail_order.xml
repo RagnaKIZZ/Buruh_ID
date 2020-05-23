@@ -46,7 +46,7 @@
             android:id="@+id/txt_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Detail Order"
+            android:text="@string/order_details"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold"

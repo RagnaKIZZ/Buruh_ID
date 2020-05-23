@@ -1,5 +1,6 @@
 package ahmedt.buruhid.ui.payment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,12 +27,15 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
+import ahmedt.buruhid.ui.payment.detailPayment.DetailPaymentActivity;
 import ahmedt.buruhid.ui.payment.modelPayment.DataItem;
 import ahmedt.buruhid.ui.payment.modelPayment.PaymentModel;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
 import okhttp3.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 public class PaymentFragment extends Fragment {
     private Button btnBill, btnHistory;
@@ -83,6 +87,7 @@ public class PaymentFragment extends Fragment {
                                     final DataItem items = new DataItem();
                                     items.setId(response.getData().get(i).getId());
                                     items.setAnggota(response.getData().get(i).getAnggota());
+                                    items.setOrderId(response.getData().get(i).getOrderId());
                                     items.setCodePembayaran(response.getData().get(i).getCodePembayaran());
                                     items.setEndDate(response.getData().get(i).getEndDate());
                                     items.setCreateDate(response.getData().get(i).getCreateDate());
@@ -137,6 +142,7 @@ public class PaymentFragment extends Fragment {
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem items = new DataItem();
                                     items.setId(response.getData().get(i).getId());
+                                    items.setOrderId(response.getData().get(i).getOrderId());
                                     items.setAnggota(response.getData().get(i).getAnggota());
                                     items.setCodePembayaran(response.getData().get(i).getCodePembayaran());
                                     items.setEndDate(response.getData().get(i).getEndDate());
@@ -186,6 +192,7 @@ public class PaymentFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
         btnBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +228,9 @@ public class PaymentFragment extends Fragment {
         adapter.SetOnItemClickListener(new BillAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, DataItem model) {
-                Toast.makeText(getActivity(), model.getNominal(), Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getActivity(), DetailPaymentActivity.class);
+                i.putExtra("data_item", list.get(position));
+                startActivityForResult(i, 1);
             }
         });
 
@@ -249,5 +258,17 @@ public class PaymentFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == 1){
+                list.clear();
+                adapter.updateList(list);
+                setAdapter(id, token, String.valueOf(1));
+            }
+        }
     }
 }

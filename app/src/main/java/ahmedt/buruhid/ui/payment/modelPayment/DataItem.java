@@ -1,10 +1,13 @@
 package ahmedt.buruhid.ui.payment.modelPayment;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 
-public class DataItem{
+public class DataItem implements Parcelable {
 
 	@SerializedName("end_date")
 	private String endDate;
@@ -38,6 +41,36 @@ public class DataItem{
 
 	@SerializedName("bukti_pembayaran")
 	private String buktiPembayaran;
+
+	public DataItem(Parcel in) {
+		endDate = in.readString();
+		tukangId = in.readString();
+		anggota = in.readString();
+		nominal = in.readString();
+		statusPembayaran = in.readString();
+		userId = in.readString();
+		codePembayaran = in.readString();
+		id = in.readString();
+		createDate = in.readString();
+		orderId = in.readString();
+		buktiPembayaran = in.readString();
+	}
+
+	public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
+		@Override
+		public DataItem createFromParcel(Parcel in) {
+			return new DataItem(in);
+		}
+
+		@Override
+		public DataItem[] newArray(int size) {
+			return new DataItem[size];
+		}
+	};
+
+	public DataItem() {
+
+	}
 
 	public void setEndDate(String endDate){
 		this.endDate = endDate;
@@ -144,4 +177,24 @@ public class DataItem{
 			",bukti_pembayaran = '" + buktiPembayaran + '\'' + 
 			"}";
 		}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(endDate);
+		dest.writeString(tukangId);
+		dest.writeString(anggota);
+		dest.writeString(nominal);
+		dest.writeString(statusPembayaran);
+		dest.writeString(userId);
+		dest.writeString(codePembayaran);
+		dest.writeString(id);
+		dest.writeString(createDate);
+		dest.writeString(orderId);
+		dest.writeString(buktiPembayaran);
+	}
 }

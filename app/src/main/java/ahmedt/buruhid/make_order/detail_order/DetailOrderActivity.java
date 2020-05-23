@@ -109,6 +109,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         String subdis = i.getStringExtra("subdis");
         String vill = i.getStringExtra("vill");
         String address = i.getStringExtra("address");
+        String todayPrice = i.getStringExtra("todayPrice");
         Log.d(TAG, "findView: "+id+ " " +token);
         String day = " day";
 
@@ -155,7 +156,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         Locale locale = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(locale);
 
-        final double totalPayment = workerAndDays* Double.parseDouble(Prefs.getString(SessionPrefs.CURRENT_PRICE, ""));
+        final double totalPayment = workerAndDays* Double.parseDouble(todayPrice);
         Random rand = new Random();
         int selected = rand.nextInt(999);
         select = selected;
@@ -227,8 +228,8 @@ public class DetailOrderActivity extends AppCompatActivity {
                                 txtAfterPromo.setText(afterPromo);
                                 txtBefore.setVisibility(View.VISIBLE);
                                 ln_after.setVisibility(View.VISIBLE);
-                                txtMinPromo.setText("Minimum transaction "+form);
-                                txtIsiPromo.setText("Disc "+String.valueOf(isiipromo)+"%");
+                                txtMinPromo.setText(R.string.min_trans+form);
+                                txtIsiPromo.setText(R.string.disc+String.valueOf(isiipromo)+"%");
                                 Toasty.success(ctx,response.getMsg(), Toast.LENGTH_SHORT, true).show();
                             }else{
                                 Toasty.warning(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();

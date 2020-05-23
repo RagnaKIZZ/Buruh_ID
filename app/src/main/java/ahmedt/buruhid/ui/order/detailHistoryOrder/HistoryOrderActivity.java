@@ -1,30 +1,20 @@
-package ahmedt.buruhid.ui.order.detailOrder;
+package ahmedt.buruhid.ui.order.detailHistoryOrder;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
-import com.kaopiz.kprogresshud.KProgressHUD;
-import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -32,26 +22,20 @@ import java.util.Date;
 import java.util.Locale;
 
 import ahmedt.buruhid.R;
-import ahmedt.buruhid.ui.order.modelCancel.CancelModel;
-import ahmedt.buruhid.ui.order.modelOrder.DataItem;
-import ahmedt.buruhid.utils.HelperClass;
-import ahmedt.buruhid.utils.SessionPrefs;
+import ahmedt.buruhid.ui.order.modelHistoryOrder.DataItem;
 import ahmedt.buruhid.utils.UrlServer;
-import es.dmoral.toasty.Toasty;
-import okhttp3.Response;
 
-public class YourOrderActivity extends AppCompatActivity {
-    private static final String TAG = "YourOrderActivity";
+public class HistoryOrderActivity extends AppCompatActivity {
+    private static final String TAG = "HistoryOrderActivity";
     private TextView txtName, txtType, txtStatus, txtCode, txtPrice, txtTgl;
     private TextInputEditText edtStart, edtEnd, edtAddress, edtJob, edtHour, edtTotal;
-    private Button btnCall, btnMessage, btnAction;
     private ImageButton btnBack;
     private ImageView imgWorker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_your_order);
+        setContentView(R.layout.activity_history_order);
         findView();
         callMethode();
     }
@@ -66,9 +50,6 @@ public class YourOrderActivity extends AppCompatActivity {
         edtEnd = findViewById(R.id.edt_detail_enddate);
         edtAddress = findViewById(R.id.edt_detail_address);
         edtJob = findViewById(R.id.edt_detail_jobdesk);
-        btnCall = findViewById(R.id.btn_call);
-        btnMessage = findViewById(R.id.btn_message);
-        btnAction = findViewById(R.id.btn_action);
         imgWorker = findViewById(R.id.img_your_order);
         edtHour = findViewById(R.id.edt_start_hour);
         edtTotal = findViewById(R.id.edt_detail_day);
@@ -105,19 +86,12 @@ public class YourOrderActivity extends AppCompatActivity {
             type = "Team worker : "+anggota+" people";
         }
 
-        if (item.getStatusOrder().matches("1")){
-            status = "Waiting confirmation from worker...";
-            color = Color.parseColor("#ffd600");
-            btnAction.setBackground(getDrawable(R.drawable.bg_cancel));
-        }else if (item.getStatusOrder().matches("2")){
-            status = "Order accepted!, waiting to start job...";
+        if (item.getStatusOrder().matches("0")){
+            status = "Canceled!";
+            color = Color.RED;
+        }else if (item.getStatusOrder().matches("4")){
+            status = "Finish!";
             color = Color.GREEN;
-            btnAction.setBackground(getDrawable(R.drawable.bg_cancel));
-        }else if (item.getStatusOrder().matches("3")){
-            status = "Working...";
-            color = Color.GREEN;
-            btnAction.setBackground(getDrawable(R.drawable.bg_call));
-            btnAction.setText("Finish order");
         }else{
             status = "error!";
             color = Color.RED;
@@ -160,38 +134,6 @@ public class YourOrderActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        btnCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telepon, null));
-                startActivity(intent);
-            }
-        });
-
-        btnMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setType("vnd.android-dir/mms-sms");
-                intent.putExtra("address", telepon);
-                startActivity(intent);
-            }
-        });
-
-        btnAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (item.getStatusOrder().equals("3")){
-
-                }else{
-                    cancelOrderan(item.getId());
-                }
-            }
-        });
-
-
-
     }
 
     private void parseDate(String pattern, String pattern2,String date, EditText edt){
@@ -241,66 +183,5 @@ public class YourOrderActivity extends AppCompatActivity {
         }catch(Exception e){
             Log.d("ASD", "onBindViewHolder: "+e.getMessage());
         }
-    }
-
-    private void cancelOrder(String id){
-        final KProgressHUD hud = new KProgressHUD(this);
-        HelperClass.loading(hud, null, null, false);
-        AndroidNetworking.post(UrlServer.URL_CANCEL_ORDER)
-                .addBodyParameter("user_id", Prefs.getString(SessionPrefs.U_ID, ""))
-                .addBodyParameter("token_login", Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""))
-                .addBodyParameter("order_id", id)
-                .build()
-                .getAsOkHttpResponseAndObject(CancelModel.class, new OkHttpResponseAndParsedRequestListener<CancelModel>() {
-                    @Override
-                    public void onResponse(Response okHttpResponse, CancelModel response) {
-                        hud.dismiss();
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
-                                setResult(RESULT_OK);
-                                finish();
-                                Toasty.success(YourOrderActivity.this, R.string.ordercancel, Toasty.LENGTH_SHORT).show();
-                            }else{
-                                Toasty.warning(YourOrderActivity.this, response.getMsg(), Toasty.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                    hud.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
-                            Toasty.error(YourOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
-                            Toasty.error(YourOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
-                        }
-                    }
-                });
-    }
-
-    private void cancelOrderan(final String id){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setTitle(R.string.cancel_order);
-        alert.setMessage(R.string.sure_cancel)
-                .setIcon(R.drawable.ic_cancel_black_24dp)
-                .setCancelable(true)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                            cancelOrder(id);
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        alert.show();
     }
 }

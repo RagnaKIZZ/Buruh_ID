@@ -46,7 +46,7 @@
             android:id="@+id/txt_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/order_details"
+            android:text="@string/history_order_details"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold"
@@ -54,8 +54,6 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/open_sans"/>
     </RelativeLayout>
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -186,50 +184,6 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
-                <LinearLayout
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-                <Button
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:id="@+id/btn_call"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_gravity="end"
-                    android:textStyle="bold"
-                    android:drawableStart="@drawable/ic_local_phone_w_24dp"
-                    android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/_12ssp"
-                    android:background="@drawable/bg_call"
-                    android:textColor="@android:color/white"
-                    android:paddingEnd="@dimen/_20sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:layout_width="@dimen/_125sdp"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:text="Call"/>
-                <Button
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:id="@+id/btn_message"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_gravity="end"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/_12ssp"
-                    android:drawableStart="@drawable/ic_message_black_24dp"
-                    android:background="@drawable/bg_message"
-                    android:textColor="@android:color/white"
-                    android:paddingEnd="@dimen/_20sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:layout_width="@dimen/_125sdp"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    android:text="Message"/>
-            </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -389,25 +343,6 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/open_sans"
                     android:textColor="@color/color_payment"/>
-
-                <Button
-                    android:id="@+id/btn_action"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_40sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_50sdp"
-                    android:background="@drawable/bg_cancel"
-                    android:fontFamily="@font/open_sans"
-                    android:paddingStart="@dimen/_20sdp"
-                    android:paddingEnd="@dimen/_20sdp"
-                    android:text="@string/cancel_order"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold" />
 
             </LinearLayout>
         </com.xw.repo.widget.BounceScrollView>

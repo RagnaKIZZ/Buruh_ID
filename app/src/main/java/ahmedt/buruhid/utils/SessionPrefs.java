@@ -8,8 +8,6 @@ public class SessionPrefs {
 
     public static String isLogin = "islogin";
 
-    public static String CURRENT_PRICE = "price";
-
     public static String UNICODE = "unicode";
 
     public static String CODE_PROMO = "id_promo";

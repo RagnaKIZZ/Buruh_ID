@@ -33,6 +33,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.SimpleDateFormat;
@@ -47,6 +48,8 @@ import ahmedt.buruhid.make_order.modelCity.DataItem;
 import ahmedt.buruhid.make_order.modelUnicode.UnicodeModel;
 import ahmedt.buruhid.make_order.modelVIll.VillModel;
 import ahmedt.buruhid.make_order.select_worker.SelectWorkerActivity;
+import ahmedt.buruhid.splash.CurrentPriceModel.PriceModel;
+import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
@@ -70,7 +73,7 @@ public class MakeOrderActivity extends AppCompatActivity {
     private RelativeLayout lnCounter;
     private int counter = 1;
     private int jumlAng = 0;
-
+    String startDate, startHour, endDate, city, subdis, vill, address, nameWorker, jobdesk;
     String id_tukang = "";
     String id_prov = "31";
     String id_kota = "";
@@ -336,39 +339,18 @@ public class MakeOrderActivity extends AppCompatActivity {
     }
 
     private void conditionNotEmpty(){
-        String startDate = edtStartDate.getText().toString().trim();
-        String startHour = edtStartHour.getText().toString().trim();
-        String endDate = edtEndDate.getText().toString().trim();
-        String city = edtCity.getEditText().getText().toString().trim();
-        String subdis = edtSubdis.getEditText().getText().toString().trim();
-        String vill = edtVill.getEditText().getText().toString().trim();
-        String address = edtAddress.getEditText().getText().toString().trim();
-        String nameWorker = txtName.getText().toString();
-        String jobdesk = edtJobdesk.getEditText().getText().toString().trim();
+        startDate = edtStartDate.getText().toString().trim();
+        startHour = edtStartHour.getText().toString().trim();
+        endDate = edtEndDate.getText().toString().trim();
+        city = edtCity.getEditText().getText().toString().trim();
+        subdis = edtSubdis.getEditText().getText().toString().trim();
+        vill = edtVill.getEditText().getText().toString().trim();
+        address = edtAddress.getEditText().getText().toString().trim();
+        nameWorker = txtName.getText().toString();
+        jobdesk = edtJobdesk.getEditText().getText().toString().trim();
         if (!startDate.isEmpty() && !startHour.isEmpty() && !endDate.isEmpty() && !city.isEmpty()
                 && !address.isEmpty() && !nameWorker.isEmpty() && !jobdesk.isEmpty() && !subdis.isEmpty() && !vill.isEmpty() && jumlAng != 0){
-
-            Intent i = new Intent(MakeOrderActivity.this, DetailOrderActivity.class);
-            if (type.matches("Individu Worker")){
-                i.putExtra("isTeam", false);
-                i.putExtra("counter", String.valueOf(jumlAng));
-            }else {
-                i.putExtra("isTeam", true);
-                i.putExtra("counter", String.valueOf(jumlAng));
-            }
-            i.putExtra("tukang_id", id_tukang);
-            i.putExtra("type", txtType.getText().toString().trim());
-            i.putExtra("startDate", startDate);
-            i.putExtra("startHour", startHour);
-            i.putExtra("endDate", endDate);
-            i.putExtra("city", city);
-            i.putExtra("subdis", subdis);
-            i.putExtra("vill", vill);
-            i.putExtra("address", address);
-            i.putExtra("name_worker", nameWorker);
-            i.putExtra("jobdesk", jobdesk);
-            i.putExtra("amountDays",TOTAL_DAY);
-            startActivity(i);
+            getPrice(Prefs.getString(SessionPrefs.U_ID, ""), Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""));
         }else{
             Toasty.warning(makeOrderActivity, R.string.pleasecekorder, Toast.LENGTH_SHORT).show();
         }
@@ -781,6 +763,64 @@ public class MakeOrderActivity extends AppCompatActivity {
         String getDate = simpleDateFormat.format(tomorrow);
         edtStartDate.setText(getDate);
         start = tomorrow.getTime();
+    }
+
+    private void getPrice(String id, String token){
+        final KProgressHUD hud = new KProgressHUD(this);
+        HelperClass.loading(hud , null, null, false);
+        AndroidNetworking.post(UrlServer.URL_PRICE)
+                .addBodyParameter("id", id)
+                .addBodyParameter("token_login", token)
+                .build()
+                .getAsOkHttpResponseAndObject(PriceModel.class, new OkHttpResponseAndParsedRequestListener<PriceModel>() {
+                    @Override
+                    public void onResponse(Response okHttpResponse, PriceModel response) {
+                        hud.dismiss();
+                        if(okHttpResponse.isSuccessful()){
+                            if (response.getCode() == 200){
+                                Intent i = new Intent(MakeOrderActivity.this, DetailOrderActivity.class);
+                                if (type.matches("Individu Worker")){
+                                    i.putExtra("isTeam", false);
+                                    i.putExtra("counter", String.valueOf(jumlAng));
+                                }else {
+                                    i.putExtra("isTeam", true);
+                                    i.putExtra("counter", String.valueOf(jumlAng));
+                                }
+                                i.putExtra("todayPrice", response.getData().getHarga());
+                                i.putExtra("tukang_id", id_tukang);
+                                i.putExtra("type", txtType.getText().toString().trim());
+                                i.putExtra("startDate", startDate);
+                                i.putExtra("startHour", startHour);
+                                i.putExtra("endDate", endDate);
+                                i.putExtra("city", city);
+                                i.putExtra("subdis", subdis);
+                                i.putExtra("vill", vill);
+                                i.putExtra("address", address);
+                                i.putExtra("name_worker", nameWorker);
+                                i.putExtra("jobdesk", jobdesk);
+                                i.putExtra("amountDays",TOTAL_DAY);
+                                startActivity(i);
+                            }else{
+                                Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        hud.dismiss();
+                        if (anError.getErrorCode() != 0){
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                        }else{
+                            finish();
+                            Log.d(TAG, "onError: "+anError.getErrorCode());
+                            Log.d(TAG, "onError: "+anError.getErrorBody());
+                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                        }
+                    }
+                });
     }
 
 

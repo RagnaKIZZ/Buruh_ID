@@ -60,12 +60,16 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
                 status = "Waiting for payment..";
                 color = Color.GRAY;
             }else if (item.getStatusPembayaran().matches("1")){
-                status = "Rejected! Please send clear proof of payment!";
-                color = Color.RED;
+                status = "On process...";
+                color = Color.parseColor("#ffd600");
             }else if (item.getStatusPembayaran().matches("2")){
                 status = "Accepted to workers";
                 color = Color.GREEN;
-            }else{
+            }else if (item.getStatusPembayaran().matches("3")){
+                status = "Rejected! Please send clear proof of payment!";
+                color = Color.RED;
+            }
+            else{
                 status = "error!";
                 color = Color.RED;
             }

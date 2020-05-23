@@ -27,6 +27,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
+import ahmedt.buruhid.ui.order.detailHistoryOrder.HistoryOrderActivity;
 import ahmedt.buruhid.ui.order.detailOrder.YourOrderActivity;
 import ahmedt.buruhid.ui.order.modelHistoryOrder.OrderHistoryModel;
 import ahmedt.buruhid.ui.order.modelOrder.DataItem;
@@ -99,7 +100,9 @@ public class OrderFragment extends Fragment {
         adapter2.SetOnItemClickListener(new HistoryOrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, ahmedt.buruhid.ui.order.modelHistoryOrder.DataItem model) {
-                Toast.makeText(getActivity(), model.getNama(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), HistoryOrderActivity.class);
+                intent.putExtra("data_item", list.get(position));
+                startActivity(intent);
             }
         });
 
@@ -186,6 +189,7 @@ public class OrderFragment extends Fragment {
                                     items.setFoto(response.getData().get(i).getFoto());
                                     items.setStatusOrder(response.getData().get(i).getStatusOrder());
                                     items.setRating(response.getData().get(i).getRating());
+                                    items.setOrderDate(response.getData().get(i).getOrderDate());
                                     items.setTelepon(response.getData().get(i).getTelepon());
                                     items.setCodeOrder(response.getData().get(i).getCodeOrder());
                                     items.setHargaPromo(response.getData().get(i).getHargaPromo());
