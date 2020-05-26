@@ -19,6 +19,7 @@ import java.util.Locale;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.payment.modelPayment.DataItem;
+import ahmedt.buruhid.utils.HelperClass;
 
 public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAdapter.ViewHolder> {
     private Context context;
@@ -50,6 +51,7 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
          ViewHolder genericViewHolder = (ViewHolder) holder;
             String type = "";
             String time = item.getCreateDate();
+            String waktu = "";
             String status = "";
             int color = 0;
             double price = Double.parseDouble(item.getNominal());
@@ -75,16 +77,15 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
                 type = "Team worker : "+item.getAnggota()+" people";
             }
 
-
+            Date date = null;
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try{
-                Date date = format.parse(time);
-                SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yyyy");
-                String realTime = format1.format(date);
-                genericViewHolder.txtDate.setText(realTime);
+                date = format.parse(time);
             }catch(Exception e){
                 Log.d("ASD", "onBindViewHolder: "+e.getMessage());
             }
+
+            HelperClass.getDate(date, waktu, genericViewHolder.txtDate);
             genericViewHolder.txtStatus.setTextColor(color);
             genericViewHolder.txtStatus.setText(status);
             genericViewHolder.txtType.setText(type);

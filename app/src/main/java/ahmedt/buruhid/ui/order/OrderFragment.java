@@ -1,6 +1,9 @@
 package ahmedt.buruhid.ui.order;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +30,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 
+import ahmedt.buruhid.FirebaseMessagingService;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.order.detailHistoryOrder.HistoryOrderActivity;
 import ahmedt.buruhid.ui.order.detailOrder.YourOrderActivity;
@@ -66,7 +71,7 @@ public class OrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setAdapter2(id, token, "1");
-        setAdapter(id, token, "1");
+        setAdapter(id, token, "1", false);
         param = 1;
 
     }
@@ -147,7 +152,7 @@ public class OrderFragment extends Fragment {
                     case 1:
                         lay_include.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
-                        setAdapter(id, token, String.valueOf(1));
+                        setAdapter(id, token, String.valueOf(1), false);
                         break;
                     case 2:
                         lay_include.setVisibility(View.GONE);
@@ -159,7 +164,29 @@ public class OrderFragment extends Fragment {
         });
     }
 
-    private void setAdapter(String id, String token, String page){
+    private BroadcastReceiver updateBadge = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String param = FirebaseMessagingService.INFO_UPDATE;
+            if (intent.getAction().equals(param)){
+                setAdapter(id, token, String.valueOf(1), true);
+            }
+        }
+    };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateBadge, new IntentFilter(FirebaseMessagingService.INFO_UPDATE));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(updateBadge);
+    }
+
+    private void setAdapter(String id, String token, String page, final boolean isBackground){
         lay_include.setVisibility(View.GONE);
         AndroidNetworking.post(UrlServer.URL_LIST_ORDER)
                 .addBodyParameter("id", id)
@@ -197,7 +224,11 @@ public class OrderFragment extends Fragment {
                                 }
                                 adapter.updateList(list);
                             }else{
-                                lay_include.setVisibility(View.VISIBLE);
+                                if (isBackground){
+
+                                }else{
+                                    lay_include.setVisibility(View.VISIBLE);
+                                }
 //                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
                         }
@@ -293,7 +324,7 @@ public class OrderFragment extends Fragment {
             if (requestCode == 1){
                 list.clear();
                 adapter.updateList(list);
-                setAdapter(id, token, "1");
+                setAdapter(id, token, "1", false);
             }
         }
     }

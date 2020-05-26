@@ -2,7 +2,7 @@ package ahmedt.buruhid.utils;
 
 public class UrlServer {
 
-    public static String BASE_URL = "http://10.10.10.158/BuruhID_API/public/";
+    public static String BASE_URL = "http://10.10.10.188/BuruhID_API/public/";
 
     public static String URL_REGISTER               = BASE_URL+"user/register_customer";
     public static String URL_LOGIN                  = BASE_URL+"user/login_customer";
@@ -25,6 +25,8 @@ public class UrlServer {
     public static String URL_UPDATE_FIREBASE        = BASE_URL+"user/update_firebase_token";
     public static String URL_CANCEL_ORDER           = BASE_URL+"user/cancel_order";
     public static String URL_PAY_ORDER              = BASE_URL+"user/bayar_order";
+    public static String URL_COUNT                  = BASE_URL+"user/getCountPromoAndNotif";
+    public static String URL_NOTIF                  = BASE_URL+"user/getNotif";
 
 
     public static String URL_GET_ADDRESS    = "https://x.rajaapi.com/MeP7c5ne";

@@ -4,6 +4,14 @@
     <item
         android:id="@+id/home_notification"
         android:title="@string/title_notifications"
+        app:actionLayout="@layout/badge_notif"
         android:icon="@drawable/ic_notifications_black_24dp"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/home_promotion"
+        android:title="Promotion"
+        app:actionLayout="@layout/badge_promo"
+        android:icon="@drawable/ic_local_offer_black_24dp"
+        app:showAsAction="always"/>
 </menu>

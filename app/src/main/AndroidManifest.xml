@@ -12,9 +12,16 @@
         android:networkSecurityConfig="@xml/configurenetwork"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.order.detailHistoryOrder.HistoryOrderActivity"
+        <activity android:name=".notification.NotificationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActBar" ></activity>
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:theme="@style/AppThemeNoActBar"></activity>
+        <activity
+            android:name=".ui.order.detailHistoryOrder.HistoryOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
         <activity
             android:name=".ui.payment.detailPayment.DetailPaymentActivity"
             android:screenOrientation="portrait"

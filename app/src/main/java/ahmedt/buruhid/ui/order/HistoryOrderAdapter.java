@@ -21,6 +21,7 @@ import java.util.Date;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.order.modelHistoryOrder.DataItem;
+import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.UrlServer;
 
 public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapter.ViewHolder> {
@@ -54,6 +55,7 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
          String time = "";
          String type = "";
          String status = "";
+         String waktu = "";
          int color = 0;
             if (item.getAnggota().matches("1")){
                 type = "Individu worker";
@@ -77,16 +79,14 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
                 status = "error!";
                 color = Color.RED;
             }
-
+            Date date = null;
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try{
-                Date date = format.parse(time);
-                SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yyyy");
-                String realTime = format1.format(date);
-                genericViewHolder.txtDate.setText(realTime);
+                date = format.parse(time);
             }catch(Exception e){
                 Log.d("ASD", "onBindViewHolder: "+e.getMessage());
             }
+            HelperClass.getDate(date, waktu,  genericViewHolder.txtDate);
          genericViewHolder.txtType.setText(type);
          genericViewHolder.txtDesc.setText(item.getJobdesk());
          genericViewHolder.txtStatus.setText(status);

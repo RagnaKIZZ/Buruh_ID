@@ -1,11 +1,20 @@
 package ahmedt.buruhid;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,8 +32,11 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.Calendar;
+import java.util.Random;
 
+import ahmedt.buruhid.modelCounter.CounterModel;
 import ahmedt.buruhid.modelToken.FirebaseModel;
+import ahmedt.buruhid.notification.NotificationActivity;
 import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
@@ -77,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getFirebaseToken(final String firebase){
-        final KProgressHUD hud = new KProgressHUD(this);
-        HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_UPDATE_FIREBASE)
                 .addBodyParameter("id", Prefs.getString(SessionPrefs.U_ID, ""))
                 .addBodyParameter("token_login", Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""))
@@ -87,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 .getAsOkHttpResponseAndObject(FirebaseModel.class, new OkHttpResponseAndParsedRequestListener<FirebaseModel>() {
                     @Override
                     public void onResponse(Response okHttpResponse, FirebaseModel response) {
-                        hud.dismiss();
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 Prefs.putString(SessionPrefs.TOKEN_FIREBASE, firebase);
@@ -101,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-                    hud.dismiss();
                         if (anError.getErrorCode() != 0){
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
                             Toasty.error(MainActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
