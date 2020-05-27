@@ -46,6 +46,7 @@ import ahmedt.buruhid.R;
 import ahmedt.buruhid.make_order.MakeOrderActivity;
 import ahmedt.buruhid.modelCounter.CounterModel;
 import ahmedt.buruhid.notification.NotificationActivity;
+import ahmedt.buruhid.promotion.PromoActivity;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
@@ -224,6 +225,7 @@ public class HomeFragment extends Fragment {
                 startActivityForResult(new Intent(getActivity(), NotificationActivity.class), 1);
                 return true;
             case R.id.home_promotion:
+                startActivityForResult(new Intent(getActivity(), PromoActivity.class), 2);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -235,6 +237,8 @@ public class HomeFragment extends Fragment {
         if (resultCode == RESULT_OK){
             if (requestCode == 1){
                 txtBadgeNotif.setVisibility(View.GONE);
+            }else if (requestCode == 2){
+                txtBadgePromo.setVisibility(View.GONE);
             }
         }
     }

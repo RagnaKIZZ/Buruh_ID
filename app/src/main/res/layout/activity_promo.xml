@@ -21,9 +21,9 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <com.xw.repo.widget.BounceScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -33,24 +33,24 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rc_notif"
+                    android:id="@+id/rc_promo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </com.xw.repo.widget.BounceScrollView>
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-            <include
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_70sdp"
-                layout="@layout/msg_layout"
-                android:layout_width="@dimen/_200sdp"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+        <include
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_70sdp"
+            layout="@layout/msg_layout"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 </LinearLayout>

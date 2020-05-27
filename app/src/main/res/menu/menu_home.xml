@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/home_promotion"
-        android:title="Promotion"
+        android:title="@string/promotion"
         app:actionLayout="@layout/badge_promo"
         android:icon="@drawable/ic_local_offer_black_24dp"
         app:showAsAction="always"/>

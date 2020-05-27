@@ -105,5 +105,6 @@
     <string name="proses">On process...</string>
     <string name="order_code">Order code</string>
     <string name="history_order_details">History Order Details</string>
+    <string name="promotion">Promotion</string>
 
 </resources>

@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Order"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/txt_date_notif"
             android:textSize="@dimen/_12ssp"

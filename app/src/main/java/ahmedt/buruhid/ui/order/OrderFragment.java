@@ -170,6 +170,7 @@ public class OrderFragment extends Fragment {
             String param = FirebaseMessagingService.INFO_UPDATE;
             if (intent.getAction().equals(param)){
                 setAdapter(id, token, String.valueOf(1), true);
+                setAdapter2(id, token, String.valueOf(1));
             }
         }
     };
@@ -237,7 +238,11 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        lay_include.setVisibility(View.VISIBLE);
+                        if (isBackground){
+
+                        }else{
+                            lay_include.setVisibility(View.VISIBLE);
+                        }
                         if (anError.getErrorCode() != 0){
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
                             Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
@@ -325,6 +330,7 @@ public class OrderFragment extends Fragment {
                 list.clear();
                 adapter.updateList(list);
                 setAdapter(id, token, "1", false);
+                setAdapter2(id, token, String.valueOf(1));
             }
         }
     }
