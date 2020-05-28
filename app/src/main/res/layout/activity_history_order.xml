@@ -328,7 +328,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:text="Total payment"
+                    android:text="@string/total_payment"
                     android:textSize="@dimen/_10ssp"
                     android:textStyle="normal"
                     android:fontFamily="@font/open_sans"

@@ -104,7 +104,7 @@
         <string name = "disc">Diskon</string>
         <string name = "proses">Sedang diproses ...</string>
         <string name = "order_code">Kode pesanan</string>
-        <string name = "history_order_details">Detail Pesanan Sejarah</string>
+        <string name = "history_order_details">Detail Riwayat Pesanan</string>
         <string name = "promotion">Promosi</string>
         <string name = "finish_order">Selesai memesan</string>
         <string name = "sure_finish">Apakah Anda yakin ingin menyelesaikannya?</string>
