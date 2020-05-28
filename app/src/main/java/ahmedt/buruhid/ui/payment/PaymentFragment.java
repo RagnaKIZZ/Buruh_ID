@@ -27,6 +27,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
+import ahmedt.buruhid.ui.payment.detailHistoryPayment.DetailHistoryPaymentActivity;
 import ahmedt.buruhid.ui.payment.detailPayment.DetailPaymentActivity;
 import ahmedt.buruhid.ui.payment.modelPayment.DataItem;
 import ahmedt.buruhid.ui.payment.modelPayment.PaymentModel;
@@ -237,7 +238,9 @@ public class PaymentFragment extends Fragment {
         adapter2.SetOnItemClickListener(new HistoryPaymentAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, DataItem model) {
-                Toast.makeText(getActivity(), model.getNominal(), Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getActivity(), DetailHistoryPaymentActivity.class);
+                i.putExtra("data_item", list2.get(position));
+                startActivity(i);
             }
         });
 

@@ -22,7 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import ahmedt.buruhid.MainActivity;
+import ahmedt.buruhid.Main.MainActivity;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.register.RegisterActivity;
 import ahmedt.buruhid.utils.HelperClass;

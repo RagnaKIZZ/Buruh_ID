@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -163,11 +164,10 @@ public class AccountFragment extends Fragment {
     private void logOut(){
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
-        alert.setTitle("Logout");
-        alert.setMessage("Are you sure want to logout?")
-                .setIcon(R.drawable.ic_exit)
+        alert.setTitle(R.string.logout);
+        alert.setMessage(getString(R.string.are_logout))
                 .setCancelable(true)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (getActivity() != null){
@@ -178,7 +178,7 @@ public class AccountFragment extends Fragment {
                         }
                     }
                 })
-        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+        .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -235,11 +235,12 @@ public class AccountFragment extends Fragment {
             final Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.dialog_edit_profiles);
 
-            LinearLayout lnName, lnEmail, lnPhone, lnPass;
+            LinearLayout lnName, lnEmail, lnPhone, lnPass, lnLang;
             lnPhone = dialog.findViewById(R.id.linear_edit_phone);
             lnName  = dialog.findViewById(R.id.linear_edit_name);
             lnEmail = dialog.findViewById(R.id.linear_edit_email);
             lnPass = dialog.findViewById(R.id.linear_edit_password);
+            lnLang = dialog.findViewById(R.id.linear_change_language);
 
             lnName.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -279,6 +280,14 @@ public class AccountFragment extends Fragment {
                     i.putExtra("code", "4");
                     startActivityForResult(i, 4);
                     dialog.cancel();
+                }
+            });
+
+            lnLang.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                    startActivity(i);
                 }
             });
 

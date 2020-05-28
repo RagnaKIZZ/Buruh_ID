@@ -1,4 +1,4 @@
-package ahmedt.buruhid.modelToken;
+package ahmedt.buruhid.Main.modelToken;
 
 
 import com.google.gson.annotations.SerializedName;

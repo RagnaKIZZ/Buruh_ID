@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".make_order.detail_order.DetailOrderActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_alignParentTop="true"
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:elevation="0dp">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <ImageView
+                android:padding="@dimen/_2sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="match_parent"
+                android:src="@drawable/logo"/>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/btn_detail_order_back"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back_new"
+            android:layout_alignParentStart="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@android:color/transparent"/>
+        <TextView
+            android:id="@+id/txt_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_details"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/_10sdp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/open_sans"/>
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_layout"
+        android:orientation="vertical">
+
+
+        <com.xw.repo.widget.BounceScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:focusable="false"
+                android:focusableInTouchMode="true">
+
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/txt_tgl_payment"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/color_payment"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="20 Maret 2020"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="@string/payment_code"/>
+
+                <TextView
+                    android:id="@+id/txt_code_payment"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="@string/individu_worker"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:text="Total payment"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="normal"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/color_payment"/>
+
+                <TextView
+                    android:id="@+id/txt_price_payment"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_height="wrap_content"
+                    tools:text="Rp. 500000"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/color_payment"/>
+
+                <LinearLayout
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status: "
+                        android:textSize="@dimen/_10ssp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/open_sans"
+                        android:textStyle="normal"/>
+
+                    <TextView
+                        android:id="@+id/txt_status_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Canceled"
+                        android:textSize="@dimen/_10ssp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/open_sans"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:text="@string/proofofpayment"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:textStyle="normal"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@android:color/darker_gray"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd_proof"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    android:elevation="@dimen/_3sdp"
+                    android:layout_height="@dimen/_220sdp">
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:id="@+id/proof_img"
+                        android:contentDescription="@string/proofofpayment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/blankimg"/>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </com.xw.repo.widget.BounceScrollView>
+    </RelativeLayout>
+
+</LinearLayout>

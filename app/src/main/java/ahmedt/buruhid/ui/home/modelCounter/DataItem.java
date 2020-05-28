@@ -1,4 +1,4 @@
-package ahmedt.buruhid.modelCounter;
+package ahmedt.buruhid.ui.home.modelCounter;
 
 
 import com.google.gson.annotations.SerializedName;

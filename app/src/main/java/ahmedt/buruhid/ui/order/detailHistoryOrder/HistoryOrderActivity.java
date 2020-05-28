@@ -68,8 +68,12 @@ public class HistoryOrderActivity extends AppCompatActivity {
         final String telepon = item.getTelepon();
         String code = item.getCodeOrder();
         String price = "";
+        String angka_unik = item.getAngkaUnik();
         if (item.getHargaPromo().equals("0")){
-            price = item.getHarga();
+            double base_harga = Double.parseDouble(item.getHarga());
+            double unik = Double.parseDouble(angka_unik);
+            double hargareal = base_harga+unik;
+            price = String.valueOf(hargareal);
         }else{
             price = item.getHargaPromo();
         }
@@ -81,16 +85,16 @@ public class HistoryOrderActivity extends AppCompatActivity {
         int color = 0;
 
         if (anggota.matches("1")){
-            type = "Individu worker";
+            type = getString(R.string.individu_worker);
         }else{
-            type = "Team worker : "+anggota+" people";
+            type = getString(R.string.tim_work)+anggota+getString(R.string.people);
         }
 
         if (item.getStatusOrder().matches("0")){
-            status = "Canceled!";
+            status = getString(R.string.canceled);
             color = Color.RED;
         }else if (item.getStatusOrder().matches("4")){
-            status = "Finish!";
+            status = getString(R.string.fin);
             color = Color.GREEN;
         }else{
             status = "error!";
@@ -175,9 +179,9 @@ public class HistoryOrderActivity extends AppCompatActivity {
             String day;
             String realTime = String.valueOf(total);
             if (totalDays > 1){
-                day = " days";
+                day = getString(R.string.days);
             }else {
-                day = " day";
+                day = getString(R.string.day);
             }
             edtTotal.setText(realTime+day);
         }catch(Exception e){

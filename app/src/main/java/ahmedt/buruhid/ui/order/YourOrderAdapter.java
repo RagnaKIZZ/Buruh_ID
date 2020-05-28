@@ -58,25 +58,25 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
          int color = Color.WHITE;
 
          if (item.getAnggota().matches("1")){
-             type = "Individu worker";
+             type = context.getString(R.string.individu_worker);
          }else{
-             type = "Team worker : "+item.getAnggota()+" people";
+             type = context.getString(R.string.tim_work)+item.getAnggota()+context.getString(R.string.people);
          }
 
          if (item.getStatusOrder().matches("1")){
-             status = "Waiting confirmation from worker...";
+             status = context.getString(R.string.wait_confirm);
              color = Color.parseColor("#ffd600");
          }else if (item.getStatusOrder().matches("2")){
-             status = "Order accepted!, waiting to start job...";
+             status = context.getString(R.string.order_acc);
              color = Color.GREEN;
          }else if (item.getStatusOrder().matches("3")){
-             status = "Working...";
+             status = context.getString(R.string.workinggg);
              color = Color.GREEN;
          }else{
              status = "error!";
              color = Color.RED;
          }
-         genericViewHolder.txtCode.setText("Order code: "+item.getCodeOrder());
+         genericViewHolder.txtCode.setText(context.getString(R.string.orderr_codee)+item.getCodeOrder());
          genericViewHolder.txtName.setText(item.getNama());
          genericViewHolder.txtType.setText(type);
          genericViewHolder.txtDesc.setText(item.getJobdesk());

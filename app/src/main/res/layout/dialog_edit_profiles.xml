@@ -75,6 +75,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+            <LinearLayout
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:id="@+id/linear_change_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="@string/change_language"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/open_sans"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
         </LinearLayout>
     </com.xw.repo.widget.BounceScrollView>
 

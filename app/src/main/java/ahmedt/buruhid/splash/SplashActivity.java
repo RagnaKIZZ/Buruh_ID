@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import ahmedt.buruhid.MainActivity;
+import ahmedt.buruhid.Main.MainActivity;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.intro.IntroActivity;
 import ahmedt.buruhid.utils.SessionPrefs;

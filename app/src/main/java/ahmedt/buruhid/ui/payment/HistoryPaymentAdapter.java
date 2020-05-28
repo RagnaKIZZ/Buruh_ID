@@ -59,22 +59,22 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
             NumberFormat form = NumberFormat.getCurrencyInstance(locale);
 
             if (item.getStatusPembayaran().matches("2")){
-                status = "Accepted to Buruh ID";
+                status = context.getString(R.string.acc_t_bID);
                 color = Color.GREEN;
             }else if (item.getStatusPembayaran().matches("4")){
-                status = "Order canceled!";
+                status = context.getString(R.string.ordercancel);
                 color = Color.RED;
             }else if (item.getStatusPembayaran().matches("5")){
-                status = "Accepted to workers";
+                status = context.getString(R.string.acc_t_work);
                 color = Color.GREEN;
             }else{
                 status = "error!";
                 color = Color.RED;
             }
             if (item.getAnggota().matches("1")){
-                type = "Individu worker";
+                type = context.getString(R.string.individu_worker);
             }else{
-                type = "Team worker : "+item.getAnggota()+" people";
+                type = context.getString(R.string.tim_work)+item.getAnggota()+context.getString(R.string.people);
             }
 
             Date date = null;
@@ -90,7 +90,7 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
             genericViewHolder.txtStatus.setText(status);
             genericViewHolder.txtType.setText(type);
             genericViewHolder.txtPrice.setText(form.format(price));
-            genericViewHolder.txtWorkU.setText("Created");
+            genericViewHolder.txtWorkU.setText(context.getString(R.string.created));
             genericViewHolder.txtCode.setText(item.getCodePembayaran());
 
 

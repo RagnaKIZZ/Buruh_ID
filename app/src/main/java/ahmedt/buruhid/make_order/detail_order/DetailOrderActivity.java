@@ -111,17 +111,17 @@ public class DetailOrderActivity extends AppCompatActivity {
         String address = i.getStringExtra("address");
         String todayPrice = i.getStringExtra("todayPrice");
         Log.d(TAG, "findView: "+id+ " " +token);
-        String day = " day";
+        String day = getString(R.string.day);
 
         if (Integer.parseInt(amountDays) > 1){
-            day = " days";
+            day = getString(R.string.days);
         }
         String countWorker;
         if (i.getBooleanExtra("isTeam", true)){
             countWorker = i.getStringExtra("counter");
             workerAndDays = Integer.parseInt(countWorker)*Integer.parseInt(amountDays);
             edtCount.setVisibility(View.VISIBLE);
-            edtCount.setText(countWorker+ " People");
+            edtCount.setText(countWorker+ R.string.people);
         }else {
             countWorker = i.getStringExtra("counter");
             edtCount.setVisibility(View.GONE);
@@ -188,7 +188,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPaymentNew), String.valueOf(totalafter),id_promo);
+                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPayment), String.valueOf(totalafter), String.valueOf(select),id_promo);
             }
         });
 
@@ -262,7 +262,7 @@ public class DetailOrderActivity extends AppCompatActivity {
     }
 
     private void makeOrder(String id, String token, String tukang_id, String alamat, String jobdesk, String start, String end,
-    String nominal, String angka, String promoid){
+    String nominal, String angka, String unik, String promoid){
         final KProgressHUD hud  = new KProgressHUD(ctx);
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_MAKE_ORDER)
@@ -275,6 +275,7 @@ public class DetailOrderActivity extends AppCompatActivity {
                 .addBodyParameter("end_date", end)
                 .addBodyParameter("nominal", nominal)
                 .addBodyParameter("nominal_promo", angka)
+                .addBodyParameter("angka_unik", unik)
                 .addBodyParameter("promo_id", promoid)
                 .build()
                 .getAsOkHttpResponseAndObject(MakeOrderModel.class, new OkHttpResponseAndParsedRequestListener<MakeOrderModel>() {

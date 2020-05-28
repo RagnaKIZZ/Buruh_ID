@@ -1,10 +1,10 @@
-package ahmedt.buruhid.ui.order.modelCancel;
+package ahmedt.buruhid.ui.order.modelResponOrder;
 
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class CancelModel{
+public class ResponOrderModel {
 
 	@SerializedName("msg")
 	private String msg;
@@ -31,7 +31,7 @@ public class CancelModel{
 	@Override
  	public String toString(){
 		return 
-			"CancelModel{" + 
+			"ResponOrderModel{" +
 			"msg = '" + msg + '\'' + 
 			",code = '" + code + '\'' + 
 			"}";

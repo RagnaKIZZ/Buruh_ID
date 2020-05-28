@@ -1,30 +1,22 @@
 package ahmedt.buruhid.notification;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.notification.modelNotification.DataItem;
 import ahmedt.buruhid.utils.HelperClass;
-import ahmedt.buruhid.utils.UrlServer;
 
 public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.ViewHolder> {
     private Context context;
@@ -68,7 +60,6 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.ViewHolder> 
                 Log.d("ASD", "onBindViewHolder: "+e.getMessage());
             }
             HelperClass.getDate(date, time, genericViewHolder.txtDate);
-
         }
     }
 

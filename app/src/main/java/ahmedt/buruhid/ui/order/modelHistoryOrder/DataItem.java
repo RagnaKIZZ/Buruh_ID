@@ -36,6 +36,9 @@ public class DataItem implements Parcelable {
 	@SerializedName("promo_id")
 	private String promoId;
 
+	@SerializedName("angka_unik")
+	private String angkaUnik;
+
 	@SerializedName("alamat")
 	private String alamat;
 
@@ -73,6 +76,7 @@ public class DataItem implements Parcelable {
 		rating = in.readString();
 		statusOrder = in.readString();
 		promoId = in.readString();
+		angkaUnik = in.readString();
 		alamat = in.readString();
 		orderDate = in.readString();
 		harga = in.readString();
@@ -172,6 +176,14 @@ public class DataItem implements Parcelable {
 		return promoId;
 	}
 
+	public void setAngkaUnik(String angkaUnik){
+		this.angkaUnik = angkaUnik;
+	}
+
+	public String getAngkaUnik(){
+		return angkaUnik;
+	}
+
 	public void setAlamat(String alamat){
 		this.alamat = alamat;
 	}
@@ -257,6 +269,7 @@ public class DataItem implements Parcelable {
 			",rating = '" + rating + '\'' + 
 			",status_order = '" + statusOrder + '\'' + 
 			",promo_id = '" + promoId + '\'' + 
+			",angka_unik = '" + angkaUnik + '\'' + 
 			",alamat = '" + alamat + '\'' + 
 			",order_date = '" + orderDate + '\'' + 
 			",harga = '" + harga + '\'' + 
@@ -285,6 +298,7 @@ public class DataItem implements Parcelable {
 		dest.writeString(rating);
 		dest.writeString(statusOrder);
 		dest.writeString(promoId);
+		dest.writeString(angkaUnik);
 		dest.writeString(alamat);
 		dest.writeString(orderDate);
 		dest.writeString(harga);

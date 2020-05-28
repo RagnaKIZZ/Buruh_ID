@@ -1,20 +1,11 @@
-package ahmedt.buruhid;
+package ahmedt.buruhid.Main;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -28,16 +19,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.kaopiz.kprogresshud.KProgressHUD;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.Calendar;
-import java.util.Random;
 
-import ahmedt.buruhid.modelCounter.CounterModel;
-import ahmedt.buruhid.modelToken.FirebaseModel;
-import ahmedt.buruhid.notification.NotificationActivity;
-import ahmedt.buruhid.utils.HelperClass;
+import ahmedt.buruhid.Main.modelToken.FirebaseModel;
+import ahmedt.buruhid.R;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
@@ -104,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                             }else {
                                 Log.d(TAG, "onResponse: "+response.getMsg());
                             }
-
                         }
                     }
 

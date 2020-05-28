@@ -4,9 +4,10 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
@@ -19,7 +20,6 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Random;
 
 import ahmedt.buruhid.notification.NotificationActivity;
-import ahmedt.buruhid.ui.home.HomeFragment;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     public static final String INFO_UPDATE = "info_update";
@@ -43,15 +43,22 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     }
 
     private void showNotification(String title, String message){
+
+        String NOTIFICATION_CHANNEL_ID = "my_channel_id_001";
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
         Random rand = new Random();
+        Uri soundUri = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.message_tone);
         final int notification_ID = rand.nextInt();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notification", NotificationManager.IMPORTANCE_HIGH);
+            AudioAttributes attributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build();
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.setDescription("My Channel");
             notificationChannel.enableLights(true);
             notificationChannel.enableVibration(true);
+            notificationChannel.setSound(soundUri, attributes);
             manager.createNotificationChannel(notificationChannel);
         }
 
@@ -63,9 +70,11 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         builder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
+                .setSound(Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.message_tone))
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle(title)
                 .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(intent);
 
         manager.notify(notification_ID,builder.build());

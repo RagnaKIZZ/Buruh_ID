@@ -1,8 +1,8 @@
-package ahmedt.buruhid.modelCounter;
-
-import java.util.List;
+package ahmedt.buruhid.ui.home.modelCounter;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 
 public class CounterModel{

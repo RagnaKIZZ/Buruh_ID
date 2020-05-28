@@ -48,9 +48,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.github.woxingxiao:BounceScrollView:1.4'
 
-    //dinamic toast
-    implementation 'com.pranavpandey.android:dynamic-toasts:3.2.0'
-
     implementation 'com.kaopiz:kprogresshud:1.2.0'
 
     //lib untuk get set image
@@ -62,7 +59,4 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.4.2'
 
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-
-    implementation 'com.mikepenz:actionitembadge:4.0.0'
-    implementation 'com.mikepenz:iconics-core:{latestVersion}@aar'
 }

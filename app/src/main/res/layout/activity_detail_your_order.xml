@@ -50,7 +50,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/open_sans"/>
     </RelativeLayout>
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:text="Call"/>
+                    android:text="@string/call"/>
                 <Button
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:id="@+id/btn_message"
@@ -230,7 +230,7 @@
                     android:layout_width="@dimen/_125sdp"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:text="Message"/>
+                    android:text="@string/message"/>
             </LinearLayout>
 
                 <LinearLayout

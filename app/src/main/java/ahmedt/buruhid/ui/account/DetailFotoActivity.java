@@ -49,7 +49,7 @@ public class DetailFotoActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Photo profile");
+        getSupportActionBar().setTitle(getString(R.string.pp));
 
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
@@ -101,18 +101,18 @@ public class DetailFotoActivity extends AppCompatActivity {
     private void deleteFoto(){
         AlertDialog.Builder alert = new AlertDialog.Builder(DetailFotoActivity.this);
 
-        alert.setTitle("Delete photo");
-        alert.setMessage("Are you sure want delete?")
+        alert.setTitle(getString(R.string.del_pho));
+        alert.setMessage(getString(R.string.want_del))
                 .setIcon(R.drawable.ic_delete_black_24dp2)
                 .setCancelable(true)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                         hapusFoto(Prefs.getString(SessionPrefs.U_ID, ""), Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""));
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(DetailFotoActivity.this, "Yes", Toast.LENGTH_SHORT).show();

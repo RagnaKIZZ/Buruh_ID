@@ -57,26 +57,23 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             NumberFormat form = NumberFormat.getCurrencyInstance(locale);
 
             if (item.getStatusPembayaran().matches("0")){
-                status = "Waiting for payment..";
+                status = context.getString(R.string.wait_pay);
                 color = Color.GRAY;
             }else if (item.getStatusPembayaran().matches("1")){
-                status = "On process...";
+                status = context.getString(R.string.proses);
                 color = Color.parseColor("#ffd600");
-            }else if (item.getStatusPembayaran().matches("2")){
-                status = "Accepted to Buruh ID";
-                color = Color.GREEN;
             }else if (item.getStatusPembayaran().matches("3")){
-                status = "Rejected! Please send clear proof of payment!";
+                status = context.getString(R.string.rejectedd);
                 color = Color.RED;
-            }
-            else{
+            }else{
                 status = "error!";
                 color = Color.RED;
             }
+
             if (item.getAnggota().matches("1")){
-                type = "Individu worker";
+                type = context.getString(R.string.individu_worker);
             }else{
-                type = "Team worker : "+item.getAnggota()+" people";
+                type = context.getString(R.string.tim_work)+item.getAnggota()+context.getString(R.string.people);
             }
 
 
@@ -93,7 +90,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             genericViewHolder.txtStatus.setText(status);
             genericViewHolder.txtType.setText(type);
             genericViewHolder.txtPrice.setText(form.format(price));
-            genericViewHolder.txtWorkU.setText("Work until");
+            genericViewHolder.txtWorkU.setText(context.getString(R.string.work_until));
             genericViewHolder.txtCode.setText(item.getCodePembayaran());
 
 

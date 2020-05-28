@@ -12,9 +12,13 @@
         android:networkSecurityConfig="@xml/configurenetwork"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".promotion.PromoActivity"
+        <activity android:name=".ui.payment.detailHistoryPayment.DetailHistoryPaymentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActBar" ></activity>
+            android:theme="@style/AppThemeNoActBar"></activity>
+        <activity
+            android:name=".promotion.PromoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
         <activity
             android:name=".notification.NotificationActivity"
             android:excludeFromRecents="true"
@@ -81,7 +85,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Main.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActBar" />

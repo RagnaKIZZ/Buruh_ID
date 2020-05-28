@@ -33,20 +33,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import ahmedt.buruhid.FirebaseMessagingService;
-import ahmedt.buruhid.MainActivity;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.make_order.MakeOrderActivity;
-import ahmedt.buruhid.modelCounter.CounterModel;
 import ahmedt.buruhid.notification.NotificationActivity;
 import ahmedt.buruhid.promotion.PromoActivity;
+import ahmedt.buruhid.ui.home.modelCounter.CounterModel;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
@@ -178,16 +175,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void setAdapter1(){
-        list.add(new WhatsNewItem("Bug Fixed", "Memperbaiki bug", R.drawable.virus));
-        list.add(new WhatsNewItem("Update Covid-19", "Info virus Indonesia", R.drawable.virus));
-        list.add(new WhatsNewItem("Bug Fixed", "Memperbaiki bug", R.drawable.virus));
+        list.add(new WhatsNewItem(getString(R.string.bugfix), getString(R.string.fix_bug), R.drawable.virus));
+        list.add(new WhatsNewItem(getString(R.string.up_virus), getString(R.string.info_virus), R.drawable.virus));
+        list.add(new WhatsNewItem(getString(R.string.bugfix), getString(R.string.fix_bug), R.drawable.virus));
         mAdapter_1.updateList(list);
     }
 
     private void setAdapter2(){
-        list2.add(new OtherItem("Secured Transaction", R.drawable.load_screen_2));
-        list2.add(new OtherItem("How to use", R.drawable.load_screen_3));
-        list2.add(new OtherItem("About us", R.drawable.logoburuh));
+        list2.add(new OtherItem(getString(R.string.secure_transc), R.drawable.load_screen_2));
+        list2.add(new OtherItem(getString(R.string.howTouse), R.drawable.load_screen_3));
+        list2.add(new OtherItem(getString(R.string.aboud_us), R.drawable.logoburuh));
         mAdapter_2.updateList(list2);
     }
 

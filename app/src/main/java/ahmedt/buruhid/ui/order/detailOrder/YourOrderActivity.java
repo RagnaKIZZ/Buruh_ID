@@ -32,8 +32,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import ahmedt.buruhid.R;
-import ahmedt.buruhid.ui.order.modelCancel.CancelModel;
 import ahmedt.buruhid.ui.order.modelOrder.DataItem;
+import ahmedt.buruhid.ui.order.modelResponOrder.ResponOrderModel;
 import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
@@ -47,6 +47,8 @@ public class YourOrderActivity extends AppCompatActivity {
     private Button btnCall, btnMessage, btnAction;
     private ImageButton btnBack;
     private ImageView imgWorker;
+    String order_id, tukang_id, code, anggota, nama, foto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,16 +81,23 @@ public class YourOrderActivity extends AppCompatActivity {
     private void callMethode(){
         Intent i = getIntent();
         final DataItem item = i.getParcelableExtra("data_item");
-        String nama = item.getNama();
+        nama = item.getNama();
         String alamat = item.getAlamat();
-        String anggota = item.getAnggota();
+        anggota = item.getAnggota();
         String status = "";
-        String foto = item.getFoto();
+        tukang_id = item.getTukangId();
+        order_id = item.getId();
+        foto = item.getFoto();
         final String telepon = item.getTelepon();
-        String code = item.getCodeOrder();
+        code = item.getCodeOrder();
         String price = "";
+        String angka_unik = item.getAngkaUnik();
         if (item.getHargaPromo().equals("0")){
-            price = item.getHarga();
+            String hargaa = item.getHarga();
+            double base_harga = Double.parseDouble(hargaa);
+            double unik = Double.parseDouble(angka_unik);
+            double hargareal = base_harga+unik;
+            price = String.valueOf(hargareal);
         }else{
             price = item.getHargaPromo();
         }
@@ -100,21 +109,21 @@ public class YourOrderActivity extends AppCompatActivity {
         int color = 0;
 
         if (anggota.matches("1")){
-            type = "Individu worker";
+            type = getString(R.string.individu_worker);
         }else{
-            type = "Team worker : "+anggota+" people";
+            type = getString(R.string.tim_work)+anggota+getString(R.string.people);
         }
 
         if (item.getStatusOrder().matches("1")){
-            status = "Waiting confirmation from worker...";
+            status = getString(R.string.wait_confirm);
             color = Color.parseColor("#ffd600");
             btnAction.setBackground(getDrawable(R.drawable.bg_cancel));
         }else if (item.getStatusOrder().matches("2")){
-            status = "Order accepted!, waiting to start job...";
+            status = getString(R.string.order_acc);
             color = Color.GREEN;
             btnAction.setBackground(getDrawable(R.drawable.bg_cancel));
         }else if (item.getStatusOrder().matches("3")){
-            status = "Working...";
+            status = getString(R.string.workinggg);
             color = Color.GREEN;
             btnAction.setBackground(getDrawable(R.drawable.bg_call));
             btnAction.setText("Finish order");
@@ -183,9 +192,9 @@ public class YourOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (item.getStatusOrder().equals("3")){
-
+                    alertOrder(item.getId(), getString(R.string.finish_order), getString(R.string.sure_finish), "2");
                 }else{
-                    cancelOrderan(item.getId());
+                    alertOrder(item.getId(), getString(R.string.cancel_order), getString(R.string.sure_cancel), "1");
                 }
             }
         });
@@ -233,9 +242,9 @@ public class YourOrderActivity extends AppCompatActivity {
             String day;
             String realTime = String.valueOf(total);
             if (totalDays > 1){
-                day = " days";
+                day = getString(R.string.days);
             }else {
-                day = " day";
+                day = getString(R.string.day);
             }
             edtTotal.setText(realTime+day);
         }catch(Exception e){
@@ -243,23 +252,32 @@ public class YourOrderActivity extends AppCompatActivity {
         }
     }
 
-    private void cancelOrder(String id){
+    private void requestOrderMethode(String url, String id, final String param){
         final KProgressHUD hud = new KProgressHUD(this);
         HelperClass.loading(hud, null, null, false);
-        AndroidNetworking.post(UrlServer.URL_CANCEL_ORDER)
+        AndroidNetworking.post(url)
                 .addBodyParameter("user_id", Prefs.getString(SessionPrefs.U_ID, ""))
                 .addBodyParameter("token_login", Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""))
                 .addBodyParameter("order_id", id)
                 .build()
-                .getAsOkHttpResponseAndObject(CancelModel.class, new OkHttpResponseAndParsedRequestListener<CancelModel>() {
+                .getAsOkHttpResponseAndObject(ResponOrderModel.class, new OkHttpResponseAndParsedRequestListener<ResponOrderModel>() {
                     @Override
-                    public void onResponse(Response okHttpResponse, CancelModel response) {
+                    public void onResponse(Response okHttpResponse, ResponOrderModel response) {
                         hud.dismiss();
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
-                                setResult(RESULT_OK);
+                                Intent i = new Intent();
+                                i.putExtra("extra", param);
+                                if (param.equals("2")){
+                                    i.putExtra("order_id", order_id);
+                                    i.putExtra("tukang_id", tukang_id);
+                                    i.putExtra("code_order", code);
+                                    i.putExtra("foto_tukang", foto);
+                                    i.putExtra("type_tukang", anggota);
+                                    i.putExtra("nama_tukang", nama);
+                                }
+                                setResult(RESULT_OK, i);
                                 finish();
-                                Toasty.success(YourOrderActivity.this, R.string.ordercancel, Toasty.LENGTH_SHORT).show();
                             }else{
                                 Toasty.warning(YourOrderActivity.this, response.getMsg(), Toasty.LENGTH_SHORT).show();
                             }
@@ -282,17 +300,21 @@ public class YourOrderActivity extends AppCompatActivity {
                 });
     }
 
-    private void cancelOrderan(final String id){
+    private void alertOrder(final String id, String title, String msg,  final String param){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setTitle(R.string.cancel_order);
-        alert.setMessage(R.string.sure_cancel)
-                .setIcon(R.drawable.ic_cancel_black_24dp)
+        alert.setTitle(title);
+        alert.setMessage(msg)
                 .setCancelable(true)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                            cancelOrder(id);
+                        if (param.equals("1")){
+                            requestOrderMethode(UrlServer.URL_CANCEL_ORDER,id, "1");
+                        }else{
+                            requestOrderMethode(UrlServer.URL_FINISH_ORDER,id, "2");
+                        }
+
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

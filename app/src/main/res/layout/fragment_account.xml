@@ -167,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:textAllCaps="false"
                             android:padding="@dimen/_5sdp"
-                            android:text="Edit Profile"/>
+                            android:text="@string/edit_profile"/>
 
                         <Button
                             android:id="@+id/btn_logout_account"

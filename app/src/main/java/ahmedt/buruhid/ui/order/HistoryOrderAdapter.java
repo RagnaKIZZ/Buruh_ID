@@ -58,9 +58,9 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
          String waktu = "";
          int color = 0;
             if (item.getAnggota().matches("1")){
-                type = "Individu worker";
+                type = context.getString(R.string.individu_worker);
             }else{
-                type = "Team worker : "+item.getAnggota()+" people";
+                type = context.getString(R.string.tim_work)+item.getAnggota()+context.getString(R.string.people);
             }
 
             if (item.getFinishDate() != null){
@@ -70,10 +70,10 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
             }
 
             if (item.getStatusOrder().matches("0")){
-                status = "Canceled!";
+                status = context.getString(R.string.canceled);
                 color = Color.RED;
             }else if (item.getStatusOrder().matches("4")){
-                status = "Finish!";
+                status = context.getString(R.string.fin);
                 color = Color.GREEN;
             }else{
                 status = "error!";

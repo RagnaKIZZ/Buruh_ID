@@ -50,7 +50,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/open_sans"/>
     </RelativeLayout>

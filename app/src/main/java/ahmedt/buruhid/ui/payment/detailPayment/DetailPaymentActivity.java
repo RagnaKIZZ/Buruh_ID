@@ -85,25 +85,25 @@ public class DetailPaymentActivity extends AppCompatActivity {
         int color = 0;
 
         if (item.getStatusPembayaran().matches("0")){
-            status = "Waiting for payment..";
+            status = getString(R.string.wait_pay);
             color = Color.GRAY;
             pay = R.string.pay;
             isClick = true;
             bg = R.drawable.bg_call;
         }else if (item.getStatusPembayaran().matches("1")){
-            status = "On process...";
+            status = getString(R.string.proses);
             color = Color.parseColor("#ffd600");
             pay = R.string.proses;
             isClick = false;
             bg = R.drawable.bg_message;
-        }else if (item.getStatusPembayaran().matches("2")){
-            status = "Accepted to workers";
+        }else if (item.getStatusPembayaran().matches("3")){
+            status = getString(R.string.rejectedd);
             color = Color.GREEN;
             pay = R.string.pay;
             bg = R.drawable.bg_call;
             isClick = true;
         }else if (item.getStatusPembayaran().matches("3")){
-            status = "Rejected! Please send clear proof of payment!";
+            status = getString(R.string.rejectedd);
             color = Color.RED;
             pay = R.string.pay;
             bg = R.drawable.bg_call;
