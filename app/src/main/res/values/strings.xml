@@ -59,6 +59,7 @@
     <string name="worng_end_date">Can\'t end work at this time!</string>
     <string name="type_of_worker">Type of worker</string>
     <string name="amount_of_worker">Amount of worker</string>
+    <string name="start_dateawto">Start date(Auto)</string>
     <string name="start_date">Start date</string>
     <string name="start_hour">Start hour</string>
     <string name="city">District/City</string>
@@ -143,5 +144,6 @@
     <string name="workuntil">Work until</string>
     <string name="call">Call</string>
     <string name="message">Message</string>
+    <string name="msg_n">The content you are looking for is not available or your connection is not stable, please refresh the page</string>
 
 </resources>

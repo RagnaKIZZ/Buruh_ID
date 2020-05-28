@@ -54,7 +54,7 @@
         <string name = "change_phone_number">Ubah nomor telepon</string>
         <string name = "change_password">Ubah kata sandi</string>
         <string name = "img">img_select</string>
-        <string name = "your_plan">Paket Anda</string>
+        <string name = "your_plan">Rencana Anda</string>
         <string name = "wrong_time">Pekerjaan hanya dapat dimulai dari pukul 08:00 hingga 15:00!</string>
         <string name = "worng_end_date">Tidak dapat berhenti bekerja saat ini!</string>
         <string name = "type_of_worker">Jenis pekerja</string>
@@ -143,4 +143,6 @@
     <string name="workuntil">Berlaku sampai</string>
     <string name="call">Panggil</string>
     <string name="message">Pesan</string>
+    <string name="msg_n">Konten yang Anda cari tidak tersedia atau koneksi Anda tidak stabil, mohon refresh page nya</string>
+    <string name="start_dateawto">Tanggal mulai(Auto)</string>
 </resources>

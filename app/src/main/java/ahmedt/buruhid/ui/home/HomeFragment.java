@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), MakeOrderActivity.class);
-                i.putExtra("type", "Individu Worker");
+                i.putExtra("type", getString(R.string.individu_worker));
                 i.putExtra("photo", R.drawable.solo_worker);
                 View shareView = imgSolo;
                 String transitionName = getString(R.string.img);
@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), MakeOrderActivity.class);
-                i.putExtra("type", "Team Worker");
+                i.putExtra("type", getString(R.string.team_worker));
                 i.putExtra("photo", R.drawable.team_worker);
                 View shareView = imgTeam;
                 String transitionName = getString(R.string.img);

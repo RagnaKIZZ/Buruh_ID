@@ -17,7 +17,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/open_sans"
         android:textSize="@dimen/_10ssp"
-        android:text="Konten yang Anda cari tidak tersedia atau koneksi Anda tidak stabil, mohon refresh page nya"/>
+        android:text="@string/msg_n"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"

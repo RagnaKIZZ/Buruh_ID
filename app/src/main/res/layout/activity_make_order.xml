@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/_12ssp"
                             android:fontFamily="@font/open_sans"
-                            android:hint="@string/start_date"
+                            android:hint="@string/start_dateawto"
                             android:inputType="none" />
                     </com.google.android.material.textfield.TextInputLayout>
 

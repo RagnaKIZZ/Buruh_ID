@@ -135,7 +135,7 @@ public class MakeOrderActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         type = i.getStringExtra("type");
-        if (type.matches("Individu Worker")){
+        if (type.matches(getString(R.string.individu_worker))){
             lnCounter.setVisibility(View.GONE);
         }else {
             counter = 3;
