@@ -22,6 +22,7 @@ import java.util.Random;
 import ahmedt.buruhid.notification.NotificationActivity;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
+    private static final String TAG = "FirebaseMessagingServic";
     public static final String INFO_UPDATE = "info_update";
     public static final String INFO_PEMBAYARAN = "info_pembayaran";
 
@@ -31,13 +32,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         Context c = this;
         showNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"));
         Intent intent;
-        if (remoteMessage.getData().get("title").toLowerCase().contains("payment")){
-            intent = new Intent(INFO_PEMBAYARAN);
-            intent.putExtra(INFO_PEMBAYARAN, "2");
-        }else{
             intent = new Intent(INFO_UPDATE);
             intent.putExtra(INFO_UPDATE, "1");
-        }
+
+        Log.d(TAG, "onMessageReceived: "+remoteMessage.getData().get("title"));
 
         LocalBroadcastManager.getInstance(c).sendBroadcast(intent);
     }

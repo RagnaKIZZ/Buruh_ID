@@ -145,4 +145,15 @@
     <string name="message">Pesan</string>
     <string name="msg_n">Konten yang Anda cari tidak tersedia atau koneksi Anda tidak stabil, mohon refresh page nya</string>
     <string name="start_dateawto">Tanggal mulai(Auto)</string>
+    <string name="terkonfirmasi">Terkonfirmasi</string>
+    <string name="sembuh">Sembuh</string>
+    <string name="dalam_perawatan">Dalam perawatan</string>
+    <string name="meninggal">Meninggal</string>
+    <string name="cucitangan">Cuci Tangan</string>
+    <string name="tetapdirumah">Tetap Dirumah</string>
+    <string name="pakaimasker">Pakai Masker</string>
+    <string name="socialdistancing">Jaga Jarak</string>
+    <string name="jagakebersihan">Jaga Kebersihan</string>
+    <string name="hindariberkumpul">Hindari Berkumpul</string>
+    <string name="covidd">Covid-19</string>
 </resources>

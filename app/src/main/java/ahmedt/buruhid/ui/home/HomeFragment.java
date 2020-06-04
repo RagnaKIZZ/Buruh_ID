@@ -43,6 +43,7 @@ import ahmedt.buruhid.R;
 import ahmedt.buruhid.make_order.MakeOrderActivity;
 import ahmedt.buruhid.notification.NotificationActivity;
 import ahmedt.buruhid.promotion.PromoActivity;
+import ahmedt.buruhid.ui.home.corona.CovidActivity;
 import ahmedt.buruhid.ui.home.modelCounter.CounterModel;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
@@ -104,7 +105,9 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setAdapter1();
         setAdapter2();
-        getCount(true);
+        if (Prefs.getString(SessionPrefs.isLogin, "").isEmpty()){
+            getCount(true);
+        }
     }
 
     private void findView(View view){
@@ -125,7 +128,11 @@ public class HomeFragment extends Fragment {
         mAdapter_1.SetOnItemClickListener(new WhatsNewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, WhatsNewItem model) {
-                Toast.makeText(getActivity(), model.getTitle(), Toast.LENGTH_SHORT).show();
+                if (position == 1){
+                    startActivity(new Intent(getActivity(), CovidActivity.class));
+                }else{
+                    Toast.makeText(getActivity(), model.getTitle(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -312,7 +319,7 @@ public class HomeFragment extends Fragment {
                                 setupBadgeNotif();
                                 setupBadgePromo();
                                 if (notif){
-                                    if (response.getCountNotif() > 0){
+                                    if (response.getCountNotif() > 0 && txtBadgeNotif.getVisibility() != View.VISIBLE){
                                         for (int i = 0; i < response.getData().size(); i++) {
                                             showNotification(response.getData().get(i).getTitle(), response.getData().get(i).getMessage());
                                         }

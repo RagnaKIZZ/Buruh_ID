@@ -3,6 +3,7 @@ package ahmedt.buruhid.utils;
 public class UrlServer {
 
     public static String BASE_URL = "https://buruhidd.000webhostapp.com/";
+    public static String URL_COVID = "https://indonesia-covid-19.mathdro.id/api";
 
     public static String URL_REGISTER               = BASE_URL+"user/register_customer";
     public static String URL_LOGIN                  = BASE_URL+"user/login_customer";

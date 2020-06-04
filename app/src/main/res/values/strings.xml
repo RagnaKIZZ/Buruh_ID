@@ -145,5 +145,16 @@
     <string name="call">Call</string>
     <string name="message">Message</string>
     <string name="msg_n">The content you are looking for is not available or your connection is not stable, please refresh the page</string>
+    <string name="terkonfirmasi">Confirmed</string>
+    <string name="sembuh">Recover</string>
+    <string name="dalam_perawatan">In care</string>
+    <string name="meninggal">Died</string>
+    <string name="cucitangan">Hand Wash</string>
+    <string name="tetapdirumah">Stay at Home</string>
+    <string name="pakaimasker">Wear the Mask</string>
+    <string name="socialdistancing">Keep Distance</string>
+    <string name="jagakebersihan">Keep Clean</string>
+    <string name="hindariberkumpul">Avoid Gathering</string>
+    <string name="covidd">Covid-19</string>
 
 </resources>

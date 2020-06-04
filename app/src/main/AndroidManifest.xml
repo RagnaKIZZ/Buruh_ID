@@ -12,9 +12,16 @@
         android:networkSecurityConfig="@xml/configurenetwork"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.payment.detailHistoryPayment.DetailHistoryPaymentActivity"
+        <activity android:name=".ui.home.about.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActBar"></activity>
+        <activity android:name=".ui.home.corona.CovidActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar"/>
+        <activity
+            android:name=".ui.payment.detailHistoryPayment.DetailHistoryPaymentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
         <activity
             android:name=".promotion.PromoActivity"
             android:screenOrientation="portrait"
