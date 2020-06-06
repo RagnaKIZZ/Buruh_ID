@@ -3,21 +3,48 @@
     package="ahmedt.buruhid">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".BuruhID"
         android:allowBackup="true"
-        android:icon="@drawable/icon_logo"
+        android:icon="@drawable/launcherrectangle"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/configurenetwork"
+        android:roundIcon="@drawable/launcherrounded"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.about.AboutActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActBar"></activity>
-        <activity android:name=".ui.home.corona.CovidActivity"
+        <activity android:name=".ui.home.survery.SurveyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActBar"/>
+        <activity
+            android:name=".make_order.howtotrans.HowToTransActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
+        <activity
+            android:name=".ui.payment.help.HelpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
+        <activity
+            android:name=".ui.home.howtouse.HowToActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
+        <activity
+            android:name=".ui.home.wnew.WNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
+        <activity
+            android:name=".ui.home.securetrans.SecureTransActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
+        <activity
+            android:name=".ui.home.about.AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
+        <activity
+            android:name=".ui.home.corona.CovidActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActBar" />
         <activity
             android:name=".ui.payment.detailHistoryPayment.DetailHistoryPaymentActivity"
             android:screenOrientation="portrait"

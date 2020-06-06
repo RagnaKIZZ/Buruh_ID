@@ -46,8 +46,6 @@ public class WhatsNewAdapter extends RecyclerView.Adapter<WhatsNewAdapter.ViewHo
             final WhatsNewItem item = getItem(position);
             ViewHolder genericViewHolder = (ViewHolder) holder;
 
-            genericViewHolder.txtTitle.setText(item.getTitle());
-            genericViewHolder.txtDesc.setText(item.getDesc());
             genericViewHolder.imgConten.setImageResource(item.getPhoto());
 
         }
@@ -74,8 +72,6 @@ public class WhatsNewAdapter extends RecyclerView.Adapter<WhatsNewAdapter.ViewHo
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
-            this.txtTitle = (TextView) itemView.findViewById(R.id.txt_title_item_whats_new);
-            this.txtDesc = (TextView) itemView.findViewById(R.id.txt_desc_whats_new);
             this.imgConten = (ImageView) itemView.findViewById(R.id.img_whats_new);
 
            itemView.setOnClickListener(new View.OnClickListener() {

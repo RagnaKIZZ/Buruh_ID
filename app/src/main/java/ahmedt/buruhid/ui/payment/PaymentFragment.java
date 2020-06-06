@@ -8,9 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,9 +32,9 @@ import ahmedt.buruhid.ui.payment.detailHistoryPayment.DetailHistoryPaymentActivi
 import ahmedt.buruhid.ui.payment.detailPayment.DetailPaymentActivity;
 import ahmedt.buruhid.ui.payment.modelPayment.DataItem;
 import ahmedt.buruhid.ui.payment.modelPayment.PaymentModel;
+import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
-import es.dmoral.toasty.Toasty;
 import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
@@ -45,12 +46,16 @@ public class PaymentFragment extends Fragment {
     private ArrayList<DataItem> list2 = new ArrayList<>();
     private BillAdapter adapter;
     private ProgressBar progressBar;
-    private LinearLayout lay_in;
+    private LinearLayout lay_include;
     private FloatingActionButton btnRefresh;
     private HistoryPaymentAdapter adapter2;
+    private TextView txtMsg;
+    private ImageView imgMsg;
     String id = Prefs.getString(SessionPrefs.U_ID, "");
     String token = Prefs.getString(SessionPrefs.TOKEN_LOGIN, "");
     int param;
+    int param_bill;
+    int param_history;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -82,7 +87,7 @@ public class PaymentFragment extends Fragment {
                             if (response.getCode() == 200){
                                 list2.clear();
                                 if (param == 2){
-                                    lay_in.setVisibility(View.GONE);
+                                    lay_include.setVisibility(View.GONE);
                                 }
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem items = new DataItem();
@@ -100,8 +105,9 @@ public class PaymentFragment extends Fragment {
                                 }
                                 adapter2.updateList(list2);
                             }else{
+                                param_history = 3;
                                 if (param == 2){
-                                    lay_in.setVisibility(View.GONE);
+                                    HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
                                 }
 //                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
@@ -111,15 +117,20 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        lay_in.setVisibility(View.VISIBLE);
                         if (anError.getErrorCode() != 0){
+                            param_history = 1;
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
-                            Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                            if (param == 2){
+                                HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
+                            }
                         }else{
+                            param_history = 2;
                             Log.d("ERR", "onError: "+anError.getErrorCode());
                             Log.d("ERR", "onError: "+anError.getErrorBody());
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
-                            Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                            if (param == 2){
+                                HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
+                            }
                         }
                     }
                 });
@@ -139,7 +150,9 @@ public class PaymentFragment extends Fragment {
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 list.clear();
-                                lay_in.setVisibility(View.GONE);
+                                if (param == 1){
+                                    lay_include.setVisibility(View.GONE);
+                                }
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem items = new DataItem();
                                     items.setId(response.getData().get(i).getId());
@@ -156,7 +169,10 @@ public class PaymentFragment extends Fragment {
                                 }
                                 adapter.updateList(list);
                             }else{
-                                lay_in.setVisibility(View.VISIBLE);
+                                param_bill = 3;
+                                if (param == 1){
+                                    HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                                }
 //                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
                         }
@@ -165,15 +181,21 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        lay_in.setVisibility(View.VISIBLE);
+                        lay_include.setVisibility(View.VISIBLE);
                         if (anError.getErrorCode() != 0){
+                            param_bill = 1;
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
-                            Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                            if (param == 1){
+                                HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
+                            }
                         }else{
+                            param_bill = 2;
                             Log.d("ERR", "onError: "+anError.getErrorCode());
                             Log.d("ERR", "onError: "+anError.getErrorBody());
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
-                            Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                            if (param == 1){
+                                HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
+                            }
                         }
                     }
                 });
@@ -184,8 +206,10 @@ public class PaymentFragment extends Fragment {
         btnHistory = view.findViewById(R.id.btn_history_payment);
         recyclerView = view.findViewById(R.id.rc_payment);
         progressBar = view.findViewById(R.id.progress_bar);
-        lay_in =  view.findViewById(R.id.include_lay);
-        lay_in.setVisibility(View.GONE);
+        lay_include =  view.findViewById(R.id.include_lay);
+        imgMsg = view.findViewById(R.id.img_message);
+        txtMsg = view.findViewById(R.id.txt_msg);
+        lay_include.setVisibility(View.GONE);
         btnRefresh = view.findViewById(R.id.floatingActionButton);
         recyclerView.setHasFixedSize(true);
         adapter = new BillAdapter(getActivity(), list);
@@ -197,10 +221,18 @@ public class PaymentFragment extends Fragment {
         btnBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lay_in.setVisibility(View.GONE);
+                lay_include.setVisibility(View.GONE);
                 param = 1;
                 if (list.isEmpty()){
-                    lay_in.setVisibility(View.VISIBLE);
+                    if (lay_include.getVisibility() == View.GONE){
+                        if (param_bill == 1){
+                            HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
+                        }else if (param_bill == 2){
+                            HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
+                        }else if (param_bill == 3){
+                            HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                        }
+                    }
                 }
                 btnBill.setTextColor(Color.WHITE);
                 btnHistory.setTextColor(Color.BLACK);
@@ -213,10 +245,18 @@ public class PaymentFragment extends Fragment {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lay_in.setVisibility(View.GONE);
+                lay_include.setVisibility(View.GONE);
                 param = 2;
                 if (list2.isEmpty()){
-                    lay_in.setVisibility(View.VISIBLE);
+                    if (lay_include.getVisibility() == View.GONE){
+                        if (param_history == 1){
+                            HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
+                        }else if (param_history == 2){
+                            HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
+                        }else if (param_history == 3){
+                            HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                        }
+                    }
                 }
                 btnBill.setTextColor(Color.BLACK);
                 btnHistory.setTextColor(Color.WHITE);
@@ -249,12 +289,12 @@ public class PaymentFragment extends Fragment {
             public void onClick(View v) {
                 switch (param){
                     case 1:
-                        lay_in.setVisibility(View.GONE);
+                        lay_include.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
                         setAdapter(id, token, String.valueOf(1));
                         break;
                     case 2:
-                        lay_in.setVisibility(View.GONE);
+                        lay_include.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
                         setAdapter2(id, token, String.valueOf(1));
                         break;

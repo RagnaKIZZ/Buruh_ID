@@ -32,6 +32,7 @@ import java.util.Locale;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.payment.detailPayment.modelPay.PayModel;
+import ahmedt.buruhid.ui.payment.help.HelpActivity;
 import ahmedt.buruhid.ui.payment.modelPayment.DataItem;
 import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
@@ -150,7 +151,7 @@ public class DetailPaymentActivity extends AppCompatActivity {
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailPaymentActivity.this, "Help", Toast.LENGTH_SHORT).show();
+               startActivity(new Intent(DetailPaymentActivity.this, HelpActivity.class));
             }
         });
 

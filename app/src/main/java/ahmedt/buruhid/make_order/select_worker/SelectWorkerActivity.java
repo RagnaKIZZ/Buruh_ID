@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,9 +25,9 @@ import java.util.ArrayList;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.make_order.select_worker.modelWorker.DataItem;
 import ahmedt.buruhid.make_order.select_worker.modelWorker.SelectModel;
+import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
-import es.dmoral.toasty.Toasty;
 import okhttp3.Response;
 
 public class SelectWorkerActivity extends AppCompatActivity {
@@ -38,9 +40,11 @@ public class SelectWorkerActivity extends AppCompatActivity {
     public static final String ID_TUKANG = "id_tukang";
     private ProgressBar progressBar;
     private ImageButton btnBack;
+    private ImageView imgMsg;
+    private TextView txtMsg;
     private RecyclerView rvSelectWorker;
     private SelectWorkerAdapter mAdapter;
-    private LinearLayout ln_include;
+    private LinearLayout lay_include;
     private FloatingActionButton btnRefesh;
     private ArrayList<DataItem> list = new ArrayList<>();
 
@@ -53,12 +57,14 @@ public class SelectWorkerActivity extends AppCompatActivity {
     }
 
     private void findView(){
+        txtMsg = findViewById(R.id.txt_msg);
+        imgMsg = findViewById(R.id.img_message);
         rvSelectWorker = findViewById(R.id.rv_select_worker);
         btnBack = findViewById(R.id.btn_select_worker_back);
         progressBar = findViewById(R.id.progress_bar);
-        ln_include = findViewById(R.id.include_lay);
+        lay_include = findViewById(R.id.include_lay);
         btnRefesh = findViewById(R.id.floatingActionButton);
-        ln_include.setVisibility(View.GONE);
+        lay_include.setVisibility(View.GONE);
         mAdapter = new SelectWorkerAdapter(SelectWorkerActivity.this, list);
         rvSelectWorker.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SelectWorkerActivity.this);
@@ -78,6 +84,8 @@ public class SelectWorkerActivity extends AppCompatActivity {
         btnRefesh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                lay_include.setVisibility(View.GONE);
                 setAdapter(kota, kec, jumlahAnggota, String.valueOf(1));
             }
         });
@@ -99,7 +107,7 @@ public class SelectWorkerActivity extends AppCompatActivity {
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 list.clear();
-                                ln_include.setVisibility(View.GONE);
+                                lay_include.setVisibility(View.GONE);
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem items = new DataItem();
                                     items.setNama(response.getData().get(i).getNama());
@@ -126,7 +134,7 @@ public class SelectWorkerActivity extends AppCompatActivity {
                                     }
                                 });
                             }else{
-                                ln_include.setVisibility(View.VISIBLE);
+                                HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blmadamitra));
 //                                Toasty.warning(SelectWorkerActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
                         }
@@ -135,9 +143,15 @@ public class SelectWorkerActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        ln_include.setVisibility(View.VISIBLE);
-                        Log.d(TAG, "onError: "+anError.getErrorDetail());
-                        Toasty.error(SelectWorkerActivity.this, R.string.cek_internet, Toasty.LENGTH_SHORT).show();
+                        if (anError.getErrorCode() != 0){
+                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                            HelperClass.serverError(SelectWorkerActivity.this, lay_include, imgMsg, txtMsg);
+                        }else{
+                            Log.d("ERR", "onError: "+anError.getErrorCode());
+                            Log.d("ERR", "onError: "+anError.getErrorBody());
+                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                            HelperClass.InetError(SelectWorkerActivity.this, lay_include, imgMsg, txtMsg);
+                        }
                     }
                 });
 

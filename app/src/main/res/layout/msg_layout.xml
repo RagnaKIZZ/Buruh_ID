@@ -10,8 +10,9 @@
         android:id="@+id/img_message"
         android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_150sdp"
-        android:src="@drawable/message_img"/>
+        android:src="@drawable/noworker"/>
     <TextView
+        android:id="@+id/txt_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"

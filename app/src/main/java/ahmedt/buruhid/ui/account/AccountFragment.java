@@ -201,7 +201,7 @@ public class AccountFragment extends Fragment {
                             hud.dismiss();
                             if (okHttpResponse.isSuccessful()){
                                 if (response.getCode() == 200){
-                                    Toasty.success(getActivity(),R.string.suc_logout, Toast.LENGTH_SHORT, true).show();
+//                                    Toasty.success(getActivity(),R.string.suc_logout, Toast.LENGTH_SHORT, true).show();
                                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_HISTORY);
                                     Prefs.clear();

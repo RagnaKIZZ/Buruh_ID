@@ -173,18 +173,28 @@ public class YourOrderActivity extends AppCompatActivity {
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telepon, null));
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telepon, null));
+                    startActivity(intent);
+                }catch (Exception e){
+                    Log.d(TAG, "onClick: openmessage"+e.getMessage());
+                    Toasty.error(YourOrderActivity.this, e.getMessage()).show();
+                }
             }
         });
 
         btnMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setType("vnd.android-dir/mms-sms");
-                intent.putExtra("address", telepon);
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("smsto:"+telepon));
+                    startActivity(intent);
+                }catch (Exception e){
+                    Log.d(TAG, "onClick: openmessage"+e.getMessage());
+                    Toasty.error(YourOrderActivity.this, e.getMessage()).show();
+                }
+
             }
         });
 

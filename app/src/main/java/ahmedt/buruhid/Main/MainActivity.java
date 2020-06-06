@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         Prefs.putInt(SessionPrefs.YEAR, calendar.get(Calendar.YEAR));
         Prefs.putInt(SessionPrefs.MONTH, calendar.get(Calendar.MONTH));
         Prefs.putInt(SessionPrefs.DATE, calendar.get(Calendar.DAY_OF_MONTH));
-        Prefs.putString(SessionPrefs.isLogin, "1");
         Toolbar toolbar = findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");

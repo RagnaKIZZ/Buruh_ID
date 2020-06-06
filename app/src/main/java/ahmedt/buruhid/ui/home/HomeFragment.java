@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -43,8 +44,13 @@ import ahmedt.buruhid.R;
 import ahmedt.buruhid.make_order.MakeOrderActivity;
 import ahmedt.buruhid.notification.NotificationActivity;
 import ahmedt.buruhid.promotion.PromoActivity;
+import ahmedt.buruhid.ui.home.about.AboutActivity;
 import ahmedt.buruhid.ui.home.corona.CovidActivity;
+import ahmedt.buruhid.ui.home.howtouse.HowToActivity;
 import ahmedt.buruhid.ui.home.modelCounter.CounterModel;
+import ahmedt.buruhid.ui.home.securetrans.SecureTransActivity;
+import ahmedt.buruhid.ui.home.survery.SurveyActivity;
+import ahmedt.buruhid.ui.home.wnew.WNewActivity;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
@@ -57,6 +63,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView rc_WN, rc_Other;
     private WhatsNewAdapter mAdapter_1;
     private OtherAdapter mAdapter_2;
+    private CardView cvSurvey;
     private ArrayList<WhatsNewItem> list = new ArrayList<>();
     private ArrayList<OtherItem> list2 = new ArrayList<>();
     private ImageView imgSolo, imgTeam;
@@ -89,14 +96,8 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateBadge, new IntentFilter(FirebaseMessagingService.INFO_UPDATE));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(updateBadge);
     }
 
@@ -105,8 +106,10 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setAdapter1();
         setAdapter2();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateBadge, new IntentFilter(FirebaseMessagingService.INFO_UPDATE));
         if (Prefs.getString(SessionPrefs.isLogin, "").isEmpty()){
             getCount(true);
+            Prefs.putString(SessionPrefs.isLogin, "1");
         }
     }
 
@@ -114,6 +117,7 @@ public class HomeFragment extends Fragment {
         imgSolo = view.findViewById(R.id.img_solo);
         imgTeam = view.findViewById(R.id.img_team);
         rc_WN = view.findViewById(R.id.rc_whats_new);
+        cvSurvey = view.findViewById(R.id.cv_survey);
         rc_Other = view.findViewById(R.id.rc_other_content);
         mAdapter_1 = new WhatsNewAdapter(getActivity(), list);
         mAdapter_2 = new OtherAdapter(getActivity(), list2);
@@ -125,13 +129,30 @@ public class HomeFragment extends Fragment {
         rc_Other.setLayoutManager(linearLayoutManager1);
         rc_WN.setAdapter(mAdapter_1);
         rc_Other.setAdapter(mAdapter_2);
+        Log.d(TAG, "findView: "+Prefs.getInt(SessionPrefs.NOTIF_COUNT, 0));
+        Log.d(TAG, "findView: "+countNotif);
+        if (Prefs.getInt(SessionPrefs.NOTIF_COUNT, 0) > 0){
+            countNotif = Prefs.getInt(SessionPrefs.NOTIF_COUNT, 0);
+        }
+        cvSurvey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SurveyActivity.class));
+            }
+        });
         mAdapter_1.SetOnItemClickListener(new WhatsNewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, WhatsNewItem model) {
-                if (position == 1){
-                    startActivity(new Intent(getActivity(), CovidActivity.class));
-                }else{
-                    Toast.makeText(getActivity(), model.getTitle(), Toast.LENGTH_SHORT).show();
+                switch (position){
+                    case 0:
+                        startActivity(new Intent(getActivity(), WNewActivity.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent(getActivity(), CovidActivity.class));
+                        break;
+                    case 2:
+                        startActivity(new Intent(getActivity(), PromoActivity.class));
+                        break;
                 }
             }
         });
@@ -139,7 +160,18 @@ public class HomeFragment extends Fragment {
         mAdapter_2.SetOnItemClickListener(new OtherAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, OtherItem model) {
-                Toast.makeText(getActivity(), model.getTitle(), Toast.LENGTH_SHORT).show();
+                switch (position){
+                    case 0:
+                        startActivity(new Intent(getActivity(), SecureTransActivity.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent(getActivity(), HowToActivity.class));
+                        break;
+                    case 2:
+                        startActivity(new Intent(getActivity(), AboutActivity.class));
+                        break;
+
+                }
             }
         });
 
@@ -178,20 +210,21 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
     }
 
     private void setAdapter1(){
-        list.add(new WhatsNewItem(getString(R.string.bugfix), getString(R.string.fix_bug), R.drawable.virus));
-        list.add(new WhatsNewItem(getString(R.string.up_virus), getString(R.string.info_virus), R.drawable.virus));
-        list.add(new WhatsNewItem(getString(R.string.bugfix), getString(R.string.fix_bug), R.drawable.virus));
+        list.clear();
+        list.add(new WhatsNewItem(R.drawable.whatsnew));
+        list.add(new WhatsNewItem(R.drawable.covid));
+        list.add(new WhatsNewItem(R.drawable.kodepromo));
         mAdapter_1.updateList(list);
     }
 
     private void setAdapter2(){
-        list2.add(new OtherItem(getString(R.string.secure_transc), R.drawable.load_screen_2));
+        list2.clear();
+        list2.add(new OtherItem(getString(R.string.secure_transc), R.drawable.securetrans));
         list2.add(new OtherItem(getString(R.string.howTouse), R.drawable.load_screen_3));
-        list2.add(new OtherItem(getString(R.string.aboud_us), R.drawable.logoburuh));
+        list2.add(new OtherItem(getString(R.string.aboud_us), R.drawable.launcherrounded));
         mAdapter_2.updateList(list2);
     }
 
@@ -200,24 +233,15 @@ public class HomeFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_home, menu);
         final MenuItem notifItem = menu.findItem(R.id.home_notification);
-        final MenuItem promoItem = menu.findItem(R.id.home_promotion);
         View actionNotif = notifItem.getActionView();
-        View actionPromo = promoItem.getActionView();
         txtBadgeNotif = (TextView) actionNotif.findViewById(R.id.notif_badge);
-        txtBadgePromo = (TextView) actionPromo.findViewById(R.id.promo_badge);
         actionNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOptionsItemSelected(notifItem);
             }
         });
-
-        actionPromo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onOptionsItemSelected(promoItem);
-            }
-        });
+        setupBadgeNotif();
         super.onCreateOptionsMenu(menu, inflater);
 
     }
@@ -228,9 +252,6 @@ public class HomeFragment extends Fragment {
             case R.id.home_notification:
                 startActivityForResult(new Intent(getActivity(), NotificationActivity.class), 1);
                 return true;
-            case R.id.home_promotion:
-                startActivityForResult(new Intent(getActivity(), PromoActivity.class), 2);
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -240,9 +261,8 @@ public class HomeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
             if (requestCode == 1){
+                countNotif = 0;
                 txtBadgeNotif.setVisibility(View.GONE);
-            }else if (requestCode == 2){
-                txtBadgePromo.setVisibility(View.GONE);
             }
         }
     }
@@ -257,21 +277,6 @@ public class HomeFragment extends Fragment {
                 txtBadgeNotif.setText(String.valueOf(Math.min(countNotif, 99)));
                 if (txtBadgeNotif.getVisibility() != View.VISIBLE){
                     txtBadgeNotif.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-    }
-
-    private void setupBadgePromo(){
-        if (txtBadgePromo != null){
-            if (countPromo == 0){
-                if (txtBadgePromo.getVisibility() != View.GONE){
-                    txtBadgePromo.setVisibility(View.GONE);
-                }
-            }else{
-                txtBadgePromo.setText(String.valueOf(Math.min(countPromo, 99)));
-                if (txtBadgePromo.getVisibility() != View.VISIBLE){
-                    txtBadgePromo.setVisibility(View.VISIBLE);
                 }
             }
         }
@@ -314,10 +319,11 @@ public class HomeFragment extends Fragment {
                     public void onResponse(Response okHttpResponse, CounterModel response) {
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
+                                Log.d(TAG, "onResponse: "+response.getCountNotif());
                                 countNotif = response.getCountNotif();
+                                Prefs.putInt(SessionPrefs.NOTIF_COUNT, response.getCountNotif());
                                 countPromo = response.getCountPromo();
                                 setupBadgeNotif();
-                                setupBadgePromo();
                                 if (notif){
                                     if (response.getCountNotif() > 0 && txtBadgeNotif.getVisibility() != View.VISIBLE){
                                         for (int i = 0; i < response.getData().size(); i++) {

@@ -57,10 +57,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
-            android:hint="Comment"
+            android:gravity="start"
+            android:hint="@string/comment"
             android:lines="3"
             android:maxLines="5"
-            android:maxLength="255"
             android:textSize="@dimen/_12ssp"
             android:inputType="text|textMultiLine"
             android:imeOptions="actionDone"/>

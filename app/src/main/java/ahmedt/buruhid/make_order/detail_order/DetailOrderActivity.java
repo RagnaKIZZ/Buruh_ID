@@ -31,6 +31,7 @@ import ahmedt.buruhid.R;
 import ahmedt.buruhid.make_order.OrderDoneActivity;
 import ahmedt.buruhid.make_order.detail_order.model.MakeOrderModel;
 import ahmedt.buruhid.make_order.detail_order.model.PromoModel;
+import ahmedt.buruhid.make_order.howtotrans.HowToTransActivity;
 import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
@@ -42,7 +43,7 @@ public class DetailOrderActivity extends AppCompatActivity {
     private TextInputEditText edtType, edtCount, edtStartDate, edtEndDate, edtStartHour,
     edtTotalDays, edtCity, edtAddress, edtNameWorker, edtJobdesk, edtPromo;
     private TextInputLayout txtPromo;
-    private TextView txtTotalPayment, txtNamePromo, txtIsiPromo, txtMinPromo, txtAfterPromo, txtBefore;
+    private TextView txtTotalPayment, txtNamePromo, txtIsiPromo, txtMinPromo, txtAfterPromo, txtBefore, txtHowTrans;
     private ImageButton btnBack;
     private LinearLayout ln_after;
     private CardView cv_promo;
@@ -68,6 +69,7 @@ public class DetailOrderActivity extends AppCompatActivity {
     }
 
     private void findView(){
+        txtHowTrans = findViewById(R.id.txt_how_to_trans);
         edtType = findViewById(R.id.edt_detail_type);
         edtCount = findViewById(R.id.edt_detail_count_worker);
         edtStartDate = findViewById(R.id.edt_detail_startdate);
@@ -189,6 +191,13 @@ public class DetailOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPayment), String.valueOf(totalafter), String.valueOf(select),id_promo);
+            }
+        });
+
+        txtHowTrans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DetailOrderActivity.this, HowToTransActivity.class));
             }
         });
 

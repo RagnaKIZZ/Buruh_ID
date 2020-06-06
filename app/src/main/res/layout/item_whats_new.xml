@@ -11,49 +11,55 @@
     android:layout_margin="@dimen/_5sdp"
     android:elevation="@dimen/_5sdp">
 
-    <RelativeLayout
-        android:background="@drawable/bg_whats_new"
+<!--    <RelativeLayout-->
+<!--        android:background="@drawable/bg_whats_new"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <TextView-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:id="@+id/txt_title_item_whats_new"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:text="Update Covid-19"-->
+<!--            android:layout_toLeftOf="@+id/img_whats_new"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:fontFamily="@font/open_sans"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="@dimen/_10ssp"-->
+<!--            android:layout_marginStart="@dimen/_15sdp"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txt_desc_whats_new"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:text="Info Virus Indonesia"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:fontFamily="@font/open_sans"-->
+<!--            android:layout_below="@+id/txt_title_item_whats_new"-->
+<!--            android:textSize="@dimen/_9ssp"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_toLeftOf="@+id/img_whats_new"-->
+<!--            android:layout_marginStart="@dimen/_15sdp" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/img_whats_new"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_width="@dimen/_100sdp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginEnd="@dimen/_15sdp"-->
+<!--            android:layout_marginTop="@dimen/_5sdp"-->
+<!--            android:layout_marginBottom="@dimen/_5sdp"-->
+<!--            tools:src="@drawable/virus"/>-->
+
+<!--    </RelativeLayout>-->
+    <ImageView
+        android:id="@+id/img_whats_new"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/txt_title_item_whats_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Update Covid-19"
-            android:layout_toLeftOf="@+id/img_whats_new"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/open_sans"
-            android:textStyle="bold"
-            android:textSize="@dimen/_10ssp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"/>
-
-        <TextView
-            android:id="@+id/txt_desc_whats_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Info Virus Indonesia"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/open_sans"
-            android:layout_below="@+id/txt_title_item_whats_new"
-            android:textSize="@dimen/_9ssp"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/img_whats_new"
-            android:layout_marginStart="@dimen/_15sdp" />
-
-        <ImageView
-            android:id="@+id/img_whats_new"
-            android:layout_alignParentEnd="true"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            tools:src="@drawable/virus"/>
-
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        tools:src="@drawable/whatsnew"
+        android:scaleType="fitXY"/>
 
 </androidx.cardview.widget.CardView>

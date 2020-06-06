@@ -156,5 +156,33 @@
     <string name="jagakebersihan">Keep Clean</string>
     <string name="hindariberkumpul">Avoid Gathering</string>
     <string name="covidd">Covid-19</string>
-
+    <string name="servererrorr">Server error, please refresh page!</string>
+    <string name="nointernett">Connection lost, please refresh page!</string>
+    <string name="blm_order">You have not placed an order at all, let\'s start your project!</string>
+    <string name="blmnotif">No notifications yet, let\'s start your project!</string>
+    <string name="blmpromo">No promos yet, wait for the prom!</string>
+    <string name="blmadamitra">Well, I\'m sorry your area doesn\'t have any of our partners</string>
+    <string name="desc_about">is a platform made by the children of the nation that is devoted to making it easier for construction workers to find work and to make it easier for people to find the best workers for their projects </string>
+    <string name="call_us">Call us</string>
+    <string name="desc_wnew"> 1. Update notification feature \n2.Add 2 languages \n3. Bug fix </string>
+    <string name="desc_secure"> The security of your data against us is guaranteed, your personal data will be kept confidential whether it is personal data or transaction data, but we can continue to provide and store that data both for evidence for future related cases </string>
+    <string name="v1">version 1.0.0</string>
+    <string name="ht1_desc">Enter the Buruh Id application and select the workers you need, individuals for individuals and teams for more than 1 person </string>
+    <string name="ht2_desc">Fill in the data, the number of workers you need and select the workers you want, also fill in the job description. </string>
+    <string name="ht3_desc">Select the worker you want </string>
+    <string name="ht4_desc">When finished, press the make order button </string>
+    <string name="ht5_desc">Check your order again, if everything is correct, press the complete button </string>
+    <string name="ht6_desc">After the order has been made, wait for confirmation from our workers. </string>
+    <string name="ht7_desc">When your order has reached our workers, you will receive a notification from us, if the order is received, check into the payment menu and immediately make a payment </string>
+    <string name="ht8_desc">After making a payment, upload your proof of payment immediately and press the payment button, DONE !!! congratulations you have successfully placed an order. </string>
+    <string name="ht9_desc">You can continue to check the status of your order on the order page </string>
+    <string name="any_question">Any question?</string>
+    <string name="transfer_to_bank_account">Transfer to Bank Account:</string>
+    <string name="how_to_transfer">How to transfer</string>
+    <string name="tutor_transs"> 1. Insert your ATM card and PIN \n2. Select the transfer menu to another bank \n3. Choose transfer to Bank BRI \n4. Enter No. account \n5. Enter the transfer amount \n6. Verify the transfer amount and No. account as per \n7. Transfer money, and upload proof of transfer to the application </string>
+    <string name="comment">Comment</string>
+    <string name="thanks">Thank you for giving us advice</string>
+    <string name="your_message">Your message...</string>
+    <string name = "kritik_dan_saran"> Criticism and suggestions </string>
+    <string name = "title_respon"> How satisfied are you with the system and the Buruh Id application? </string>
 </resources>

@@ -233,6 +233,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_detail_address"
                         android:layout_width="match_parent"
+                        android:gravity="start"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/open_sans"
                         android:focusable="false"
@@ -277,6 +278,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/open_sans"
                         android:hint="@string/job_description"
+                        android:gravity="start"
                         android:enabled="false"
                         android:focusable="false"
                         android:lines="3"
@@ -381,6 +383,22 @@
                             android:textColor="@android:color/white" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/txt_how_to_trans"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="@string/how_to_transfer"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:drawableEnd="@drawable/ic_help_outline_gray"
+                    android:textColor="@android:color/darker_gray"
+                    android:textAlignment="textEnd"/>
 
                 <TextView
                     android:layout_marginStart="@dimen/_20sdp"

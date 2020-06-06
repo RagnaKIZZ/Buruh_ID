@@ -8,14 +8,16 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_prevention"
         tools:src="@drawable/img1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:scaleType="centerCrop"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"/>
     <TextView
         android:id="@+id/txt_preventation"
         android:layout_marginTop="@dimen/_3sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Cuci tangan"
+        android:lines="2"
         android:fontFamily="@font/open_sans"
         android:textAlignment="center"
         android:textSize="@dimen/_12ssp"

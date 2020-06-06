@@ -38,7 +38,7 @@
                         app:civ_border_color="@android:color/white"
                         android:layout_width="@dimen/_82sdp"
                         android:layout_height="@dimen/_82sdp"
-                        tools:src="@drawable/ppkuli2"
+                        android:src="@drawable/blank_profile"
                         android:layout_centerInParent="true"
                        />
                 </RelativeLayout>

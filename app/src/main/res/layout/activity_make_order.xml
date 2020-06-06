@@ -465,6 +465,7 @@
                     android:layout_marginBottom="@dimen/_5sdp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
+                        android:gravity="start"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/open_sans"
                         android:hint="@string/job_description"

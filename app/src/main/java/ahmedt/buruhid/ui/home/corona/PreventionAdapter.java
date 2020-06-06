@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.home.corona.modelprevention.PreventionModel;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PreventionAdapter extends RecyclerView.Adapter<PreventionAdapter.ViewHolder> {
     private static final String TAG = "WhatsNewAdapter";
@@ -62,12 +62,12 @@ public class PreventionAdapter extends RecyclerView.Adapter<PreventionAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTitle, txtDesc;
-        private ImageView imgConten;
+        private CircleImageView imgConten;
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             this.txtDesc = (TextView) itemView.findViewById(R.id.txt_preventation);
-            this.imgConten = (ImageView) itemView.findViewById(R.id.img_prevention);
+            this.imgConten = (CircleImageView) itemView.findViewById(R.id.img_prevention);
         }
     }
 }

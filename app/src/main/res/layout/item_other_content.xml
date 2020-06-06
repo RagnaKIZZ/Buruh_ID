@@ -19,8 +19,10 @@
 
         <ImageView
             android:layout_marginTop="@dimen/_30sdp"
-            android:src="@drawable/bg_other"
+            android:src="@drawable/bgkontenbawah"
             android:scaleType="fitXY"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -43,6 +45,7 @@
                 android:layout_marginStart="@dimen/_10sdp" />
 
             <ImageView
+                android:scaleType="centerInside"
                 android:id="@+id/img_other"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="match_parent"
@@ -50,7 +53,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                tools:src="@drawable/load_screen_3" />
+                tools:src="@drawable/securetrans" />
 
         </RelativeLayout>
     </FrameLayout>

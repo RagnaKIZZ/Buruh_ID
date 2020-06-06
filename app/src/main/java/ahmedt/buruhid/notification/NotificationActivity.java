@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +32,7 @@ import ahmedt.buruhid.FirebaseMessagingService;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.notification.modelNotification.DataItem;
 import ahmedt.buruhid.notification.modelNotification.NotificationModel;
+import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.SessionPrefs;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
@@ -40,8 +43,10 @@ public class NotificationActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private NotifAdapter adapter;
     private ArrayList<DataItem> list = new ArrayList<>();
-    private LinearLayout lay_in;
+    private LinearLayout lay_include;
     private FloatingActionButton btnRefresh;
+    private TextView txtMsg;
+    private ImageView imgMsg;
     String id = Prefs.getString(SessionPrefs.U_ID, "");
     String token = Prefs.getString(SessionPrefs.TOKEN_LOGIN, "");
 
@@ -53,10 +58,12 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void findView(){
+        imgMsg = findViewById(R.id.img_message);
+        txtMsg = findViewById(R.id.txt_msg);
         rv_notif = findViewById(R.id.rc_notif);
         progressBar = findViewById(R.id.progress_bar);
-        lay_in =  findViewById(R.id.include_lay);
-        lay_in.setVisibility(View.GONE);
+        lay_include =  findViewById(R.id.include_lay);
+        lay_include.setVisibility(View.GONE);
         btnRefresh = findViewById(R.id.floatingActionButton);
         rv_notif.setHasFixedSize(true);
         adapter = new NotifAdapter(this, list);
@@ -74,7 +81,7 @@ public class NotificationActivity extends AppCompatActivity {
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lay_in.setVisibility(View.GONE);
+                lay_include.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
                 setAdapter(id, token, false);
             }
@@ -118,7 +125,7 @@ public class NotificationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setAdapter(String id, String token, final boolean isBackground) {
+    private void setAdapter(String id, final String token, final boolean isBackground) {
         AndroidNetworking.post(UrlServer.URL_NOTIF)
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
@@ -130,7 +137,8 @@ public class NotificationActivity extends AppCompatActivity {
                         if (okHttpResponse.isSuccessful()){
                             if (response.getCode() == 200){
                                 list.clear();
-                                lay_in.setVisibility(View.GONE);
+                                lay_include.setVisibility(View.GONE);
+                                Prefs.putInt(SessionPrefs.NOTIF_COUNT, 0);
                                 for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem items = new DataItem();
                                     items.setId(response.getData().get(i).getId());
@@ -145,7 +153,7 @@ public class NotificationActivity extends AppCompatActivity {
                                 if (isBackground){
 
                                 }else {
-                                    lay_in.setVisibility(View.VISIBLE);
+                                    HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blmnotif));
                                 }
 //                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
@@ -155,19 +163,22 @@ public class NotificationActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        if (isBackground){
-
-                        }else {
-                            lay_in.setVisibility(View.VISIBLE);
-                        }
                         if (anError.getErrorCode() != 0){
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
-                            Toasty.error(NotificationActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                            if (isBackground){
+                                Toasty.error(NotificationActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                            }else {
+                                HelperClass.serverError(NotificationActivity.this, lay_include, imgMsg, txtMsg);
+                            }
                         }else{
                             Log.d("ERR", "onError: "+anError.getErrorCode());
                             Log.d("ERR", "onError: "+anError.getErrorBody());
                             Log.d("ERR", "onError: "+anError.getErrorDetail());
-                            Toasty.error(NotificationActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                            if (isBackground){
+                                Toasty.error(NotificationActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                            }else {
+                                HelperClass.InetError(NotificationActivity.this, lay_include, imgMsg, txtMsg);
+                            }
                         }
                     }
                 });
