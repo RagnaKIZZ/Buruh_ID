@@ -72,7 +72,7 @@ public class OrderFragment extends Fragment {
     private FloatingActionButton btnRefresh;
     private View view;
     Button btnSend;
-    TextView txtWorker,txtJenis, txtDate, txtCode, txtMsg ;
+    TextView txtWorker, txtJenis, txtDate, txtCode, txtMsg;
     ImageView imgSheet, imgMsg;
     RatingBar ratingBar;
     String id = Prefs.getString(SessionPrefs.U_ID, "");
@@ -82,10 +82,9 @@ public class OrderFragment extends Fragment {
     int param_yo;
 
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_order,container, false);
+        view = inflater.inflate(R.layout.fragment_order, container, false);
         findView(view);
         return view;
     }
@@ -99,7 +98,7 @@ public class OrderFragment extends Fragment {
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateBadge, new IntentFilter(FirebaseMessagingService.INFO_UPDATE));
     }
 
-    private void findView(View view){
+    private void findView(View view) {
 //        Set<YourOrderItem> set = new HashSet<>();
 //        set.addAll(list);
         btnHistoryOrder = view.findViewById(R.id.btn_history_order);
@@ -141,13 +140,13 @@ public class OrderFragment extends Fragment {
             public void onClick(View v) {
                 param = 1;
                 lay_include.setVisibility(View.GONE);
-                if (list.isEmpty()){
-                    if (lay_include.getVisibility() == View.GONE){
-                        if (param_yo == 1){
+                if (list.isEmpty()) {
+                    if (lay_include.getVisibility() == View.GONE) {
+                        if (param_yo == 1) {
                             HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
-                        }else if (param_yo == 2){
+                        } else if (param_yo == 2) {
                             HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
-                        }else if (param_yo == 3){
+                        } else if (param_yo == 3) {
                             HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
                         }
                     }
@@ -166,15 +165,15 @@ public class OrderFragment extends Fragment {
             public void onClick(View v) {
                 param = 2;
                 lay_include.setVisibility(View.GONE);
-                if (list2.isEmpty()){
-                    if (lay_include.getVisibility() == View.GONE){
-                     if (param_history == 1){
-                         HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
-                     }else if (param_history == 2){
-                         HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
-                     }else if (param_history == 3){
-                         HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
-                     }
+                if (list2.isEmpty()) {
+                    if (lay_include.getVisibility() == View.GONE) {
+                        if (param_history == 1) {
+                            HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
+                        } else if (param_history == 2) {
+                            HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
+                        } else if (param_history == 3) {
+                            HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                        }
                     }
                 }
                 btnHistoryOrder.setTextColor(Color.WHITE);
@@ -189,7 +188,7 @@ public class OrderFragment extends Fragment {
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (param){
+                switch (param) {
                     case 1:
                         lay_include.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
@@ -209,7 +208,7 @@ public class OrderFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             String param = FirebaseMessagingService.INFO_UPDATE;
-            if (intent.getAction().equals(param)){
+            if (intent.getAction().equals(param)) {
                 setAdapter(id, token, String.valueOf(1), true);
                 setAdapter2(id, token, String.valueOf(1), true);
             }
@@ -222,7 +221,7 @@ public class OrderFragment extends Fragment {
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(updateBadge);
     }
 
-    private void setAdapter(String id, String token, String page, final boolean isBackground){
+    private void setAdapter(String id, String token, String page, final boolean isBackground) {
         lay_include.setVisibility(View.GONE);
         AndroidNetworking.post(UrlServer.URL_LIST_ORDER)
                 .addBodyParameter("id", id)
@@ -233,11 +232,11 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onResponse(Response okHttpResponse, OrderModel response) {
                         progressBar.setVisibility(View.GONE);
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 list.clear();
                                 adapter.updateList(list);
-                                if (param == 1){
+                                if (param == 1) {
                                     lay_include.setVisibility(View.GONE);
                                 }
                                 for (int i = 0; i < response.getData().size(); i++) {
@@ -262,14 +261,14 @@ public class OrderFragment extends Fragment {
                                     list.add(items);
                                 }
                                 adapter.updateList(list);
-                            }else{
+                            } else {
                                 param_yo = 3;
-                                if (param == 1){
-                                    if (isBackground){
+                                if (param == 1) {
+                                    if (isBackground) {
                                         list.clear();
                                         adapter.updateList(list);
                                         HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
-                                    }else{
+                                    } else {
                                         HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
                                     }
                                 }
@@ -281,34 +280,34 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                            if (anError.getErrorCode() != 0){
-                                param_yo = 1;
-                                Log.d("ERR", "onError: "+anError.getErrorDetail());
-                                if (param == 1){
-                                    if (isBackground){
-                                        Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                                    }else {
-                                        HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
-                                    }
-                                }
-                            }else{
-                                param_yo = 2;
-                                Log.d("ERR", "onError: "+anError.getErrorCode());
-                                Log.d("ERR", "onError: "+anError.getErrorBody());
-                                Log.d("ERR", "onError: "+anError.getErrorDetail());
-                                if (param == 1){
-                                    if (isBackground){
-                                        Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
-                                    }else {
-                                        HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
-                                    }
+                        if (anError.getErrorCode() != 0) {
+                            param_yo = 1;
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
+                            if (param == 1) {
+                                if (isBackground) {
+                                    Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                                } else {
+                                    HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
                                 }
                             }
+                        } else {
+                            param_yo = 2;
+                            Log.d("ERR", "onError: " + anError.getErrorCode());
+                            Log.d("ERR", "onError: " + anError.getErrorBody());
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
+                            if (param == 1) {
+                                if (isBackground) {
+                                    Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                                } else {
+                                    HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
+                                }
+                            }
+                        }
                     }
                 });
     }
 
-    private void setAdapter2(String id, String token, String page, final boolean isBackground){
+    private void setAdapter2(String id, String token, String page, final boolean isBackground) {
         AndroidNetworking.post(UrlServer.URL_LIST_ORDER_HISTORY)
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
@@ -318,11 +317,11 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onResponse(Response okHttpResponse, OrderHistoryModel response) {
                         progressBar.setVisibility(View.GONE);
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 list2.clear();
                                 adapter2.updateList(list2);
-                                if (param == 2){
+                                if (param == 2) {
                                     lay_include.setVisibility(View.GONE);
                                 }
                                 for (int i = 0; i < response.getData().size(); i++) {
@@ -348,15 +347,15 @@ public class OrderFragment extends Fragment {
                                     items.setFinishDate(response.getData().get(i).getFinishDate());
                                     list2.add(items);
                                 }
-                               adapter2.updateList(list2);
-                            }else{
+                                adapter2.updateList(list2);
+                            } else {
                                 param_history = 3;
-                                if (param == 2){
-                                    if (isBackground){
+                                if (param == 2) {
+                                    if (isBackground) {
                                         list2.clear();
                                         adapter2.updateList(list2);
                                         HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
-                                    }else{
+                                    } else {
                                         HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
                                     }
                                 }
@@ -368,29 +367,29 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                            if (anError.getErrorCode() != 0){
-                                param_history = 1;
-                                Log.d("ERR", "onError: "+anError.getErrorDetail());
-                                if (param == 2){
-                                    if (isBackground){
-                                        Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                                    }else {
-                                        HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
-                                    }
-                                }
-                            }else{
-                                param_history = 2;
-                                Log.d("ERR", "onError: "+anError.getErrorCode());
-                                Log.d("ERR", "onError: "+anError.getErrorBody());
-                                Log.d("ERR", "onError: "+anError.getErrorDetail());
-                                if (param == 2){
-                                    if (isBackground){
-                                        Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
-                                    }else {
-                                        HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
-                                    }
+                        if (anError.getErrorCode() != 0) {
+                            param_history = 1;
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
+                            if (param == 2) {
+                                if (isBackground) {
+                                    Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
+                                } else {
+                                    HelperClass.serverError(getActivity(), lay_include, imgMsg, txtMsg);
                                 }
                             }
+                        } else {
+                            param_history = 2;
+                            Log.d("ERR", "onError: " + anError.getErrorCode());
+                            Log.d("ERR", "onError: " + anError.getErrorBody());
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
+                            if (param == 2) {
+                                if (isBackground) {
+                                    Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
+                                } else {
+                                    HelperClass.InetError(getActivity(), lay_include, imgMsg, txtMsg);
+                                }
+                            }
+                        }
                     }
                 });
 
@@ -399,14 +398,14 @@ public class OrderFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == 1){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
                 String extra = data.getStringExtra("extra");
                 list.clear();
                 adapter.updateList(list);
                 setAdapter(id, token, "1", false);
                 setAdapter2(id, token, String.valueOf(1), false);
-                if (extra.equals("2")){
+                if (extra.equals("2")) {
                     String order_id = data.getStringExtra("order_id");
                     String tukang_id = data.getStringExtra("tukang_id");
                     String foto_tukang = data.getStringExtra("foto_tukang");
@@ -418,10 +417,10 @@ public class OrderFragment extends Fragment {
                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String waktu = format.format(date);
 
-                    if (anggota.matches("1")){
+                    if (anggota.matches("1")) {
                         type = getString(R.string.individu_worker);
-                    }else{
-                        type = getString(R.string.tim_work)+anggota+getString(R.string.people);
+                    } else {
+                        type = getString(R.string.tim_work) + anggota + getString(R.string.people);
                     }
                     showBottomSheet(view, code_order, waktu, tukang_id, order_id, foto_tukang, type, nama);
                 }
@@ -429,7 +428,7 @@ public class OrderFragment extends Fragment {
         }
     }
 
-    private void showBottomSheet(View view, String kode, String date, final String tukang_id, final String order_id, String foto, String type, String nama){
+    private void showBottomSheet(View view, String kode, String date, final String tukang_id, final String order_id, String foto, String type, String nama) {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(), R.style.BottomSheetDialogTheme);
         View bottomSheetView = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_sheet, (RelativeLayout) view.findViewById(R.id.bottom_sheet_container));
         btnSend = bottomSheetView.findViewById(R.id.btn_action);
@@ -445,11 +444,11 @@ public class OrderFragment extends Fragment {
         txtDate.setText(date);
         txtJenis.setText(type);
 
-        if (!foto.isEmpty()){
+        if (!foto.isEmpty()) {
             Glide.with(getActivity())
-                    .load(UrlServer.URL_FOTO_TUKANG+foto)
+                    .load(UrlServer.URL_FOTO_TUKANG + foto)
                     .into(imgSheet);
-        }else{
+        } else {
             Glide.with(getActivity())
                     .load(R.drawable.blank_profile)
                     .into(imgSheet);
@@ -458,9 +457,9 @@ public class OrderFragment extends Fragment {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ratingBar.getRating() > 0 ){
+                if (ratingBar.getRating() > 0) {
                     giveRating(order_id, tukang_id, String.valueOf(ratingBar.getRating()), txtKomen.getEditText().getText().toString().trim(), bottomSheetDialog);
-                }else{
+                } else {
                     Toasty.warning(getActivity(), getString(R.string.plz_gv_rat), Toasty.LENGTH_SHORT).show();
                 }
             }
@@ -470,7 +469,7 @@ public class OrderFragment extends Fragment {
         bottomSheetDialog.show();
     }
 
-    private void giveRating(final String order_id, final String tukang_id, final String rating, final String komen, final BottomSheetDialog dialog){
+    private void giveRating(final String order_id, final String tukang_id, final String rating, final String komen, final BottomSheetDialog dialog) {
         final KProgressHUD hud = new KProgressHUD(getActivity());
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_GIVE_RATING)
@@ -485,29 +484,29 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onResponse(Response okHttpResponse, ResponOrderModel response) {
                         hud.dismiss();
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 dialog.dismiss();
-                            }else{
+                            } else {
                                 Toasty.warning(getActivity(), response.getMsg(), Toasty.LENGTH_SHORT).show();
                             }
-                            Log.d(TAG, "onResponse: "+tukang_id);
-                            Log.d(TAG, "onResponse: "+order_id);
-                            Log.d(TAG, "onResponse: "+komen);
-                            Log.d(TAG, "onResponse: "+rating);
+                            Log.d(TAG, "onResponse: " + tukang_id);
+                            Log.d(TAG, "onResponse: " + order_id);
+                            Log.d(TAG, "onResponse: " + komen);
+                            Log.d(TAG, "onResponse: " + rating);
                         }
                     }
 
                     @Override
                     public void onError(ANError anError) {
                         hud.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d(TAG, "onError: " + anError.getErrorCode());
+                            Log.d(TAG, "onError: " + anError.getErrorBody());
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }

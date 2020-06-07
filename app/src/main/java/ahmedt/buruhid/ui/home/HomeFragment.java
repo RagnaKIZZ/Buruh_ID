@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<OtherItem> list2 = new ArrayList<>();
     private ImageView imgSolo, imgTeam;
     private TextView txtBadgeNotif, txtBadgePromo;
-    public static  int countPromo, countNotif;
+    public static int countPromo, countNotif;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             String param = FirebaseMessagingService.INFO_UPDATE;
-            if (intent.getAction().equals(param)){
+            if (intent.getAction().equals(param)) {
                 getCount(false);
             }
         }
@@ -107,13 +107,13 @@ public class HomeFragment extends Fragment {
         setAdapter1();
         setAdapter2();
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateBadge, new IntentFilter(FirebaseMessagingService.INFO_UPDATE));
-        if (Prefs.getString(SessionPrefs.isLogin, "").isEmpty()){
+        if (Prefs.getString(SessionPrefs.isLogin, "").isEmpty()) {
             getCount(true);
             Prefs.putString(SessionPrefs.isLogin, "1");
         }
     }
 
-    private void findView(View view){
+    private void findView(View view) {
         imgSolo = view.findViewById(R.id.img_solo);
         imgTeam = view.findViewById(R.id.img_team);
         rc_WN = view.findViewById(R.id.rc_whats_new);
@@ -129,9 +129,9 @@ public class HomeFragment extends Fragment {
         rc_Other.setLayoutManager(linearLayoutManager1);
         rc_WN.setAdapter(mAdapter_1);
         rc_Other.setAdapter(mAdapter_2);
-        Log.d(TAG, "findView: "+Prefs.getInt(SessionPrefs.NOTIF_COUNT, 0));
-        Log.d(TAG, "findView: "+countNotif);
-        if (Prefs.getInt(SessionPrefs.NOTIF_COUNT, 0) > 0){
+        Log.d(TAG, "findView: " + Prefs.getInt(SessionPrefs.NOTIF_COUNT, 0));
+        Log.d(TAG, "findView: " + countNotif);
+        if (Prefs.getInt(SessionPrefs.NOTIF_COUNT, 0) > 0) {
             countNotif = Prefs.getInt(SessionPrefs.NOTIF_COUNT, 0);
         }
         cvSurvey.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
         mAdapter_1.SetOnItemClickListener(new WhatsNewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, WhatsNewItem model) {
-                switch (position){
+                switch (position) {
                     case 0:
                         startActivity(new Intent(getActivity(), WNewActivity.class));
                         break;
@@ -160,7 +160,7 @@ public class HomeFragment extends Fragment {
         mAdapter_2.SetOnItemClickListener(new OtherAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, OtherItem model) {
-                switch (position){
+                switch (position) {
                     case 0:
                         startActivity(new Intent(getActivity(), SecureTransActivity.class));
                         break;
@@ -184,10 +184,10 @@ public class HomeFragment extends Fragment {
                 View shareView = imgSolo;
                 String transitionName = getString(R.string.img);
                 ActivityOptions transOpt = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     transOpt = ActivityOptions.makeSceneTransitionAnimation(getActivity(), shareView, transitionName);
                     startActivity(i, transOpt.toBundle());
-                }else {
+                } else {
                     startActivity(i);
                 }
             }
@@ -202,17 +202,17 @@ public class HomeFragment extends Fragment {
                 View shareView = imgTeam;
                 String transitionName = getString(R.string.img);
                 ActivityOptions transOpt = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     transOpt = ActivityOptions.makeSceneTransitionAnimation(getActivity(), shareView, transitionName);
                     startActivity(i, transOpt.toBundle());
-                }else {
+                } else {
                     startActivity(i);
                 }
             }
         });
     }
 
-    private void setAdapter1(){
+    private void setAdapter1() {
         list.clear();
         list.add(new WhatsNewItem(R.drawable.whatsnew));
         list.add(new WhatsNewItem(R.drawable.covid));
@@ -220,7 +220,7 @@ public class HomeFragment extends Fragment {
         mAdapter_1.updateList(list);
     }
 
-    private void setAdapter2(){
+    private void setAdapter2() {
         list2.clear();
         list2.add(new OtherItem(getString(R.string.secure_transc), R.drawable.securetrans));
         list2.add(new OtherItem(getString(R.string.howTouse), R.drawable.load_screen_3));
@@ -248,7 +248,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.home_notification:
                 startActivityForResult(new Intent(getActivity(), NotificationActivity.class), 1);
                 return true;
@@ -259,35 +259,35 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == 1){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
                 countNotif = 0;
                 txtBadgeNotif.setVisibility(View.GONE);
             }
         }
     }
 
-    private void setupBadgeNotif(){
-        if (txtBadgeNotif != null){
-            if (countNotif == 0){
-                if (txtBadgeNotif.getVisibility() != View.GONE){
+    private void setupBadgeNotif() {
+        if (txtBadgeNotif != null) {
+            if (countNotif == 0) {
+                if (txtBadgeNotif.getVisibility() != View.GONE) {
                     txtBadgeNotif.setVisibility(View.GONE);
                 }
-            }else{
+            } else {
                 txtBadgeNotif.setText(String.valueOf(Math.min(countNotif, 99)));
-                if (txtBadgeNotif.getVisibility() != View.VISIBLE){
+                if (txtBadgeNotif.getVisibility() != View.VISIBLE) {
                     txtBadgeNotif.setVisibility(View.VISIBLE);
                 }
             }
         }
     }
 
-    private void showNotification(String title, String message){
+    private void showNotification(String title, String message) {
         NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
         Random rand = new Random();
         final int notification_ID = rand.nextInt();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notification", NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setDescription("My Channel");
             notificationChannel.enableLights(true);
@@ -306,10 +306,10 @@ public class HomeFragment extends Fragment {
                 .setContentText(message)
                 .setContentIntent(intent);
 
-        manager.notify(notification_ID,builder.build());
+        manager.notify(notification_ID, builder.build());
     }
 
-    private void getCount(final Boolean notif){
+    private void getCount(final Boolean notif) {
         AndroidNetworking.post(UrlServer.URL_COUNT)
                 .addBodyParameter("id", Prefs.getString(SessionPrefs.U_ID, ""))
                 .addBodyParameter("token_login", Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""))
@@ -317,24 +317,24 @@ public class HomeFragment extends Fragment {
                 .getAsOkHttpResponseAndObject(CounterModel.class, new OkHttpResponseAndParsedRequestListener<CounterModel>() {
                     @Override
                     public void onResponse(Response okHttpResponse, CounterModel response) {
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
-                                Log.d(TAG, "onResponse: "+response.getCountNotif());
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
+                                Log.d(TAG, "onResponse: " + response.getCountNotif());
                                 countNotif = response.getCountNotif();
                                 Prefs.putInt(SessionPrefs.NOTIF_COUNT, response.getCountNotif());
                                 countPromo = response.getCountPromo();
                                 setupBadgeNotif();
-                                if (notif){
-                                    if (response.getCountNotif() > 0 && txtBadgeNotif.getVisibility() != View.VISIBLE){
+                                if (notif) {
+                                    if (response.getCountNotif() > 0 && txtBadgeNotif.getVisibility() != View.VISIBLE) {
                                         for (int i = 0; i < response.getData().size(); i++) {
                                             showNotification(response.getData().get(i).getTitle(), response.getData().get(i).getMessage());
                                         }
                                     }
                                 }
 
-                                Log.d(TAG, "onResponse: suc= "+response.getMsg());
-                            }else {
-                                Log.d(TAG, "onResponse: "+response.getMsg());
+                                Log.d(TAG, "onResponse: suc= " + response.getMsg());
+                            } else {
+                                Log.d(TAG, "onResponse: " + response.getMsg());
                             }
 
                         }
@@ -342,13 +342,13 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onError(ANError anError) {
-                        if (anError.getErrorCode() != 0){
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d("ERR", "onError: "+anError.getErrorCode());
-                            Log.d("ERR", "onError: "+anError.getErrorBody());
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d("ERR", "onError: " + anError.getErrorCode());
+                            Log.d("ERR", "onError: " + anError.getErrorBody());
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }
