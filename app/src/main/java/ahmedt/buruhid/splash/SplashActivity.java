@@ -33,10 +33,10 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (Prefs.getString(SessionPrefs.isLogin, "").matches("1")){
+                if (Prefs.getString(SessionPrefs.isLogin, "").matches("1")) {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
-                }else {
+                } else {
                     startActivity(new Intent(SplashActivity.this, IntroActivity.class));
                     finish();
                 }

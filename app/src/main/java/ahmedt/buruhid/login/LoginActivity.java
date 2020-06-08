@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void findView(){
+    private void findView() {
         txtToForgot = findViewById(R.id.txt_forgot_password);
         txtToRegist = findViewById(R.id.txt_register_login);
         btnLogin = findViewById(R.id.btn_login_login);
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         txtDone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     login();
                     return true;
                 }
@@ -85,31 +85,31 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void login(){
-        String email = edtEmail.getEditText().getText().toString().trim();
+    private void login() {
+        String email = edtEmail.getEditText().getText().toString().trim().toLowerCase();
         String password = edtPassword.getEditText().getText().toString().trim();
 
-        if (!email.isEmpty() && !password.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-           loginUser(email, password);
+        if (!email.isEmpty() && !password.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            loginUser(email, password);
         }
 
-        if (email.isEmpty()){
+        if (email.isEmpty()) {
             edtEmail.setError(getString(R.string.cant_empty));
-        }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             edtEmail.setError(getString(R.string.valid_email));
-        }else {
+        } else {
             edtEmail.setErrorEnabled(false);
             edtEmail.setError(null);
         }
 
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             edtPassword.setError(getString(R.string.cant_empty));
-        }else {
+        } else {
             edtPassword.setErrorEnabled(false);
         }
     }
 
-    private void loginUser(String email, String password){
+    private void loginUser(String email, String password) {
         final KProgressHUD hud = new KProgressHUD(context);
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_LOGIN)
@@ -120,8 +120,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, LoginModel response) {
                         hud.dismiss();
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 Prefs.putString(SessionPrefs.U_ID, response.getData().getUserId());
                                 Prefs.putString(SessionPrefs.NAMA, response.getData().getNama());
                                 Prefs.putString(SessionPrefs.EMAIL, response.getData().getEmail());
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Prefs.putString(SessionPrefs.TOKEN_LOGIN, response.getData().getTokenLogin());
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
-                            }else{
+                            } else {
 
                                 Toasty.warning(context, response.getMsg(), Toast.LENGTH_SHORT, true).show();
                             }
@@ -140,13 +140,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         hud.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(LoginActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d(TAG, "onError: " + anError.getErrorCode());
+                            Log.d(TAG, "onError: " + anError.getErrorBody());
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(LoginActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }

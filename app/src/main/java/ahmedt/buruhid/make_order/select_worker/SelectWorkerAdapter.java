@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.make_order.select_worker.modelWorker.DataItem;
+import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.UrlServer;
 
 public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapter.ViewHolder> {
@@ -31,7 +33,7 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
         this.list = list;
     }
 
-    public void updateList(ArrayList<DataItem> list){
+    public void updateList(ArrayList<DataItem> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -45,9 +47,9 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SelectWorkerAdapter.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder){
-         final DataItem item = getItem(position);
-         ViewHolder genericViewHolder = (ViewHolder) holder;
+        if (holder instanceof ViewHolder) {
+            final DataItem item = getItem(position);
+            ViewHolder genericViewHolder = (ViewHolder) holder;
 
             int anggota = Integer.parseInt(item.getAnggota());
             String jumAnggota = "";
@@ -55,23 +57,21 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
             genericViewHolder.ratingBar.setRating(Float.parseFloat(item.getRating()));
             genericViewHolder.txtName.setText(item.getNama());
             genericViewHolder.txtAddress.setText(item.getAlamat());
-            if (anggota == 1){
+            if (anggota == 1) {
                 jumAnggota = "Individu worker";
-            }else{
-                jumAnggota = "Team worker : "+item.getAnggota()+" People";
+            } else {
+                jumAnggota = "Team worker : " + item.getAnggota() + " People";
             }
             genericViewHolder.txtType.setText(jumAnggota);
-            genericViewHolder.txtRating.setText("("+item.getRating()+")");
+            genericViewHolder.txtRating.setText("(" + item.getRating() + ")");
+            genericViewHolder.progressBar.setVisibility(View.GONE);
 
-            if (!foto.isEmpty()){
-                Glide.with(context)
-                        .load(UrlServer.URL_FOTO_TUKANG+item.getFoto())
-                        .apply(new RequestOptions().override(100,100))
-                        .into(genericViewHolder.imgHistoryOrder);
-            }else{
+            if (!foto.isEmpty()) {
+                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgHistoryOrder);
+            } else {
                 Glide.with(context)
                         .load(R.drawable.blank_profile)
-                        .apply(new RequestOptions().override(100,100))
+                        .apply(new RequestOptions().override(100, 100))
                         .into(genericViewHolder.imgHistoryOrder);
             }
 
@@ -88,7 +88,7 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
         this.mItemClickListener = mItemClickListener;
     }
 
-    private DataItem getItem(int position){
+    private DataItem getItem(int position) {
         return list.get(position);
     }
 
@@ -100,9 +100,12 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
         private TextView txtType, txtName, txtAddress, txtRating;
         private ImageView imgHistoryOrder;
         private RatingBar ratingBar;
+        private ProgressBar progressBar;
+
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
+            this.progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
             this.txtType = (TextView) itemView.findViewById(R.id.txt_type_of_worker);
             this.txtName = (TextView) itemView.findViewById(R.id.txt_name_worker);
             this.txtAddress = (TextView) itemView.findViewById(R.id.txt_address_worker);

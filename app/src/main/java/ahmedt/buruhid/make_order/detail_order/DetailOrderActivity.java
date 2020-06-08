@@ -41,7 +41,7 @@ import okhttp3.Response;
 public class DetailOrderActivity extends AppCompatActivity {
     private static final String TAG = "DetailOrderActivity";
     private TextInputEditText edtType, edtCount, edtStartDate, edtEndDate, edtStartHour,
-    edtTotalDays, edtCity, edtAddress, edtNameWorker, edtJobdesk, edtPromo;
+            edtTotalDays, edtCity, edtAddress, edtNameWorker, edtJobdesk, edtPromo;
     private TextInputLayout txtPromo;
     private TextView txtTotalPayment, txtNamePromo, txtIsiPromo, txtMinPromo, txtAfterPromo, txtBefore, txtHowTrans;
     private ImageButton btnBack;
@@ -68,7 +68,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         findView();
     }
 
-    private void findView(){
+    private void findView() {
         txtHowTrans = findViewById(R.id.txt_how_to_trans);
         edtType = findViewById(R.id.edt_detail_type);
         edtCount = findViewById(R.id.edt_detail_count_worker);
@@ -112,34 +112,34 @@ public class DetailOrderActivity extends AppCompatActivity {
         String vill = i.getStringExtra("vill");
         String address = i.getStringExtra("address");
         String todayPrice = i.getStringExtra("todayPrice");
-        Log.d(TAG, "findView: "+id+ " " +token);
+        Log.d(TAG, "findView: " + id + " " + token);
         String day = getString(R.string.day);
 
-        if (Integer.parseInt(amountDays) > 1){
+        if (Integer.parseInt(amountDays) > 1) {
             day = getString(R.string.days);
         }
         String countWorker;
-        if (i.getBooleanExtra("isTeam", true)){
+        if (i.getBooleanExtra("isTeam", true)) {
             countWorker = i.getStringExtra("counter");
-            workerAndDays = Integer.parseInt(countWorker)*Integer.parseInt(amountDays);
+            workerAndDays = Integer.parseInt(countWorker) * Integer.parseInt(amountDays);
             edtCount.setVisibility(View.VISIBLE);
-            edtCount.setText(countWorker+ R.string.people);
-        }else {
+            edtCount.setText(countWorker + R.string.people);
+        } else {
             countWorker = i.getStringExtra("counter");
             edtCount.setVisibility(View.GONE);
             workerAndDays = Integer.parseInt(amountDays);
         }
 
-        final String alamat = address+", "+vill+", "+subdis+", "+city;
-        final String startdate = startDate+" "+startHour;
+        final String alamat = address + ", " + vill + ", " + subdis + ", " + city;
+        final String startdate = startDate + " " + startHour;
 
         edtType.setText(type);
         edtStartDate.setText(startDate);
         edtEndDate.setText(endDate);
         edtStartHour.setText(startHour);
-        edtTotalDays.setText(amountDays+day);
+        edtTotalDays.setText(amountDays + day);
         edtCity.setVisibility(View.GONE);
-        edtAddress.setText(address+", "+vill+", "+subdis+", "+city);
+        edtAddress.setText(address + ", " + vill + ", " + subdis + ", " + city);
         edtNameWorker.setText(nameWorker);
         edtJobdesk.setText(jobdesk);
 
@@ -158,11 +158,11 @@ public class DetailOrderActivity extends AppCompatActivity {
         Locale locale = new Locale("in", "ID");
         NumberFormat format = NumberFormat.getCurrencyInstance(locale);
 
-        final double totalPayment = workerAndDays* Double.parseDouble(todayPrice);
+        final double totalPayment = workerAndDays * Double.parseDouble(todayPrice);
         Random rand = new Random();
         int selected = rand.nextInt(999);
         select = selected;
-        final double totalPaymentNew = totalPayment+((double) selected);
+        final double totalPaymentNew = totalPayment + ((double) selected);
 
         txtTotalPayment.setText(format.format(totalPaymentNew));
 
@@ -177,10 +177,10 @@ public class DetailOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String code = edtPromo.getText().toString().trim();
-                if (!code.isEmpty()){
+                if (!code.isEmpty()) {
                     txtPromo.setErrorEnabled(false);
                     getPromotion(id, token, code, String.valueOf(totalPayment), totalPayment);
-                }else {
+                } else {
                     txtPromo.setError(getString(R.string.cant_empty));
                 }
 
@@ -190,7 +190,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPayment), String.valueOf(totalafter), String.valueOf(select),id_promo);
+                makeOrder(id, token, tukang_id, alamat, jobdesk, startdate, endDate, String.valueOf(totalPayment), String.valueOf(totalafter), String.valueOf(select), id_promo);
             }
         });
 
@@ -203,7 +203,7 @@ public class DetailOrderActivity extends AppCompatActivity {
 
     }
 
-    private void getPromotion(String id, String token_login, String code, String nominal, final double total_before){
+    private void getPromotion(String id, String token_login, String code, String nominal, final double total_before) {
         Locale locale = new Locale("in", "ID");
         final NumberFormat format = NumberFormat.getCurrencyInstance(locale);
         final KProgressHUD hud = new KProgressHUD(ctx);
@@ -218,15 +218,15 @@ public class DetailOrderActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, PromoModel response) {
                         hud.dismiss();
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 id_promo = response.getData().getId();
                                 nama_promo = response.getData().getNamaPromo();
                                 isi_promo = response.getData().getIsiPromo();
                                 kode_promo = response.getData().getKodePromo();
                                 String min = response.getData().getMinHarga();
-                                double isipromo = 100*Double.parseDouble(isi_promo);
-                                totalafter = total_before-(total_before*Double.parseDouble(isi_promo))+((double) select);
+                                double isipromo = 100 * Double.parseDouble(isi_promo);
+                                totalafter = total_before - (total_before * Double.parseDouble(isi_promo)) + ((double) select);
                                 double minPro = Double.parseDouble(min);
                                 String form = format.format(minPro);
                                 String afterPromo = format.format(totalafter);
@@ -237,10 +237,10 @@ public class DetailOrderActivity extends AppCompatActivity {
                                 txtAfterPromo.setText(afterPromo);
                                 txtBefore.setVisibility(View.VISIBLE);
                                 ln_after.setVisibility(View.VISIBLE);
-                                txtMinPromo.setText(R.string.min_trans+form);
-                                txtIsiPromo.setText(R.string.disc+String.valueOf(isiipromo)+"%");
-                                Toasty.success(ctx,response.getMsg(), Toast.LENGTH_SHORT, true).show();
-                            }else{
+                                txtMinPromo.setText(R.string.min_trans + form);
+                                txtIsiPromo.setText(R.string.disc + String.valueOf(isiipromo) + "%");
+                                Toasty.success(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
+                            } else {
                                 Toasty.warning(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
                                 txtBefore.setVisibility(View.GONE);
                                 ln_after.setVisibility(View.GONE);
@@ -257,13 +257,13 @@ public class DetailOrderActivity extends AppCompatActivity {
                         ln_after.setVisibility(View.GONE);
                         cv_promo.setVisibility(View.GONE);
                         txtTotalPayment.setPaintFlags(txtTotalPayment.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(ctx, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d(TAG, "onError: " + anError.getErrorCode());
+                            Log.d(TAG, "onError: " + anError.getErrorBody());
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(ctx, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }
@@ -271,8 +271,8 @@ public class DetailOrderActivity extends AppCompatActivity {
     }
 
     private void makeOrder(String id, String token, String tukang_id, String alamat, String jobdesk, String start, String end,
-    String nominal, String angka, String unik, String promoid){
-        final KProgressHUD hud  = new KProgressHUD(ctx);
+                           String nominal, String angka, String unik, String promoid) {
+        final KProgressHUD hud = new KProgressHUD(ctx);
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_MAKE_ORDER)
                 .addBodyParameter("id", id)
@@ -291,12 +291,12 @@ public class DetailOrderActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, MakeOrderModel response) {
                         hud.dismiss();
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 Toasty.success(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
                                 startActivity(new Intent(DetailOrderActivity.this, OrderDoneActivity.class));
                                 finish();
-                            }else{
+                            } else {
                                 Toasty.warning(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
                             }
                         }
@@ -306,13 +306,13 @@ public class DetailOrderActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         hud.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(ctx, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d(TAG, "onError: " + anError.getErrorCode());
+                            Log.d(TAG, "onError: " + anError.getErrorBody());
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(ctx, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }

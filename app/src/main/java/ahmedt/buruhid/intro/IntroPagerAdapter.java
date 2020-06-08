@@ -38,7 +38,7 @@ public class IntroPagerAdapter extends PagerAdapter {
 
         Glide.with(context)
                 .load(list.get(position).getPhoto())
-                .apply(new RequestOptions().override(1000,1200))
+                .apply(new RequestOptions().override(1000, 1200))
                 .into(imgIntro);
 
         txtTitle.setText(list.get(position).getTitle());

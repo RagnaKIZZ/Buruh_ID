@@ -25,7 +25,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         this.list = list;
     }
 
-    public void updateList(ArrayList<DataItem> list){
+    public void updateList(ArrayList<DataItem> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -39,9 +39,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull AddressAdapter.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder){
-         final DataItem item = getItem(position);
-         ViewHolder genericViewHolder = (ViewHolder) holder;
+        if (holder instanceof ViewHolder) {
+            final DataItem item = getItem(position);
+            ViewHolder genericViewHolder = (ViewHolder) holder;
             genericViewHolder.txtName.setText(item.getName());
         }
     }
@@ -55,7 +55,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         this.mItemClickListener = mItemClickListener;
     }
 
-    private DataItem getItem(int position){
+    private DataItem getItem(int position) {
         return list.get(position);
     }
 
@@ -65,6 +65,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtName;
+
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 

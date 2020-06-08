@@ -30,10 +30,10 @@ public class HowToTransActivity extends AppCompatActivity {
         imgCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ln_call.getVisibility() == View.GONE){
+                if (ln_call.getVisibility() == View.GONE) {
                     HelperClass.expand(ln_call);
                     imgCall.setImageResource(R.drawable.ic_expand_less_black_24dp);
-                }else {
+                } else {
                     HelperClass.collapse(ln_call);
                     imgCall.setImageResource(R.drawable.ic_expand_more_black_24dp);
                 }

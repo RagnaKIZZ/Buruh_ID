@@ -56,14 +56,13 @@ public class DetailFotoActivity extends AppCompatActivity {
         photoView = (PhotoView) findViewById(R.id.photo_view);
 
         String foto = Prefs.getString(SessionPrefs.FOTO, "");
-        if (foto.isEmpty()){
+        if (foto.isEmpty()) {
             Glide.with(this)
                     .load(R.drawable.blank_profile)
                     .into(photoView);
-        }else {
-            Glide.with(this)
-                    .load(UrlServer.URL_FOTO+foto )
-                    .into(photoView);
+        } else {
+            HelperClass.loadGambar(DetailFotoActivity.this, UrlServer.URL_FOTO + foto, progressBar, photoView);
+
         }
 
 
@@ -78,27 +77,27 @@ public class DetailFotoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 break;
             case R.id.foto_edit:
                 ImagePicker.Companion.with(DetailFotoActivity.this)
-                        .crop()	    			//Crop image(Optional), Check Customization for more option
-                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(720, 720)	//Final image resolution will be less than 1080 x 1080(Optional)
+                        .crop()                    //Crop image(Optional), Check Customization for more option
+                        .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(720, 720)    //Final image resolution will be less than 1080 x 1080(Optional)
                         .start();
                 break;
             case R.id.foto_delete:
                 deleteFoto();
                 break;
-                default:
-                    return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
 
-    private void deleteFoto(){
+    private void deleteFoto() {
         AlertDialog.Builder alert = new AlertDialog.Builder(DetailFotoActivity.this);
 
         alert.setTitle(getString(R.string.del_pho));
@@ -122,7 +121,7 @@ public class DetailFotoActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void uploadFoto(String id, String token, File file){
+    private void uploadFoto(String id, String token, File file) {
         final KProgressHUD hud = new KProgressHUD(this);
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.upload(UrlServer.URL_CHANGE_FOTO)
@@ -140,15 +139,16 @@ public class DetailFotoActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, UploadModel response) {
                         hud.dismiss();
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
-                                Glide.with(DetailFotoActivity.this)
-                                        .load(UrlServer.URL_FOTO+response.getFoto())
-                                        .into(photoView);
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
+                                HelperClass.loadGambar(DetailFotoActivity.this, UrlServer.URL_FOTO + response.getFoto(), progressBar, photoView);
+//                                Glide.with(DetailFotoActivity.this)
+//                                        .load(UrlServer.URL_FOTO + response.getFoto())
+//                                        .into(photoView);
                                 Prefs.putString(SessionPrefs.FOTO, response.getFoto());
-                                Log.d(TAG, "onResponse: "+Prefs.getString(SessionPrefs.FOTO, ""));
+                                Log.d(TAG, "onResponse: " + Prefs.getString(SessionPrefs.FOTO, ""));
                                 Toasty.success(DetailFotoActivity.this, response.getMsg(), Toasty.LENGTH_SHORT).show();
-                            }else{
+                            } else {
                                 Toasty.warning(DetailFotoActivity.this, response.getMsg(), Toasty.LENGTH_SHORT).show();
                             }
                         }
@@ -156,21 +156,21 @@ public class DetailFotoActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-                    hud.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        hud.dismiss();
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             Toasty.error(DetailFotoActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d("ERR", "onError: "+anError.getErrorCode());
-                            Log.d("ERR", "onError: "+anError.getErrorBody());
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d("ERR", "onError: " + anError.getErrorCode());
+                            Log.d("ERR", "onError: " + anError.getErrorBody());
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             Toasty.error(DetailFotoActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }
                 });
     }
 
-    private void hapusFoto(String id, String token){
+    private void hapusFoto(String id, String token) {
         final KProgressHUD hud = new KProgressHUD(this);
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_DELETE_FOTO)
@@ -181,15 +181,15 @@ public class DetailFotoActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, EditModel response) {
                         hud.dismiss();
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 Glide.with(DetailFotoActivity.this)
                                         .load(R.drawable.blank_profile)
                                         .into(photoView);
                                 Prefs.putString(SessionPrefs.FOTO, "");
-                                Log.d(TAG, "onResponse: "+Prefs.getString(SessionPrefs.FOTO, ""));
+                                Log.d(TAG, "onResponse: " + Prefs.getString(SessionPrefs.FOTO, ""));
                                 Toasty.success(DetailFotoActivity.this, response.getMsg(), Toasty.LENGTH_SHORT).show();
-                            }else{
+                            } else {
                                 Toasty.warning(DetailFotoActivity.this, response.getMsg(), Toasty.LENGTH_SHORT).show();
                             }
                         }
@@ -198,13 +198,13 @@ public class DetailFotoActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         hud.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             Toasty.error(DetailFotoActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d("ERR", "onError: "+anError.getErrorCode());
-                            Log.d("ERR", "onError: "+anError.getErrorBody());
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d("ERR", "onError: " + anError.getErrorCode());
+                            Log.d("ERR", "onError: " + anError.getErrorBody());
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             Toasty.error(DetailFotoActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }
@@ -215,10 +215,10 @@ public class DetailFotoActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK){
-            if (requestCode == ImagePicker.REQUEST_CODE){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ImagePicker.REQUEST_CODE) {
                 file = ImagePicker.Companion.getFile(data);
-                uploadFoto(Prefs.getString(SessionPrefs.U_ID,""), Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""), file);
+                uploadFoto(Prefs.getString(SessionPrefs.U_ID, ""), Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""), file);
             }
         }
     }

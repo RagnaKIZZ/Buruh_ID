@@ -7,47 +7,51 @@
     tools:context=".register.RegisterActivity">
 
     <LinearLayout
-        android:layout_gravity="top"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_gravity="top"
         android:focusable="false"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
         <FrameLayout
-            android:layout_gravity="center"
-            android:background="@drawable/substraction2"
             android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_height="@dimen/_100sdp">
+            android:background="@drawable/substraction2">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <ImageView
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/logo"
                     android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"/>
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/logo" />
             </RelativeLayout>
         </FrameLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_name_register"
-            app:counterEnabled="true"
-            app:counterMaxLength="20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp">
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:counterEnabled="true"
+            app:counterMaxLength="20">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:fontFamily="@font/open_sans"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
                 android:hint="@string/name"
-                android:textSize="@dimen/_12ssp"
+                android:imeOptions="actionNext"
                 android:inputType="text"
-                android:imeOptions="actionNext"/>
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -57,14 +61,15 @@
             android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_30sdp"
             android:layout_marginBottom="@dimen/_5sdp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/open_sans"
                 android:hint="@string/email"
+                android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
-                android:imeOptions="actionNext"/>
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -72,79 +77,84 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
             android:layout_marginBottom="@dimen/_5sdp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/phone"
-                android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/open_sans"
+                android:hint="@string/phone"
+                android:imeOptions="actionNext"
                 android:inputType="number"
-                android:imeOptions="actionNext"/>
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txt_password_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp">
-        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:textSize="@dimen/_12ssp"
-            android:fontFamily="@font/open_sans"
-            android:inputType="textPassword"
-            android:imeOptions="actionNext"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:hint="@string/password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:textSize="@dimen/_12ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_repassword_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
             android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp">
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:passwordToggleEnabled="true">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/retype"
-                android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/open_sans"
+                android:hint="@string/retype"
+                android:imeOptions="actionNext"
                 android:inputType="textPassword"
-                android:imeOptions="actionNext"/>
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:orientation="horizontal">
+
             <CheckBox
-                android:textSize="@dimen/_10sdp"
                 android:id="@+id/checkbox_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:text="@string/agree_with"/>
+                android:text="@string/agree_with"
+                android:textSize="@dimen/_10sdp" />
+
             <TextView
                 android:id="@+id/txt_term_condition_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/term_and_condition"
-                android:textSize="@dimen/_10sdp"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp" />
         </LinearLayout>
 
         <Button
@@ -152,8 +162,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textAllCaps="false"
             android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_30sdp"
@@ -161,33 +169,36 @@
             android:fontFamily="@font/open_sans"
             android:padding="@dimen/_10sdp"
             android:text="@string/register"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_15ssp" />
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_marginBottom="@dimen/_30sdp"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_30sdp"
             android:orientation="horizontal">
+
             <TextView
-                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/already_have_an_account"
-                android:textSize="@dimen/_10ssp"
-                android:fontFamily="@font/open_sans"/>
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_10ssp" />
 
             <TextView
                 android:id="@+id/txt_login_register"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/login"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="@dimen/_10ssp"
-                android:fontFamily="@font/open_sans"/>
+                android:textSize="@dimen/_10ssp" />
         </LinearLayout>
 
 

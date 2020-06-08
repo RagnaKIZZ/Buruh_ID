@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.order.modelOrder.DataItem;
+import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.UrlServer;
 
 public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.ViewHolder> {
@@ -33,7 +35,7 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
         this.list = list;
     }
 
-    public void updateList(ArrayList<DataItem> list){
+    public void updateList(ArrayList<DataItem> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -47,53 +49,51 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull YourOrderAdapter.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder){
-         final DataItem item = getItem(position);
-         ViewHolder genericViewHolder = (ViewHolder) holder;
+        if (holder instanceof ViewHolder) {
+            final DataItem item = getItem(position);
+            ViewHolder genericViewHolder = (ViewHolder) holder;
             Locale locale = new Locale("in", "ID");
             NumberFormat format = NumberFormat.getCurrencyInstance(locale);
 
-         String type = "";
-         String status = "";
-         int color = Color.WHITE;
+            String type = "";
+            String status = "";
+            int color = Color.WHITE;
 
-         if (item.getAnggota().matches("1")){
-             type = context.getString(R.string.individu_worker);
-         }else{
-             type = context.getString(R.string.tim_work)+item.getAnggota()+context.getString(R.string.people);
-         }
+            if (item.getAnggota().matches("1")) {
+                type = context.getString(R.string.individu_worker);
+            } else {
+                type = context.getString(R.string.tim_work) + item.getAnggota() + context.getString(R.string.people);
+            }
 
-         if (item.getStatusOrder().matches("1")){
-             status = context.getString(R.string.wait_confirm);
-             color = Color.parseColor("#ffd600");
-         }else if (item.getStatusOrder().matches("2")){
-             status = context.getString(R.string.order_acc);
-             color = Color.GREEN;
-         }else if (item.getStatusOrder().matches("3")){
-             status = context.getString(R.string.workinggg);
-             color = Color.GREEN;
-         }else{
-             status = "error!";
-             color = Color.RED;
-         }
-         genericViewHolder.txtCode.setText(context.getString(R.string.orderr_codee)+item.getCodeOrder());
-         genericViewHolder.txtName.setText(item.getNama());
-         genericViewHolder.txtType.setText(type);
-         genericViewHolder.txtDesc.setText(item.getJobdesk());
-         genericViewHolder.txtStatus.setText(status);
-         genericViewHolder.txtStatus.setTextColor(color);
+            if (item.getStatusOrder().matches("1")) {
+                status = context.getString(R.string.wait_confirm);
+                color = Color.parseColor("#ffd600");
+            } else if (item.getStatusOrder().matches("2")) {
+                status = context.getString(R.string.order_acc);
+                color = Color.GREEN;
+            } else if (item.getStatusOrder().matches("3")) {
+                status = context.getString(R.string.workinggg);
+                color = Color.GREEN;
+            } else {
+                status = "error!";
+                color = Color.RED;
+            }
+            genericViewHolder.txtCode.setText(context.getString(R.string.orderr_codee) + item.getCodeOrder());
+            genericViewHolder.txtName.setText(item.getNama());
+            genericViewHolder.txtType.setText(type);
+            genericViewHolder.txtDesc.setText(item.getJobdesk());
+            genericViewHolder.txtStatus.setText(status);
+            genericViewHolder.txtStatus.setTextColor(color);
+            genericViewHolder.progressBar.setVisibility(View.GONE);
 
-         if (item.getFoto().isEmpty()){
-             Glide.with(context)
-                     .load(R.drawable.blank_profile)
-                     .apply(new RequestOptions().override(120,120))
-                     .into(genericViewHolder.imgYourOrder);
-         }else {
-             Glide.with(context)
-                     .load(UrlServer.URL_FOTO_TUKANG+item.getFoto())
-                     .apply(new RequestOptions().override(120,120))
-                     .into(genericViewHolder.imgYourOrder);
-         }
+            if (item.getFoto().isEmpty()) {
+                Glide.with(context)
+                        .load(R.drawable.blank_profile)
+                        .apply(new RequestOptions().override(120, 120))
+                        .into(genericViewHolder.imgYourOrder);
+            } else {
+                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgYourOrder);
+            }
         }
     }
 
@@ -106,7 +106,7 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
         this.mItemClickListener = mItemClickListener;
     }
 
-    private DataItem getItem(int position){
+    private DataItem getItem(int position) {
         return list.get(position);
     }
 
@@ -117,9 +117,12 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtName, txtType, txtDesc, txtStatus, txtCode;
         private ImageView imgYourOrder;
+        private ProgressBar progressBar;
+
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
+            this.progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
             this.txtName = (TextView) itemView.findViewById(R.id.txt_nama_your_order);
             this.txtType = (TextView) itemView.findViewById(R.id.txt_jenis_your_order);
             this.txtDesc = (TextView) itemView.findViewById(R.id.txt_desc_your_order);

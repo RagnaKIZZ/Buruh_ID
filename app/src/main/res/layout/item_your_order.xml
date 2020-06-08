@@ -89,16 +89,35 @@
             android:layout_alignParentEnd="true"
            android:layout_centerVertical="true"
             android:orientation="vertical">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:transitionName="@string/img"
-                android:id="@+id/img_your_order"
-                android:layout_margin="@dimen/_5sdp"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                app:civ_border_width="@dimen/_3sdp"
-                app:civ_border_color="@android:color/white"
-                tools:src="@drawable/solo_worker"/>
 
+            <FrameLayout
+                android:id="@+id/frame_lay"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:transitionName="@string/img"
+                        android:id="@+id/img_your_order"
+                        android:layout_centerInParent="true"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        app:civ_border_width="@dimen/_3sdp"
+                        app:civ_border_color="@android:color/white"
+                        tools:src="@drawable/solo_worker" />
+
+                    <ProgressBar
+                        android:layout_centerInParent="true"
+                        android:id="@+id/progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </FrameLayout>
         </LinearLayout>
 
     </RelativeLayout>

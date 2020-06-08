@@ -31,7 +31,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
         this.list = list;
     }
 
-    public void updateList(ArrayList<DataItem> list){
+    public void updateList(ArrayList<DataItem> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -45,50 +45,47 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull PromoAdapter.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder){
-         final DataItem item = getItem(position);
-         ViewHolder genericViewHolder = (ViewHolder) holder;
+        if (holder instanceof ViewHolder) {
+            final DataItem item = getItem(position);
+            ViewHolder genericViewHolder = (ViewHolder) holder;
             Locale locale = new Locale("in", "ID");
             NumberFormat format1 = NumberFormat.getCurrencyInstance(locale);
-         String time = item.getStartDate();
-         double isiDisc = 100*Double.parseDouble(item.getIsiPromo());
-         int dicount = (int) isiDisc;
-         String disc = " "+String.valueOf(dicount)+"%";
-         String endTime = item.getEndDate();
-         String kode = item.getKodePromo();
-         double min = Double.parseDouble(item.getMinHarga());
-         String minTrans = " "+format1.format(min);
-         String desc = "";
-         String title = item.getNamaPromo();
+            String time = item.getStartDate();
+            double isiDisc = 100 * Double.parseDouble(item.getIsiPromo());
+            int dicount = (int) isiDisc;
+            String disc = " " + String.valueOf(dicount) + "%";
+            String endTime = item.getEndDate();
+            String kode = item.getKodePromo();
+            double min = Double.parseDouble(item.getMinHarga());
+            String minTrans = " " + format1.format(min);
+            String desc = "";
+            String title = item.getNamaPromo();
             Date date = null;
 
-         genericViewHolder.txtTitle.setText(title);
-         genericViewHolder.txtDesc.setText("");
+            genericViewHolder.txtTitle.setText(title);
+            genericViewHolder.txtDesc.setText("");
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try{
+            try {
                 date = format.parse(time);
-            }catch(Exception e){
-                Log.d("ASD", "onBindViewHolder: "+e.getMessage());
+            } catch (Exception e) {
+                Log.d("ASD", "onBindViewHolder: " + e.getMessage());
             }
             HelperClass.getDate(date, time, genericViewHolder.txtDate);
 
             SimpleDateFormat time1 = new SimpleDateFormat("yyyy-MM-dd");
-            try{
+            try {
                 Date waktu = time1.parse(endTime);
                 SimpleDateFormat format2 = new SimpleDateFormat("dd MMM yyyy");
-                String realTime = " "+format2.format(waktu);
-                desc = "Dapatkan discount"+disc+" dengan kode promo "+kode+", minimum transaksi sebesar"+minTrans+", berlaku sampai"+realTime;
+                String realTime = " " + format2.format(waktu);
+                desc = "Dapatkan discount" + disc + " dengan kode promo " + kode + ", minimum transaksi sebesar" + minTrans + ", berlaku sampai" + realTime;
                 genericViewHolder.txtDesc.setText(desc);
-            }catch(Exception e){
-                Log.d("ASD", "onBindViewHolder: "+e.getMessage());
+            } catch (Exception e) {
+                Log.d("ASD", "onBindViewHolder: " + e.getMessage());
             }
 
         }
     }
-
-
-
 
 
     @Override
@@ -100,7 +97,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
         this.mItemClickListener = mItemClickListener;
     }
 
-    private DataItem getItem(int position){
+    private DataItem getItem(int position) {
         return list.get(position);
     }
 

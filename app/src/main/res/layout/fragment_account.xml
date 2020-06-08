@@ -41,6 +41,12 @@
                         android:src="@drawable/blank_profile"
                         android:layout_centerInParent="true"
                        />
+
+                    <ProgressBar
+                        android:layout_centerInParent="true"
+                        android:id="@+id/progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
             </FrameLayout>
             <LinearLayout

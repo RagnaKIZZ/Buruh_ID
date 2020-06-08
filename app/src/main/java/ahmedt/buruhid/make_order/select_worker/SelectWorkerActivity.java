@@ -56,7 +56,7 @@ public class SelectWorkerActivity extends AppCompatActivity {
         findView();
     }
 
-    private void findView(){
+    private void findView() {
         txtMsg = findViewById(R.id.txt_msg);
         imgMsg = findViewById(R.id.img_message);
         rvSelectWorker = findViewById(R.id.rv_select_worker);
@@ -71,8 +71,8 @@ public class SelectWorkerActivity extends AppCompatActivity {
         rvSelectWorker.setLayoutManager(linearLayoutManager);
         rvSelectWorker.setAdapter(mAdapter);
         Intent i = getIntent();
-        final String kota          = i.getStringExtra("city").toLowerCase().trim();
-        final String kec           = i.getStringExtra("subdis").toLowerCase().trim();
+        final String kota = i.getStringExtra("city").toLowerCase().trim();
+        final String kec = i.getStringExtra("subdis").toLowerCase().trim();
         final String jumlahAnggota = i.getStringExtra("jumlah").trim();
         setAdapter(kota, kec, jumlahAnggota, String.valueOf(1));
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +91,7 @@ public class SelectWorkerActivity extends AppCompatActivity {
         });
     }
 
-    private void setAdapter(String city, String subDis, String anggota, String page){
+    private void setAdapter(String city, String subDis, String anggota, String page) {
         AndroidNetworking.post(UrlServer.URL_SELECT_WORKER)
                 .addBodyParameter("id", Prefs.getString(SessionPrefs.U_ID, ""))
                 .addBodyParameter("token_login", Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""))
@@ -104,8 +104,8 @@ public class SelectWorkerActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, SelectModel response) {
                         progressBar.setVisibility(View.GONE);
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 list.clear();
                                 lay_include.setVisibility(View.GONE);
                                 for (int i = 0; i < response.getData().size(); i++) {
@@ -133,7 +133,7 @@ public class SelectWorkerActivity extends AppCompatActivity {
                                         finish();
                                     }
                                 });
-                            }else{
+                            } else {
                                 HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blmadamitra));
 //                                Toasty.warning(SelectWorkerActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
@@ -143,13 +143,13 @@ public class SelectWorkerActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        if (anError.getErrorCode() != 0){
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             HelperClass.serverError(SelectWorkerActivity.this, lay_include, imgMsg, txtMsg);
-                        }else{
-                            Log.d("ERR", "onError: "+anError.getErrorCode());
-                            Log.d("ERR", "onError: "+anError.getErrorBody());
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d("ERR", "onError: " + anError.getErrorCode());
+                            Log.d("ERR", "onError: " + anError.getErrorBody());
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             HelperClass.InetError(SelectWorkerActivity.this, lay_include, imgMsg, txtMsg);
                         }
                     }

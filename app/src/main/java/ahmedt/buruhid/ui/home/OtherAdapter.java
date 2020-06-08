@@ -29,7 +29,7 @@ public class OtherAdapter extends RecyclerView.Adapter<OtherAdapter.ViewHolder> 
         this.list = list;
     }
 
-    public void updateList(ArrayList<OtherItem> modeList){
+    public void updateList(ArrayList<OtherItem> modeList) {
         this.list = modeList;
         notifyDataSetChanged();
     }
@@ -44,14 +44,14 @@ public class OtherAdapter extends RecyclerView.Adapter<OtherAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if (holder instanceof ViewHolder){
+        if (holder instanceof ViewHolder) {
 
             final OtherItem item = getItem(position);
             ViewHolder genericViewHolder = (ViewHolder) holder;
 
             Glide.with(context)
                     .load(item.getPhoto())
-                    .apply(new RequestOptions().override(200,300))
+                    .apply(new RequestOptions().override(200, 300))
                     .into(genericViewHolder.imgConten);
 
             genericViewHolder.txtTitle.setText(item.getTitle());
@@ -68,7 +68,9 @@ public class OtherAdapter extends RecyclerView.Adapter<OtherAdapter.ViewHolder> 
         this.mItemClickListener = mItemClickListener;
     }
 
-    private OtherItem getItem(int position){ return list.get(position); }
+    private OtherItem getItem(int position) {
+        return list.get(position);
+    }
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position, OtherItem model);
@@ -77,18 +79,19 @@ public class OtherAdapter extends RecyclerView.Adapter<OtherAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTitle;
         private ImageView imgConten;
+
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             this.txtTitle = (TextView) itemView.findViewById(R.id.txt_title_other);
             this.imgConten = (ImageView) itemView.findViewById(R.id.img_other);
 
-           itemView.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   mItemClickListener.onItemClick(itemView, getAdapterPosition(), list.get(getAdapterPosition()));
-               }
-           });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemClickListener.onItemClick(itemView, getAdapterPosition(), list.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }

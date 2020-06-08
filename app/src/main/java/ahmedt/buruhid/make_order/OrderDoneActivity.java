@@ -10,6 +10,7 @@ import ahmedt.buruhid.R;
 
 public class OrderDoneActivity extends AppCompatActivity {
     private Button btnDone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +18,7 @@ public class OrderDoneActivity extends AppCompatActivity {
         findView();
     }
 
-    private void findView(){
+    private void findView() {
         btnDone = findViewById(R.id.btn_order_done);
 
         btnDone.setOnClickListener(new View.OnClickListener() {

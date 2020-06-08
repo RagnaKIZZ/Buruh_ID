@@ -4,36 +4,36 @@ package ahmedt.buruhid.make_order.modelVIll;
 import com.google.gson.annotations.SerializedName;
 
 
-public class DataItem{
+public class DataItem {
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("name")
+    private String name;
 
-	@SerializedName("id")
-	private long id;
+    @SerializedName("id")
+    private long id;
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setId(long id){
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public long getId(){
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"DataItem{" + 
-			"name = '" + name + '\'' + 
-			",id = '" + id + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return
+                "DataItem{" +
+                        "name = '" + name + '\'' +
+                        ",id = '" + id + '\'' +
+                        "}";
+    }
 }

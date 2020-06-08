@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String token = instanceIdResult.getToken();
-                if (Prefs.getString(SessionPrefs.TOKEN_FIREBASE, "").isEmpty()){
+                if (Prefs.getString(SessionPrefs.TOKEN_FIREBASE, "").isEmpty()) {
                     getFirebaseToken(token);
-                    Log.d(TAG, "onSuccess: token kosong = "+token);
-                }else if (!token.equals(Prefs.getString(SessionPrefs.TOKEN_FIREBASE, ""))){
+                    Log.d(TAG, "onSuccess: token kosong = " + token);
+                } else if (!token.equals(Prefs.getString(SessionPrefs.TOKEN_FIREBASE, ""))) {
                     getFirebaseToken(token);
-                    Log.d(TAG, "onSuccess: token beda = "+token);
-                }else{
-                    Log.d(TAG, "onSuccess: token masih sama = "+token);
+                    Log.d(TAG, "onSuccess: token beda = " + token);
+                } else {
+                    Log.d(TAG, "onSuccess: token masih sama = " + token);
                 }
             }
         });
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    private void getFirebaseToken(final String firebase){
+    private void getFirebaseToken(final String firebase) {
         AndroidNetworking.post(UrlServer.URL_UPDATE_FIREBASE)
                 .addBodyParameter("id", Prefs.getString(SessionPrefs.U_ID, ""))
                 .addBodyParameter("token_login", Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""))
@@ -83,25 +83,25 @@ public class MainActivity extends AppCompatActivity {
                 .getAsOkHttpResponseAndObject(FirebaseModel.class, new OkHttpResponseAndParsedRequestListener<FirebaseModel>() {
                     @Override
                     public void onResponse(Response okHttpResponse, FirebaseModel response) {
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 Prefs.putString(SessionPrefs.TOKEN_FIREBASE, firebase);
-                                Log.d(TAG, "onResponse: suc= "+response.getMsg());
-                            }else {
-                                Log.d(TAG, "onResponse: "+response.getMsg());
+                                Log.d(TAG, "onResponse: suc= " + response.getMsg());
+                            } else {
+                                Log.d(TAG, "onResponse: " + response.getMsg());
                             }
                         }
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        if (anError.getErrorCode() != 0){
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             Toasty.error(MainActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d("ERR", "onError: "+anError.getErrorCode());
-                            Log.d("ERR", "onError: "+anError.getErrorBody());
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d("ERR", "onError: " + anError.getErrorCode());
+                            Log.d("ERR", "onError: " + anError.getErrorBody());
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
                             Toasty.error(MainActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }

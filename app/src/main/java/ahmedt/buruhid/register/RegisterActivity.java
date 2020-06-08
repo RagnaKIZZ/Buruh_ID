@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     private CheckBox checkBox;
     private Button btnRegister;
     private Context ctx;
-    private static  final Pattern PASSWORD_PATTERN =
+    private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
                     "(?=.*[0-9])" +
                     "(?=.*[a-z])" +
@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final Pattern PHONE_NUMB
             = Pattern.compile(
-            "^[+]?[08][0-9]{10,13}$" );
+            "^[+]?[08][0-9]{10,13}$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void findView(){
+    private void findView() {
         txtToLogin = findViewById(R.id.txt_login_register);
         btnRegister = findViewById(R.id.btn_regist_register);
         txtEmail = findViewById(R.id.txt_email_register);
@@ -80,65 +80,65 @@ public class RegisterActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.checkbox_register);
     }
 
-    private void validateRegister(){
+    private void validateRegister() {
         String name, email, phone, password, rePassword;
         name = txtName.getEditText().getText().toString().trim();
-        email = txtEmail.getEditText().getText().toString().trim();
+        email = txtEmail.getEditText().getText().toString().trim().toLowerCase();
         phone = txtPhone.getEditText().getText().toString().trim();
         password = txtPass.getEditText().getText().toString().trim();
         rePassword = txtRePass.getEditText().getText().toString().trim();
 
         if (!name.isEmpty() && !password.isEmpty() && !email.isEmpty() && !phone.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
-                PHONE_NUMB.matcher(phone).matches() && PASSWORD_PATTERN.matcher(password).matches() && !rePassword.isEmpty() && rePassword.matches(password) && checkBox.isChecked()){
+                PHONE_NUMB.matcher(phone).matches() && PASSWORD_PATTERN.matcher(password).matches() && !rePassword.isEmpty() && rePassword.matches(password) && checkBox.isChecked()) {
             registerUser(name, email, phone, password);
         }
 
-        if (!checkBox.isChecked()){
+        if (!checkBox.isChecked()) {
             checkBox.setTextColor(Color.RED);
-        }else{
+        } else {
             checkBox.setTextColor(Color.BLACK);
         }
 
-        if (name.isEmpty()){
+        if (name.isEmpty()) {
             txtName.setError(getString(R.string.cant_empty));
-        }else {
+        } else {
             txtName.setErrorEnabled(false);
         }
 
-        if (email.isEmpty()){
+        if (email.isEmpty()) {
             txtEmail.setError(getString(R.string.cant_empty));
-        }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             txtEmail.setError(getString(R.string.valid_email));
-        }else {
+        } else {
             txtEmail.setErrorEnabled(false);
         }
 
-        if (phone.isEmpty()){
+        if (phone.isEmpty()) {
             txtPhone.setError(getString(R.string.cant_empty));
-        }else if (!PHONE_NUMB.matcher(phone).matches()){
+        } else if (!PHONE_NUMB.matcher(phone).matches()) {
             txtPhone.setError(getString(R.string.valid_number));
-        }else {
+        } else {
             txtPhone.setErrorEnabled(false);
         }
 
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             txtPass.setError(getString(R.string.cant_empty));
-        }else if (!PASSWORD_PATTERN.matcher(password).matches()){
+        } else if (!PASSWORD_PATTERN.matcher(password).matches()) {
             txtPass.setError(getString(R.string.password_must_contains));
-        }else {
+        } else {
             txtPass.setErrorEnabled(false);
         }
 
-        if (rePassword.isEmpty()){
+        if (rePassword.isEmpty()) {
             txtRePass.setError(getString(R.string.cant_empty));
-        }else if (!rePassword.matches(password)){
+        } else if (!rePassword.matches(password)) {
             txtRePass.setError(getString(R.string.doesnt_match));
-        }else{
+        } else {
             txtRePass.setErrorEnabled(false);
         }
     }
 
-    private void registerUser(String nama, String email, String nope, String password){
+    private void registerUser(String nama, String email, String nope, String password) {
         final KProgressHUD hud = new KProgressHUD(RegisterActivity.this);
         HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_REGISTER)
@@ -151,11 +151,11 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, RegisterModel response) {
                         hud.dismiss();
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 Toasty.success(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
                                 finish();
-                            }else{
+                            } else {
                                 Toasty.warning(ctx, response.getMsg(), Toast.LENGTH_SHORT, true).show();
                             }
                         }
@@ -166,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onError(ANError anError) {
                         hud.dismiss();
                         Toasty.error(ctx, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
-                        Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        Log.d(TAG, "onError: " + anError.getErrorDetail());
                     }
                 });
     }

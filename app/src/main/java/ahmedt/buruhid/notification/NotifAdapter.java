@@ -29,7 +29,7 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.ViewHolder> 
         this.list = list;
     }
 
-    public void updateList(ArrayList<DataItem> list){
+    public void updateList(ArrayList<DataItem> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -43,21 +43,21 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull NotifAdapter.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder){
-         final DataItem item = getItem(position);
-         ViewHolder genericViewHolder = (ViewHolder) holder;
-         String time = item.getCreateDate();
-         String desc = item.getMessage();
-         String title = item.getTitle();
+        if (holder instanceof ViewHolder) {
+            final DataItem item = getItem(position);
+            ViewHolder genericViewHolder = (ViewHolder) holder;
+            String time = item.getCreateDate();
+            String desc = item.getMessage();
+            String title = item.getTitle();
             Date date = null;
-         genericViewHolder.txtTitle.setText(title);
-         genericViewHolder.txtDesc.setText(desc);
+            genericViewHolder.txtTitle.setText(title);
+            genericViewHolder.txtDesc.setText(desc);
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try{
+            try {
                 date = format.parse(time);
-            }catch(Exception e){
-                Log.d("ASD", "onBindViewHolder: "+e.getMessage());
+            } catch (Exception e) {
+                Log.d("ASD", "onBindViewHolder: " + e.getMessage());
             }
             HelperClass.getDate(date, time, genericViewHolder.txtDate);
         }
@@ -72,7 +72,7 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.ViewHolder> 
         this.mItemClickListener = mItemClickListener;
     }
 
-    private DataItem getItem(int position){
+    private DataItem getItem(int position) {
         return list.get(position);
     }
 

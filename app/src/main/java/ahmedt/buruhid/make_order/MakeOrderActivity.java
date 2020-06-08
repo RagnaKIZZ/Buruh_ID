@@ -70,6 +70,7 @@ public class MakeOrderActivity extends AppCompatActivity {
     private EditText edtStartDate, edtStartHour, edtEndDate, edtAdd, edtCit, edtJob, edtSubs, edtVille;
     private Button btnPlus, btnMinus, btnMakeOrder;
     private TextView txtCounter;
+    private ProgressBar progbar;
     private RelativeLayout lnCounter;
     private int counter = 1;
     private int jumlAng = 0;
@@ -80,9 +81,9 @@ public class MakeOrderActivity extends AppCompatActivity {
     String id_vill = "";
     String token = "";
     long start, end;
-    int th ;
-    int bl ;
-    int hr ;
+    int th;
+    int bl;
+    int hr;
     String type;
 
     @Override
@@ -93,7 +94,7 @@ public class MakeOrderActivity extends AppCompatActivity {
         findView();
     }
 
-    private void findView(){
+    private void findView() {
         imgWorker = findViewById(R.id.img_make_order);
         txtType = findViewById(R.id.txt_type_worker);
         btnMinus = findViewById(R.id.btn_minus);
@@ -119,6 +120,7 @@ public class MakeOrderActivity extends AppCompatActivity {
         edtVille = findViewById(R.id.edt_mo_vill);
 
         //include layout
+        progbar = findViewById(R.id.progressbar);
         ratingWorker = findViewById(R.id.rating_selected_worker);
         txtName = findViewById(R.id.txt_name_worker);
         txtTypeWorker = findViewById(R.id.txt_type_of_worker);
@@ -130,14 +132,14 @@ public class MakeOrderActivity extends AppCompatActivity {
         imgSelectWorker = findViewById(R.id.img_selected_worker);
         rlNoWorker.setVisibility(View.VISIBLE);
         rlIsWorker.setVisibility(View.GONE);
-
+        progbar.setVisibility(View.GONE);
         lnCounter = findViewById(R.id.rv_counter);
 
         Intent i = getIntent();
         type = i.getStringExtra("type");
-        if (type.matches(getString(R.string.individu_worker))){
+        if (type.matches(getString(R.string.individu_worker))) {
             lnCounter.setVisibility(View.GONE);
-        }else {
+        } else {
             counter = 3;
             lnCounter.setVisibility(View.VISIBLE);
         }
@@ -230,10 +232,10 @@ public class MakeOrderActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (counter >= 3 && counter < 7){
+                if (counter >= 3 && counter < 7) {
                     counter++;
                     txtCounter.setText(String.valueOf(counter));
-                }else if (counter >= 7){
+                } else if (counter >= 7) {
                     Toasty.warning(MakeOrderActivity.this, "Reach number of maximum worker", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -242,10 +244,10 @@ public class MakeOrderActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (counter > 3 && counter <= 7){
+                if (counter > 3 && counter <= 7) {
                     counter--;
                     txtCounter.setText(String.valueOf(counter));
-                }else if (counter <= 3){
+                } else if (counter <= 3) {
                     Toasty.warning(MakeOrderActivity.this, "Reach number of minimum worker", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -257,13 +259,13 @@ public class MakeOrderActivity extends AppCompatActivity {
                 String city = edtCity.getEditText().getText().toString().trim();
                 String subdis = edtSubdis.getEditText().getText().toString().trim();
                 String address = edtAddress.getEditText().getText().toString().trim();
-                if (!city.isEmpty() && !subdis.isEmpty() && !address.isEmpty()){
+                if (!city.isEmpty() && !subdis.isEmpty() && !address.isEmpty()) {
                     Intent i = new Intent(MakeOrderActivity.this, SelectWorkerActivity.class);
                     i.putExtra("jumlah", String.valueOf(counter));
                     i.putExtra("city", city);
                     i.putExtra("subdis", subdis);
                     startActivityForResult(i, 111);
-                }else {
+                } else {
                     Toasty.warning(MakeOrderActivity.this, R.string.lengkapi, Toasty.LENGTH_SHORT).show();
                 }
             }
@@ -278,7 +280,7 @@ public class MakeOrderActivity extends AppCompatActivity {
         getTomorrow(edtStartDate);
         th = Prefs.getInt(SessionPrefs.YEAR, 0);
         bl = Prefs.getInt(SessionPrefs.MONTH, 0);
-        hr =  Prefs.getInt(SessionPrefs.DATE, 0);
+        hr = Prefs.getInt(SessionPrefs.DATE, 0);
 
         btnEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,9 +306,9 @@ public class MakeOrderActivity extends AppCompatActivity {
         btnSubdis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtCit.getText().toString().isEmpty()){
+                if (!edtCit.getText().toString().isEmpty()) {
                     showSubsDialog(edtSubs, UrlServer.URL_GET_KAC, id_kota);
-                }else {
+                } else {
                     Toasty.warning(MakeOrderActivity.this, "Districts/City can't be empty!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -315,9 +317,9 @@ public class MakeOrderActivity extends AppCompatActivity {
         btnVill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtCit.getText().toString().isEmpty() && !edtSubs.getText().toString().isEmpty()){
+                if (!edtCit.getText().toString().isEmpty() && !edtSubs.getText().toString().isEmpty()) {
                     showVillDialog(edtVille, UrlServer.URL_GET_VIL, id_vill);
-                }else {
+                } else {
                     Toasty.warning(MakeOrderActivity.this, "Districts/City and sub districts can't be empty!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -333,25 +335,25 @@ public class MakeOrderActivity extends AppCompatActivity {
         btnMakeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              conditionNotEmpty();
+                conditionNotEmpty();
             }
         });
     }
 
-    private void conditionNotEmpty(){
+    private void conditionNotEmpty() {
         startDate = edtStartDate.getText().toString().trim();
         startHour = edtStartHour.getText().toString().trim();
         endDate = edtEndDate.getText().toString().trim();
-        city = edtCity.getEditText().getText().toString().trim();
-        subdis = edtSubdis.getEditText().getText().toString().trim();
-        vill = edtVill.getEditText().getText().toString().trim();
+        city = edtCity.getEditText().getText().toString().trim().toLowerCase();
+        subdis = edtSubdis.getEditText().getText().toString().trim().toLowerCase();
+        vill = edtVill.getEditText().getText().toString().trim().toLowerCase();
         address = edtAddress.getEditText().getText().toString().trim();
         nameWorker = txtName.getText().toString();
         jobdesk = edtJobdesk.getEditText().getText().toString().trim();
         if (!startDate.isEmpty() && !startHour.isEmpty() && !endDate.isEmpty() && !city.isEmpty()
-                && !address.isEmpty() && !nameWorker.isEmpty() && !jobdesk.isEmpty() && !subdis.isEmpty() && !vill.isEmpty() && jumlAng != 0){
+                && !address.isEmpty() && !nameWorker.isEmpty() && !jobdesk.isEmpty() && !subdis.isEmpty() && !vill.isEmpty() && jumlAng != 0) {
             getPrice(Prefs.getString(SessionPrefs.U_ID, ""), Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""));
-        }else{
+        } else {
             Toasty.warning(makeOrderActivity, R.string.pleasecekorder, Toast.LENGTH_SHORT).show();
         }
     }
@@ -364,9 +366,9 @@ public class MakeOrderActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == 111){
-                if (data != null){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 111) {
+                if (data != null) {
                     String name = data.getStringExtra(SelectWorkerActivity.NAME_WORKER);
                     String type = data.getStringExtra(SelectWorkerActivity.TYPE_WORKER);
                     String address = data.getStringExtra(SelectWorkerActivity.ADDRESS_WORKER);
@@ -377,22 +379,19 @@ public class MakeOrderActivity extends AppCompatActivity {
                     jumlAng = Integer.parseInt(type);
                     rlNoWorker.setVisibility(View.GONE);
                     rlIsWorker.setVisibility(View.VISIBLE);
-                    if (type.matches("1")){
+                    if (type.matches("1")) {
                         tipe = getString(R.string.individu_worker);
-                    }else {
+                    } else {
                         tipe = getString(R.string.team_worker);
                     }
                     txtName.setText(name);
                     txtTypeWorker.setText(tipe);
                     txtAddress.setText(address);
-                    txtRating.setText("("+String.valueOf(rating)+")");
+                    txtRating.setText("(" + String.valueOf(rating) + ")");
                     ratingWorker.setRating(Float.parseFloat(rating));
-                    if (!img.isEmpty()){
-                        Glide.with(MakeOrderActivity.this)
-                                .load(UrlServer.URL_FOTO_TUKANG+img)
-                                .centerCrop()
-                                .into(imgSelectWorker);
-                    }else {
+                    if (!img.isEmpty()) {
+                        HelperClass.loadGambar(MakeOrderActivity.this, UrlServer.URL_FOTO_TUKANG + img, progbar, imgSelectWorker);
+                    } else {
                         Glide.with(MakeOrderActivity.this)
                                 .load(R.drawable.blank_profile)
                                 .centerCrop()
@@ -418,12 +417,11 @@ public class MakeOrderActivity extends AppCompatActivity {
                 calendar.set(Calendar.MINUTE, minute);
                 int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-                if (timeOfDay >= 0 && timeOfDay < 8){
+                if (timeOfDay >= 0 && timeOfDay < 8) {
                     Toasty.warning(MakeOrderActivity.this, R.string.wrong_time, Toast.LENGTH_LONG).show();
-                }else if(timeOfDay >= 15 && timeOfDay < 24){
+                } else if (timeOfDay >= 15 && timeOfDay < 24) {
                     Toasty.warning(MakeOrderActivity.this, R.string.wrong_time, Toast.LENGTH_LONG).show();
-                }
-                else{
+                } else {
                     edtStartHour.setText(simpleDateFormat.format(calendar.getTime()));
                 }
             }
@@ -432,7 +430,7 @@ public class MakeOrderActivity extends AppCompatActivity {
         new TimePickerDialog(MakeOrderActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
     }
 
-    private void showCityDialog(final EditText edt, final String jenis, final String id){
+    private void showCityDialog(final EditText edt, final String jenis, final String id) {
         final Dialog dialog = new Dialog(MakeOrderActivity.this);
         dialog.setContentView(R.layout.dialog_address);
         RecyclerView rv_address;
@@ -456,20 +454,20 @@ public class MakeOrderActivity extends AppCompatActivity {
                 .getAsOkHttpResponseAndObject(UnicodeModel.class, new OkHttpResponseAndParsedRequestListener<UnicodeModel>() {
                     @Override
                     public void onResponse(Response okHttpResponse, UnicodeModel response) {
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
-                                Prefs.putString(SessionPrefs.UNICODE,"" );
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
+                                Prefs.putString(SessionPrefs.UNICODE, "");
                                 token = response.getToken();
-                                AndroidNetworking.get(UrlServer.URL_GET_ADDRESS+token+jenis+id)
+                                AndroidNetworking.get(UrlServer.URL_GET_ADDRESS + token + jenis + id)
                                         .setTag("city")
                                         .build()
                                         .getAsOkHttpResponseAndObject(CityModel.class, new OkHttpResponseAndParsedRequestListener<CityModel>() {
                                             @Override
                                             public void onResponse(Response okHttpResponse, CityModel response) {
                                                 progressBar.setVisibility(View.GONE);
-                                                if (okHttpResponse.isSuccessful()){
-                                                    if (response.getCode() == 200){
-                                                        for (int i = 0; i < response.getData().size() ; i++) {
+                                                if (okHttpResponse.isSuccessful()) {
+                                                    if (response.getCode() == 200) {
+                                                        for (int i = 0; i < response.getData().size(); i++) {
                                                             final DataItem item = new DataItem();
                                                             item.setName(response.getData().get(i).getName());
                                                             item.setId(response.getData().get(i).getId());
@@ -484,7 +482,7 @@ public class MakeOrderActivity extends AppCompatActivity {
                                                                 dialog.dismiss();
                                                             }
                                                         });
-                                                    }else {
+                                                    } else {
                                                         dialog.dismiss();
                                                         progressBar.setVisibility(View.GONE);
                                                         Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
@@ -496,18 +494,18 @@ public class MakeOrderActivity extends AppCompatActivity {
                                             public void onError(ANError anError) {
                                                 dialog.dismiss();
                                                 progressBar.setVisibility(View.GONE);
-                                                if (anError.getErrorCode() != 0){
-                                                    Log.d(TAG, "onError: "+anError.getErrorDetail());
+                                                if (anError.getErrorCode() != 0) {
+                                                    Log.d(TAG, "onError: " + anError.getErrorDetail());
                                                     Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                                                }else{
-                                                    Log.d(TAG, "onError: "+anError.getErrorCode());
-                                                    Log.d(TAG, "onError: "+anError.getErrorBody());
-                                                    Log.d(TAG, "onError: "+anError.getErrorDetail());
+                                                } else {
+                                                    Log.d(TAG, "onError: " + anError.getErrorCode());
+                                                    Log.d(TAG, "onError: " + anError.getErrorBody());
+                                                    Log.d(TAG, "onError: " + anError.getErrorDetail());
                                                     Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                                                 }
                                             }
                                         });
-                            }else {
+                            } else {
                                 dialog.dismiss();
                                 progressBar.setVisibility(View.GONE);
                                 Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
@@ -519,13 +517,13 @@ public class MakeOrderActivity extends AppCompatActivity {
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
                         dialog.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d(TAG, "onError: " + anError.getErrorCode());
+                            Log.d(TAG, "onError: " + anError.getErrorBody());
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }
@@ -542,7 +540,7 @@ public class MakeOrderActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void showSubsDialog(final EditText edt, final String jenis, final String id){
+    private void showSubsDialog(final EditText edt, final String jenis, final String id) {
         final Dialog dialog = new Dialog(MakeOrderActivity.this);
         dialog.setContentView(R.layout.dialog_address);
         RecyclerView rv_address;
@@ -559,16 +557,16 @@ public class MakeOrderActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv_address.setLayoutManager(linearLayoutManager);
         rv_address.setAdapter(adapter);
-        AndroidNetworking.get(UrlServer.URL_GET_ADDRESS+token+jenis+id)
+        AndroidNetworking.get(UrlServer.URL_GET_ADDRESS + token + jenis + id)
                 .setTag("city")
                 .build()
                 .getAsOkHttpResponseAndObject(CityModel.class, new OkHttpResponseAndParsedRequestListener<CityModel>() {
                     @Override
                     public void onResponse(Response okHttpResponse, CityModel response) {
                         progressBar.setVisibility(View.GONE);
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
-                                for (int i = 0; i < response.getData().size() ; i++) {
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
+                                for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem item = new DataItem();
                                     item.setName(response.getData().get(i).getName());
                                     item.setId(response.getData().get(i).getId());
@@ -580,11 +578,11 @@ public class MakeOrderActivity extends AppCompatActivity {
                                     public void onItemClick(View view, int position, DataItem model) {
                                         edt.setText(model.getName());
                                         id_vill = String.valueOf(model.getId());
-                                        Log.d(TAG, "onItemClick: "+id_vill);
+                                        Log.d(TAG, "onItemClick: " + id_vill);
                                         dialog.dismiss();
                                     }
                                 });
-                            }else {
+                            } else {
                                 dialog.dismiss();
                                 progressBar.setVisibility(View.GONE);
                                 Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
@@ -596,13 +594,13 @@ public class MakeOrderActivity extends AppCompatActivity {
                     public void onError(ANError anError) {
                         dialog.dismiss();
                         progressBar.setVisibility(View.GONE);
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d(TAG, "onError: " + anError.getErrorCode());
+                            Log.d(TAG, "onError: " + anError.getErrorBody());
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }
@@ -619,7 +617,7 @@ public class MakeOrderActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void showVillDialog(final EditText edt, final String jenis, final String id){
+    private void showVillDialog(final EditText edt, final String jenis, final String id) {
         final Dialog dialog = new Dialog(MakeOrderActivity.this);
         dialog.setContentView(R.layout.dialog_address);
         RecyclerView rv_address;
@@ -637,16 +635,16 @@ public class MakeOrderActivity extends AppCompatActivity {
         rv_address.setLayoutManager(linearLayoutManager);
         rv_address.setAdapter(adapter);
 
-        AndroidNetworking.get(UrlServer.URL_GET_ADDRESS+token+jenis+id)
+        AndroidNetworking.get(UrlServer.URL_GET_ADDRESS + token + jenis + id)
                 .setTag("city")
                 .build()
                 .getAsOkHttpResponseAndObject(VillModel.class, new OkHttpResponseAndParsedRequestListener<VillModel>() {
                     @Override
                     public void onResponse(Response okHttpResponse, VillModel response) {
                         progressBar.setVisibility(View.GONE);
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
-                                for (int i = 0; i < response.getData().size() ; i++) {
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
+                                for (int i = 0; i < response.getData().size(); i++) {
                                     final DataItem item = new DataItem();
                                     item.setName(response.getData().get(i).getName());
                                     list.add(item);
@@ -659,7 +657,7 @@ public class MakeOrderActivity extends AppCompatActivity {
                                         dialog.dismiss();
                                     }
                                 });
-                            }else {
+                            } else {
                                 dialog.dismiss();
                                 progressBar.setVisibility(View.GONE);
                                 Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
@@ -670,13 +668,13 @@ public class MakeOrderActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         dialog.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        } else {
+                            Log.d(TAG, "onError: " + anError.getErrorCode());
+                            Log.d(TAG, "onError: " + anError.getErrorBody());
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                         progressBar.setVisibility(View.GONE);
@@ -707,8 +705,8 @@ public class MakeOrderActivity extends AppCompatActivity {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                Log.d(TAG, "onDateSet: "+String.valueOf(th));
-                Log.d(TAG, "onDateSet: "+String.valueOf(hr));
+                Log.d(TAG, "onDateSet: " + String.valueOf(th));
+                Log.d(TAG, "onDateSet: " + String.valueOf(hr));
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date endDate = calendar.getTime();
                 /**
@@ -716,23 +714,23 @@ public class MakeOrderActivity extends AppCompatActivity {
                  * to make condition that not allowed end date
                  * AMD
                  **/
-                if (year < th){
+                if (year < th) {
                     Toasty.warning(MakeOrderActivity.this, R.string.worng_end_date, Toast.LENGTH_SHORT).show();
-                }else if (year == th){
-                    if (month < bl){
+                } else if (year == th) {
+                    if (month < bl) {
                         Toasty.warning(MakeOrderActivity.this, R.string.worng_end_date, Toast.LENGTH_SHORT).show();
-                    }else if (month == bl){
-                        if (dayOfMonth<=hr){
+                    } else if (month == bl) {
+                        if (dayOfMonth <= hr) {
                             Toasty.warning(MakeOrderActivity.this, R.string.worng_end_date, Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             edtEndDate.setText(simpleDateFormat.format(calendar.getTime()));
                             end = endDate.getTime();
                         }
-                    }else if (month > bl){
+                    } else if (month > bl) {
                         edtEndDate.setText(simpleDateFormat.format(calendar.getTime()));
                         end = endDate.getTime();
                     }
-                }else if (year > th){
+                } else if (year > th) {
                     edtEndDate.setText(simpleDateFormat.format(calendar.getTime()));
                     end = endDate.getTime();
                 }
@@ -742,9 +740,9 @@ public class MakeOrderActivity extends AppCompatActivity {
                  * AMD
                  **/
                 long total = end - start;
-                long difTotal = (total / (24 * 60 * 60 * 1000))+1;
+                long difTotal = (total / (24 * 60 * 60 * 1000)) + 1;
                 TOTAL_DAY = String.valueOf(difTotal);
-                Log.d(TAG, "onDateSet: "+TOTAL_DAY);
+                Log.d(TAG, "onDateSet: " + TOTAL_DAY);
             }
         };
         new DatePickerDialog(MakeOrderActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -755,7 +753,7 @@ public class MakeOrderActivity extends AppCompatActivity {
      * to get tommorow date
      * AMD
      **/
-    private void getTomorrow(EditText edtStartDate){
+    private void getTomorrow(EditText edtStartDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -765,9 +763,9 @@ public class MakeOrderActivity extends AppCompatActivity {
         start = tomorrow.getTime();
     }
 
-    private void getPrice(String id, String token){
+    private void getPrice(String id, String token) {
         final KProgressHUD hud = new KProgressHUD(this);
-        HelperClass.loading(hud , null, null, false);
+        HelperClass.loading(hud, null, null, false);
         AndroidNetworking.post(UrlServer.URL_PRICE)
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
@@ -776,13 +774,13 @@ public class MakeOrderActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, PriceModel response) {
                         hud.dismiss();
-                        if(okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 Intent i = new Intent(MakeOrderActivity.this, DetailOrderActivity.class);
-                                if (type.matches("Individu Worker")){
+                                if (type.matches("Individu Worker")) {
                                     i.putExtra("isTeam", false);
                                     i.putExtra("counter", String.valueOf(jumlAng));
-                                }else {
+                                } else {
                                     i.putExtra("isTeam", true);
                                     i.putExtra("counter", String.valueOf(jumlAng));
                                 }
@@ -798,9 +796,9 @@ public class MakeOrderActivity extends AppCompatActivity {
                                 i.putExtra("address", address);
                                 i.putExtra("name_worker", nameWorker);
                                 i.putExtra("jobdesk", jobdesk);
-                                i.putExtra("amountDays",TOTAL_DAY);
+                                i.putExtra("amountDays", TOTAL_DAY);
                                 startActivity(i);
-                            }else{
+                            } else {
                                 Toasty.warning(MakeOrderActivity.this, R.string.something_wrong, Toasty.LENGTH_SHORT).show();
                             }
                         }
@@ -809,14 +807,14 @@ public class MakeOrderActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         hud.dismiss();
-                        if (anError.getErrorCode() != 0){
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                        if (anError.getErrorCode() != 0) {
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(MakeOrderActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                        }else{
+                        } else {
                             finish();
-                            Log.d(TAG, "onError: "+anError.getErrorCode());
-                            Log.d(TAG, "onError: "+anError.getErrorBody());
-                            Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            Log.d(TAG, "onError: " + anError.getErrorCode());
+                            Log.d(TAG, "onError: " + anError.getErrorBody());
+                            Log.d(TAG, "onError: " + anError.getErrorDetail());
                             Toasty.error(MakeOrderActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                         }
                     }

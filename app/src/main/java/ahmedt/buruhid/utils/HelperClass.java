@@ -108,15 +108,16 @@ public class HelperClass {
         }
         txt.setText(time);
     }
-    public static void loadGambar(Context context, String url, final ProgressBar progressBar, ImageView img){
+
+    public static void loadGambar(Context context, String url, final ProgressBar progressBar, final ImageView img) {
         progressBar.setVisibility(View.VISIBLE);
         Glide.with(context)
                 .load(url)
-                .centerCrop()
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         progressBar.setVisibility(View.GONE);
+                        img.setImageResource(R.drawable.blank_profile);
                         return false;
                     }
 

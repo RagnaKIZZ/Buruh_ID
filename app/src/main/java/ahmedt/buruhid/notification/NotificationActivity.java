@@ -57,12 +57,12 @@ public class NotificationActivity extends AppCompatActivity {
         findView();
     }
 
-    private void findView(){
+    private void findView() {
         imgMsg = findViewById(R.id.img_message);
         txtMsg = findViewById(R.id.txt_msg);
         rv_notif = findViewById(R.id.rc_notif);
         progressBar = findViewById(R.id.progress_bar);
-        lay_include =  findViewById(R.id.include_lay);
+        lay_include = findViewById(R.id.include_lay);
         lay_include.setVisibility(View.GONE);
         btnRefresh = findViewById(R.id.floatingActionButton);
         rv_notif.setHasFixedSize(true);
@@ -97,7 +97,7 @@ public class NotificationActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String param = FirebaseMessagingService.INFO_UPDATE;
-            if (intent.getAction().equals(param)){
+            if (intent.getAction().equals(param)) {
                 setAdapter(id, token, true);
             }
         }
@@ -117,7 +117,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 break;
@@ -134,8 +134,8 @@ public class NotificationActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response okHttpResponse, NotificationModel response) {
                         progressBar.setVisibility(View.GONE);
-                        if (okHttpResponse.isSuccessful()){
-                            if (response.getCode() == 200){
+                        if (okHttpResponse.isSuccessful()) {
+                            if (response.getCode() == 200) {
                                 list.clear();
                                 lay_include.setVisibility(View.GONE);
                                 Prefs.putInt(SessionPrefs.NOTIF_COUNT, 0);
@@ -149,10 +149,10 @@ public class NotificationActivity extends AppCompatActivity {
                                 }
                                 setResult(RESULT_OK);
                                 adapter.updateList(list);
-                            }else{
-                                if (isBackground){
+                            } else {
+                                if (isBackground) {
 
-                                }else {
+                                } else {
                                     HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blmnotif));
                                 }
 //                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
@@ -163,20 +163,20 @@ public class NotificationActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         progressBar.setVisibility(View.GONE);
-                        if (anError.getErrorCode() != 0){
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
-                            if (isBackground){
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
+                            if (isBackground) {
                                 Toasty.error(NotificationActivity.this, R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                            }else {
+                            } else {
                                 HelperClass.serverError(NotificationActivity.this, lay_include, imgMsg, txtMsg);
                             }
-                        }else{
-                            Log.d("ERR", "onError: "+anError.getErrorCode());
-                            Log.d("ERR", "onError: "+anError.getErrorBody());
-                            Log.d("ERR", "onError: "+anError.getErrorDetail());
-                            if (isBackground){
+                        } else {
+                            Log.d("ERR", "onError: " + anError.getErrorCode());
+                            Log.d("ERR", "onError: " + anError.getErrorBody());
+                            Log.d("ERR", "onError: " + anError.getErrorDetail());
+                            if (isBackground) {
                                 Toasty.error(NotificationActivity.this, R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
-                            }else {
+                            } else {
                                 HelperClass.InetError(NotificationActivity.this, lay_include, imgMsg, txtMsg);
                             }
                         }

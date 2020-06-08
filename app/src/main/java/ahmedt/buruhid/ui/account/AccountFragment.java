@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +51,8 @@ public class AccountFragment extends Fragment {
     private TextView txtName, txtEmail, txtPhone;
     private ImageView imgAcc;
     private TextView txtHi;
+    private ProgressBar progressBar;
     private String foto = Prefs.getString(SessionPrefs.FOTO, "");
-
 
 
     public AccountFragment() {
@@ -76,20 +77,20 @@ public class AccountFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             String extra = data.getStringExtra("extra");
-            if (requestCode == 1){
+            if (requestCode == 1) {
                 String name = data.getStringExtra("extra");
-                if (extra.contains(" ")){
+                if (extra.contains(" ")) {
                     extra = extra.substring(0, extra.indexOf(" "));
                 }
                 txtName.setText(name);
-                txtHi.setText("Hi "+extra+",");
-            }else if (requestCode == 2){
+                txtHi.setText("Hi " + extra + ",");
+            } else if (requestCode == 2) {
                 txtEmail.setText(extra);
-            }else if (requestCode == 3){
+            } else if (requestCode == 3) {
                 txtPhone.setText(extra);
-            }else{
+            } else {
 
             }
         }
@@ -103,21 +104,21 @@ public class AccountFragment extends Fragment {
         txtPhone = view.findViewById(R.id.txt_phone_account);
         imgAcc = view.findViewById(R.id.img_account);
         txtHi = view.findViewById(R.id.txt_hi_account);
+        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         String nama = Prefs.getString(SessionPrefs.NAMA, "");
         String email = Prefs.getString(SessionPrefs.EMAIL, "");
         String telepon = Prefs.getString(SessionPrefs.TELEPON, "");
         String foto = Prefs.getString(SessionPrefs.FOTO, "");
-        if (nama.contains(" ")){
+        if (nama.contains(" ")) {
             nama = nama.substring(0, nama.indexOf(" "));
         }
-        txtHi.setText("Hi "+nama+",");
+        txtHi.setText("Hi " + nama + ",");
 
-        if (!foto.isEmpty()){
-            Glide.with(getActivity())
-                    .load(UrlServer.URL_FOTO+foto)
-                    .into(imgAcc);
-        }else {
+        if (!foto.isEmpty()) {
+            HelperClass.loadGambar(getActivity(), UrlServer.URL_FOTO + foto, progressBar, imgAcc);
+        } else {
             Glide.with(getActivity())
                     .load(R.drawable.blank_profile)
                     .into(imgAcc);
@@ -127,7 +128,6 @@ public class AccountFragment extends Fragment {
         txtName.setText(Prefs.getString(SessionPrefs.NAMA, ""));
         txtEmail.setText(email);
         txtPhone.setText(telepon);
-
 
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -151,17 +151,17 @@ public class AccountFragment extends Fragment {
                 View shareView = imgAcc;
                 String transitionName = getString(R.string.img);
                 ActivityOptions transOpt = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     transOpt = ActivityOptions.makeSceneTransitionAnimation(getActivity(), shareView, transitionName);
                     startActivity(i, transOpt.toBundle());
-                }else {
+                } else {
                     startActivity(i);
                 }
             }
         });
     }
 
-    private void logOut(){
+    private void logOut() {
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
         alert.setTitle(R.string.logout);
@@ -170,20 +170,20 @@ public class AccountFragment extends Fragment {
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (getActivity() != null){
+                        if (getActivity() != null) {
                             String uid = Prefs.getString(SessionPrefs.U_ID, "");
                             String token_login = Prefs.getString(SessionPrefs.TOKEN_LOGIN, "");
-                            Log.d(TAG, "onClick: "+token_login);
+                            Log.d(TAG, "onClick: " + token_login);
                             logoutUser(uid, token_login);
                         }
                     }
                 })
-        .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
         alert.show();
     }
 
@@ -199,15 +199,15 @@ public class AccountFragment extends Fragment {
                         @Override
                         public void onResponse(Response okHttpResponse, AccountModel response) {
                             hud.dismiss();
-                            if (okHttpResponse.isSuccessful()){
-                                if (response.getCode() == 200){
+                            if (okHttpResponse.isSuccessful()) {
+                                if (response.getCode() == 200) {
 //                                    Toasty.success(getActivity(),R.string.suc_logout, Toast.LENGTH_SHORT, true).show();
                                     Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
                                     Prefs.clear();
                                     startActivity(intent);
                                     getActivity().finish();
-                                }else{
+                                } else {
                                     Toasty.warning(getActivity(), R.string.something_wrong, Toast.LENGTH_SHORT, true).show();
                                 }
                             }
@@ -216,13 +216,13 @@ public class AccountFragment extends Fragment {
                         @Override
                         public void onError(ANError anError) {
                             hud.dismiss();
-                            if (anError.getErrorCode() != 0){
-                                Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            if (anError.getErrorCode() != 0) {
+                                Log.d(TAG, "onError: " + anError.getErrorDetail());
                                 Toasty.error(getActivity(), R.string.server_error, Toast.LENGTH_SHORT, true).show();
-                            }else{
-                                Log.d(TAG, "onError: "+anError.getErrorCode());
-                                Log.d(TAG, "onError: "+anError.getErrorBody());
-                                Log.d(TAG, "onError: "+anError.getErrorDetail());
+                            } else {
+                                Log.d(TAG, "onError: " + anError.getErrorCode());
+                                Log.d(TAG, "onError: " + anError.getErrorBody());
+                                Log.d(TAG, "onError: " + anError.getErrorDetail());
                                 Toasty.error(getActivity(), R.string.cek_internet, Toast.LENGTH_SHORT, true).show();
                             }
                         }
@@ -230,14 +230,14 @@ public class AccountFragment extends Fragment {
         }
     }
 
-    private void dialogEditProfile(){
-        if (getActivity() != null){
+    private void dialogEditProfile() {
+        if (getActivity() != null) {
             final Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.dialog_edit_profiles);
 
             LinearLayout lnName, lnEmail, lnPhone, lnPass, lnLang;
             lnPhone = dialog.findViewById(R.id.linear_edit_phone);
-            lnName  = dialog.findViewById(R.id.linear_edit_name);
+            lnName = dialog.findViewById(R.id.linear_edit_name);
             lnEmail = dialog.findViewById(R.id.linear_edit_email);
             lnPass = dialog.findViewById(R.id.linear_edit_password);
             lnLang = dialog.findViewById(R.id.linear_change_language);
@@ -299,18 +299,16 @@ public class AccountFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (Prefs.getString(SessionPrefs.FOTO,"").isEmpty()){
+        if (Prefs.getString(SessionPrefs.FOTO, "").isEmpty()) {
             Glide.with(getActivity())
                     .load(R.drawable.blank_profile)
                     .into(imgAcc);
-            Log.d(TAG, "onResume: kosong: "+Prefs.getString(SessionPrefs.FOTO,""));
-        }else{
-            if (!foto.equals(Prefs.getString(SessionPrefs.FOTO, ""))){
-                Glide.with(getActivity())
-                        .load(UrlServer.URL_FOTO+Prefs.getString(SessionPrefs.FOTO, ""))
-                        .into(imgAcc);
-                Log.d(TAG, "onResume: beda"+foto);
-                Log.d(TAG, "onResume: beda: "+Prefs.getString(SessionPrefs.FOTO,""));
+            Log.d(TAG, "onResume: kosong: " + Prefs.getString(SessionPrefs.FOTO, ""));
+        } else {
+            if (!foto.equals(Prefs.getString(SessionPrefs.FOTO, ""))) {
+                HelperClass.loadGambar(getActivity(), UrlServer.URL_FOTO + Prefs.getString(SessionPrefs.FOTO, ""), progressBar, imgAcc);
+                Log.d(TAG, "onResume: beda" + foto);
+                Log.d(TAG, "onResume: beda: " + Prefs.getString(SessionPrefs.FOTO, ""));
             }
         }
 

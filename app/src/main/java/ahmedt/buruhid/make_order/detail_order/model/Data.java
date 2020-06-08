@@ -4,96 +4,96 @@ package ahmedt.buruhid.make_order.detail_order.model;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Data{
+public class Data {
 
-	@SerializedName("kode_promo")
-	private String kodePromo;
+    @SerializedName("kode_promo")
+    private String kodePromo;
 
-	@SerializedName("end_date")
-	private String endDate;
+    @SerializedName("end_date")
+    private String endDate;
 
-	@SerializedName("nama_promo")
-	private String namaPromo;
+    @SerializedName("nama_promo")
+    private String namaPromo;
 
-	@SerializedName("min_harga")
-	private String minHarga;
+    @SerializedName("min_harga")
+    private String minHarga;
 
-	@SerializedName("id")
-	private String id;
+    @SerializedName("id")
+    private String id;
 
-	@SerializedName("isi_promo")
-	private String isiPromo;
+    @SerializedName("isi_promo")
+    private String isiPromo;
 
-	@SerializedName("start_date")
-	private String startDate;
+    @SerializedName("start_date")
+    private String startDate;
 
-	public void setKodePromo(String kodePromo){
-		this.kodePromo = kodePromo;
-	}
+    public void setKodePromo(String kodePromo) {
+        this.kodePromo = kodePromo;
+    }
 
-	public String getKodePromo(){
-		return kodePromo;
-	}
+    public String getKodePromo() {
+        return kodePromo;
+    }
 
-	public void setEndDate(String endDate){
-		this.endDate = endDate;
-	}
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
-	public String getEndDate(){
-		return endDate;
-	}
+    public String getEndDate() {
+        return endDate;
+    }
 
-	public void setNamaPromo(String namaPromo){
-		this.namaPromo = namaPromo;
-	}
+    public void setNamaPromo(String namaPromo) {
+        this.namaPromo = namaPromo;
+    }
 
-	public String getNamaPromo(){
-		return namaPromo;
-	}
+    public String getNamaPromo() {
+        return namaPromo;
+    }
 
-	public void setMinHarga(String minHarga){
-		this.minHarga = minHarga;
-	}
+    public void setMinHarga(String minHarga) {
+        this.minHarga = minHarga;
+    }
 
-	public String getMinHarga(){
-		return minHarga;
-	}
+    public String getMinHarga() {
+        return minHarga;
+    }
 
-	public void setId(String id){
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getId(){
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setIsiPromo(String isiPromo){
-		this.isiPromo = isiPromo;
-	}
+    public void setIsiPromo(String isiPromo) {
+        this.isiPromo = isiPromo;
+    }
 
-	public String getIsiPromo(){
-		return isiPromo;
-	}
+    public String getIsiPromo() {
+        return isiPromo;
+    }
 
-	public void setStartDate(String startDate){
-		this.startDate = startDate;
-	}
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
 
-	public String getStartDate(){
-		return startDate;
-	}
+    public String getStartDate() {
+        return startDate;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"Data{" + 
-			"kode_promo = '" + kodePromo + '\'' + 
-			",end_date = '" + endDate + '\'' + 
-			",nama_promo = '" + namaPromo + '\'' +
-			",min_harga = '" + minHarga + '\'' + 
-			",id = '" + id + '\'' + 
-			",isi_promo = '" + isiPromo + '\'' + 
-			",start_date = '" + startDate + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return
+                "Data{" +
+                        "kode_promo = '" + kodePromo + '\'' +
+                        ",end_date = '" + endDate + '\'' +
+                        ",nama_promo = '" + namaPromo + '\'' +
+                        ",min_harga = '" + minHarga + '\'' +
+                        ",id = '" + id + '\'' +
+                        ",isi_promo = '" + isiPromo + '\'' +
+                        ",start_date = '" + startDate + '\'' +
+                        "}";
+    }
 }

@@ -36,7 +36,7 @@ public class IntroActivity extends AppCompatActivity {
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro);
 
-       final List<ScreenItem> list = new ArrayList<>();
+        final List<ScreenItem> list = new ArrayList<>();
         list.add(new ScreenItem(getString(R.string.buruh_id), getString(R.string.desc_intro_3), R.drawable.load_screen_3));
         list.add(new ScreenItem(getString(R.string.intro_title_1), getString(R.string.desc_intro_1), R.drawable.load_screen));
         list.add(new ScreenItem(getString(R.string.intro_title_2), getString(R.string.desc_intro_2), R.drawable.load_screen_2));
@@ -56,13 +56,13 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 positionTab = viewPager.getCurrentItem();
-                if (positionTab < list.size()){
+                if (positionTab < list.size()) {
                     positionTab++;
                     viewPager.setCurrentItem(positionTab);
                 }
 
                 //when reach to the last page
-                if (positionTab == list.size()-1){
+                if (positionTab == list.size() - 1) {
                     loadEnd();
                 }
             }
@@ -79,9 +79,9 @@ public class IntroActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == list.size()-1){
+                if (tab.getPosition() == list.size() - 1) {
                     loadEnd();
-                }else {
+                } else {
                     loadStart();
                 }
             }
@@ -107,7 +107,7 @@ public class IntroActivity extends AppCompatActivity {
 
     }
 
-    private void expand(CardView mLinearLayout){
+    private void expand(CardView mLinearLayout) {
         mLinearLayout.setVisibility(View.VISIBLE);
 
         final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -118,7 +118,7 @@ public class IntroActivity extends AppCompatActivity {
         mAnimator.start();
     }
 
-    private ValueAnimator slideAnimator(int start, int end, final CardView mLinearLayout){
+    private ValueAnimator slideAnimator(int start, int end, final CardView mLinearLayout) {
         ValueAnimator animator = ValueAnimator.ofInt(start, end);
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -133,7 +133,7 @@ public class IntroActivity extends AppCompatActivity {
         return animator;
     }
 
-    private void collapse(final CardView mLinearLayout){
+    private void collapse(final CardView mLinearLayout) {
         int finalHeight = mLinearLayout.getHeight();
 
         ValueAnimator animator = slideAnimator(finalHeight, 0, mLinearLayout);
@@ -161,13 +161,13 @@ public class IntroActivity extends AppCompatActivity {
         animator.start();
     }
 
-    private void loadStart(){
-      collapse(cdStart);
+    private void loadStart() {
+        collapse(cdStart);
         txtSkip.setVisibility(View.VISIBLE);
         cdNext.setVisibility(View.VISIBLE);
     }
 
-    private void loadEnd(){
+    private void loadEnd() {
         expand(cdStart);
         txtSkip.setVisibility(View.GONE);
         cdNext.setVisibility(View.GONE);

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +36,7 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
         this.list = list;
     }
 
-    public void updateList(ArrayList<DataItem> list){
+    public void updateList(ArrayList<DataItem> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -49,58 +50,58 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
 
     @Override
     public void onBindViewHolder(@NonNull HistoryOrderAdapter.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder){
-         final DataItem item = getItem(position);
-         ViewHolder genericViewHolder = (ViewHolder) holder;
-         String time = "";
-         String type = "";
-         String status = "";
-         String waktu = "";
-         int color = 0;
-            if (item.getAnggota().matches("1")){
+        if (holder instanceof ViewHolder) {
+            final DataItem item = getItem(position);
+            ViewHolder genericViewHolder = (ViewHolder) holder;
+            String time = "";
+            String type = "";
+            String status = "";
+            String waktu = "";
+            int color = 0;
+            if (item.getAnggota().matches("1")) {
                 type = context.getString(R.string.individu_worker);
-            }else{
-                type = context.getString(R.string.tim_work)+item.getAnggota()+context.getString(R.string.people);
+            } else {
+                type = context.getString(R.string.tim_work) + item.getAnggota() + context.getString(R.string.people);
             }
 
-            if (item.getFinishDate() != null){
+            if (item.getFinishDate() != null) {
                 time = item.getFinishDate();
-            }else{
+            } else {
                 time = item.getOrderDate();
             }
 
-            if (item.getStatusOrder().matches("0")){
+            if (item.getStatusOrder().matches("0")) {
                 status = context.getString(R.string.canceled);
                 color = Color.RED;
-            }else if (item.getStatusOrder().matches("4")){
+            } else if (item.getStatusOrder().matches("4")) {
                 status = context.getString(R.string.fin);
                 color = Color.GREEN;
-            }else{
+            } else {
                 status = "error!";
                 color = Color.RED;
             }
             Date date = null;
-          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try{
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
                 date = format.parse(time);
-            }catch(Exception e){
-                Log.d("ASD", "onBindViewHolder: "+e.getMessage());
+            } catch (Exception e) {
+                Log.d("ASD", "onBindViewHolder: " + e.getMessage());
             }
-            HelperClass.getDate(date, waktu,  genericViewHolder.txtDate);
-         genericViewHolder.txtType.setText(type);
-         genericViewHolder.txtDesc.setText(item.getJobdesk());
-         genericViewHolder.txtStatus.setText(status);
-         genericViewHolder.txtStatus.setTextColor(color);
-            if (item.getFoto().isEmpty()){
+            HelperClass.getDate(date, waktu, genericViewHolder.txtDate);
+            genericViewHolder.txtType.setText(type);
+            genericViewHolder.txtDesc.setText(item.getJobdesk());
+            genericViewHolder.txtStatus.setText(status);
+            genericViewHolder.txtStatus.setTextColor(color);
+            genericViewHolder.progressBar.setVisibility(View.GONE);
+
+            if (item.getFoto().isEmpty()) {
                 Glide.with(context)
                         .load(R.drawable.blank_profile)
-                        .apply(new RequestOptions().override(120,120))
+                        .apply(new RequestOptions().override(120, 120))
                         .into(genericViewHolder.imgHistoryOrder);
-            }else {
-                Glide.with(context)
-                        .load(UrlServer.URL_FOTO_TUKANG+item.getFoto())
-                        .apply(new RequestOptions().override(120,120))
-                        .into(genericViewHolder.imgHistoryOrder);
+            } else {
+                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgHistoryOrder);
+
             }
 
         }
@@ -115,7 +116,7 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
         this.mItemClickListener = mItemClickListener;
     }
 
-    private DataItem getItem(int position){
+    private DataItem getItem(int position) {
         return list.get(position);
     }
 
@@ -126,8 +127,12 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtType, txtDesc, txtDate, txtStatus;
         private ImageView imgHistoryOrder;
+        private ProgressBar progressBar;
+
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
+
+            this.progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
             this.txtStatus = (TextView) itemView.findViewById(R.id.txt_status_order_history);
             this.txtType = (TextView) itemView.findViewById(R.id.txt_title_history_order);
             this.txtDesc = (TextView) itemView.findViewById(R.id.txt_desc_history_order);
