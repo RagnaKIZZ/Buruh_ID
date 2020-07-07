@@ -176,7 +176,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         btnPromo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = edtPromo.getText().toString().trim();
+                String code = edtPromo.getText().toString().trim().toLowerCase();
                 if (!code.isEmpty()) {
                     txtPromo.setErrorEnabled(false);
                     getPromotion(id, token, code, String.valueOf(totalPayment), totalPayment);

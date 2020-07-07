@@ -22,4 +22,6 @@ public class SessionPrefs {
     public static String TOKEN_FIREBASE = "token_fire";
 
     public static String NOTIF_COUNT = "notif";
+
+
 }

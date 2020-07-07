@@ -1,8 +1,6 @@
 package ahmedt.buruhid.promotion.modelPromo;
 
-
 import com.google.gson.annotations.SerializedName;
-
 
 public class DataItem {
 
@@ -17,6 +15,9 @@ public class DataItem {
 
     @SerializedName("min_harga")
     private String minHarga;
+
+    @SerializedName("banner")
+    private String banner;
 
     @SerializedName("id")
     private String id;
@@ -59,6 +60,14 @@ public class DataItem {
         return minHarga;
     }
 
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -81,19 +90,5 @@ public class DataItem {
 
     public String getStartDate() {
         return startDate;
-    }
-
-    @Override
-    public String toString() {
-        return
-                "DataItem{" +
-                        "kode_promo = '" + kodePromo + '\'' +
-                        ",end_date = '" + endDate + '\'' +
-                        ",nama_promo = '" + namaPromo + '\'' +
-                        ",min_harga = '" + minHarga + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",isi_promo = '" + isiPromo + '\'' +
-                        ",start_date = '" + startDate + '\'' +
-                        "}";
     }
 }

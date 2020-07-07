@@ -221,9 +221,11 @@ public class OrderFragment extends Fragment {
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(updateBadge);
     }
 
+
     private void setAdapter(String id, String token, String page, final boolean isBackground) {
         lay_include.setVisibility(View.GONE);
         AndroidNetworking.post(UrlServer.URL_LIST_ORDER)
+                .setTag("adapter1")
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
                 .addBodyParameter("page", page)
@@ -309,6 +311,7 @@ public class OrderFragment extends Fragment {
 
     private void setAdapter2(String id, String token, String page, final boolean isBackground) {
         AndroidNetworking.post(UrlServer.URL_LIST_ORDER_HISTORY)
+                .setTag("adapter2")
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
                 .addBodyParameter("page", page)

@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-
 public class PromoModel {
 
     @SerializedName("msg")
@@ -38,15 +37,5 @@ public class PromoModel {
 
     public List<DataItem> getData() {
         return data;
-    }
-
-    @Override
-    public String toString() {
-        return
-                "PromoModel{" +
-                        "msg = '" + msg + '\'' +
-                        ",code = '" + code + '\'' +
-                        ",data = '" + data + '\'' +
-                        "}";
     }
 }

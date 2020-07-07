@@ -132,7 +132,7 @@ public class DetailFotoActivity extends AppCompatActivity {
                 .setUploadProgressListener(new UploadProgressListener() {
                     @Override
                     public void onProgress(long bytesUploaded, long totalBytes) {
-
+                        Log.d(TAG, "bytesUploaded: " + (int) bytesUploaded + ", totalBytes:" + (int) totalBytes);
                     }
                 })
                 .getAsOkHttpResponseAndObject(UploadModel.class, new OkHttpResponseAndParsedRequestListener<UploadModel>() {

@@ -75,6 +75,7 @@ public class PaymentFragment extends Fragment {
 
     private void setAdapter2(String id, String token, String page) {
         AndroidNetworking.post(UrlServer.URL_LIST_PAYMENT_HISTORY)
+                .setTag("adapter2")
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
                 .addBodyParameter("page", page)
@@ -139,6 +140,7 @@ public class PaymentFragment extends Fragment {
 
     private void setAdapter(String id, String token, String page) {
         AndroidNetworking.post(UrlServer.URL_LIST_PAYMENT)
+                .setTag("adapter1")
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
                 .addBodyParameter("page", page)
@@ -314,4 +316,5 @@ public class PaymentFragment extends Fragment {
             }
         }
     }
+
 }

@@ -58,9 +58,9 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
             genericViewHolder.txtName.setText(item.getNama());
             genericViewHolder.txtAddress.setText(item.getAlamat());
             if (anggota == 1) {
-                jumAnggota = "Individu worker";
+                jumAnggota = context.getString(R.string.individu_worker);
             } else {
-                jumAnggota = "Team worker : " + item.getAnggota() + " People";
+                jumAnggota = context.getString(R.string.tim_work) + item.getAnggota() + context.getString(R.string.people);
             }
             genericViewHolder.txtType.setText(jumAnggota);
             genericViewHolder.txtRating.setText("(" + item.getRating() + ")");

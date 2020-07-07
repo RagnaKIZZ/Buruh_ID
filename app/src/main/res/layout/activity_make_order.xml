@@ -210,14 +210,17 @@
                     android:orientation="horizontal"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
+                    android:gravity="center"
                     android:layout_marginBottom="@dimen/_5sdp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/txt_mo_start_hour"
-                        android:layout_width="@dimen/_210sdp"
+                        android:layout_width="@dimen/_130sdp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_3sdp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         >
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_mo_start_hour"
                             android:layout_width="match_parent"
@@ -225,33 +228,18 @@
                             android:textSize="@dimen/_12ssp"
                             android:fontFamily="@font/open_sans"
                             android:hint="@string/start_hour"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:longClickable="false"
                             android:inputType="none" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageButton
-                        android:id="@+id/btn_hour"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:src="@drawable/ic_menu_black_24dp"
-                        android:background="@drawable/bg_button"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_10sdp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_5sdp">
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/txt_mo_end"
-                        android:layout_width="@dimen/_210sdp"
+                        android:layout_width="@dimen/_130sdp"
                         android:layout_height="wrap_content"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_mo_end"
                             android:layout_width="match_parent"
@@ -259,20 +247,15 @@
                             android:fontFamily="@font/open_sans"
                             android:hint="@string/end_date"
                             android:textSize="@dimen/_12ssp"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:longClickable="false"
                             android:inputType="none" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageButton
-                        android:id="@+id/btn_end_date"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:src="@drawable/ic_menu_black_24dp"
-                        android:background="@drawable/bg_button"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_10sdp"/>
+
 
                 </LinearLayout>
-
 
                 <TextView
                     android:layout_width="match_parent"
@@ -287,18 +270,15 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_5sdp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_mo_city"
-                    android:layout_width="@dimen/_210sdp"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_mo_city"
                         android:layout_width="match_parent"
@@ -307,31 +287,25 @@
                         android:hint="@string/city"
                         android:textSize="@dimen/_12ssp"
                         android:inputType="none"
-                        android:imeOptions="actionNext"/>
+                        android:focusable="false"
+                        android:longClickable="false"
+                        android:clickable="true" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageButton
-                    android:id="@+id/btn_city"
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:src="@drawable/ic_menu_black_24dp"
-                    android:background="@drawable/bg_button"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"/>
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
+                android:gravity="center"
                 android:layout_marginBottom="@dimen/_5sdp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_mo_subdis"
-                    android:layout_width="@dimen/_210sdp"
+                    android:layout_width="@dimen/_130sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_3sdp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_mo_subdis"
                         android:layout_width="match_parent"
@@ -340,51 +314,35 @@
                         android:hint="@string/sub_districts"
                         android:textSize="@dimen/_12ssp"
                         android:inputType="none"
-                        android:imeOptions="actionNext"/>
+                        android:focusable="false"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:longClickable="false"
+                        android:clickable="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageButton
-                    android:id="@+id/btn_subdis"
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:src="@drawable/ic_menu_black_24dp"
-                    android:background="@drawable/bg_button"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_mo_vill"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_mo_vill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans"
+                        android:hint="@string/village"
+                        android:textSize="@dimen/_12ssp"
+                        android:inputType="none"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:focusable="false"
+                        android:longClickable="false"
+                        android:clickable="true" />
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_5sdp">
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txt_mo_vill"
-                        android:layout_width="@dimen/_210sdp"
-                        android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edt_mo_vill"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/open_sans"
-                            android:hint="@string/village"
-                            android:textSize="@dimen/_12ssp"
-                            android:inputType="none"
-                            android:imeOptions="actionNext"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <ImageButton
-                        android:id="@+id/btn_vill"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:src="@drawable/ic_menu_black_24dp"
-                        android:background="@drawable/bg_button"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_10sdp"/>
-                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_mo_address"
@@ -394,14 +352,17 @@
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/open_sans"
                         android:hint="@string/address"
                         android:textSize="@dimen/_12ssp"
-                        android:inputType="textCapWords"
-                        android:imeOptions="actionNext"/>
+                        android:inputType="textCapWords|textMultiLine"
+                        android:lines="2"
+                        android:gravity="start"
+                        android:imeOptions="actionNext" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView

@@ -8,10 +8,10 @@
     <application
         android:name=".BuruhID"
         android:allowBackup="true"
-        android:icon="@drawable/launcherrectangle"
+        android:icon="@mipmap/ic_launcher_new"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/configurenetwork"
-        android:roundIcon="@drawable/launcherrounded"
+        android:roundIcon="@mipmap/ic_launcher_new_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.home.survery.SurveyActivity"
@@ -132,9 +132,6 @@
             </intent-filter>
         </service>
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

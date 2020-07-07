@@ -31,7 +31,8 @@ public class UrlServer {
     public static String URL_PAY_ORDER              = BASE_URL+"user/bayar_order";
     public static String URL_COUNT                  = BASE_URL+"user/getCountPromoAndNotif";
     public static String URL_NOTIF                  = BASE_URL+"user/getNotif";
-    public static String URL_LIST_PROMO             = BASE_URL+"user/getListPromo";
+    public static String URL_LIST_PROMO = BASE_URL + "user/getListPromo";
+    public static String URL_FOTO_PROMO = BASE_URL + "img_promo/";
 
 
     public static String URL_GET_ADDRESS    = "https://x.rajaapi.com/MeP7c5ne";

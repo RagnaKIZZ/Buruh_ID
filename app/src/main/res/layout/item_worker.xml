@@ -139,6 +139,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             style="?android:attr/ratingBarStyleSmall"
             android:numStars="5"
+            android:isIndicator="true"
             android:stepSize="0.1"
             tools:rating="2.9"
             android:enabled="false"

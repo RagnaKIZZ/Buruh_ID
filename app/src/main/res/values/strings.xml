@@ -183,6 +183,8 @@
     <string name="comment">Comment</string>
     <string name="thanks">Thank you for giving us advice</string>
     <string name="your_message">Your message...</string>
-    <string name = "kritik_dan_saran"> Criticism and suggestions </string>
-    <string name = "title_respon"> How satisfied are you with the system and the Buruh Id application? </string>
+    <string name="kritik_dan_saran"> Criticism and suggestions </string>
+    <string name="title_respon"> How satisfied are you with the system and the Buruh Id application? </string>
+    <string name="announcebeta">This application is a BETA version, so some features may not run smoothly</string>
+
 </resources>

@@ -19,12 +19,12 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <ahmedt.buruhid.utils.ViewPageFixed
         android:layout_below="@+id/app_bar"
         android:id="@+id/view_pager_intro"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_marginBottom="@dimen/_70sdp"
-        android:layout_height="match_parent"/>
+        android:layout_height="fill_parent" />
 
     <FrameLayout
         android:layout_alignParentBottom="true"

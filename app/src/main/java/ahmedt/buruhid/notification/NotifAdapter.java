@@ -1,6 +1,7 @@
 package ahmedt.buruhid.notification;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,6 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.ViewHolder> 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notif, parent, false);
         return new ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull NotifAdapter.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
@@ -50,6 +50,15 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.ViewHolder> 
             String desc = item.getMessage();
             String title = item.getTitle();
             Date date = null;
+            if (item.getIsRead().matches("1")) {
+                genericViewHolder.txtTitle.setTextColor(Color.GRAY);
+                genericViewHolder.txtDesc.setTextColor(Color.GRAY);
+                genericViewHolder.txtDate.setTextColor(Color.GRAY);
+            } else {
+                genericViewHolder.txtTitle.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                genericViewHolder.txtDesc.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                genericViewHolder.txtDate.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            }
             genericViewHolder.txtTitle.setText(title);
             genericViewHolder.txtDesc.setText(desc);
 

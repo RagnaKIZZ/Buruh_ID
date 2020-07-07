@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +29,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
+
+        Toast.makeText(this, R.string.announcebeta, Toast.LENGTH_LONG).show();
 
 
         new Handler().postDelayed(new Runnable() {

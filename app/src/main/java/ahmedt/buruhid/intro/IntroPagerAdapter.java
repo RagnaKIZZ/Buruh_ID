@@ -26,6 +26,7 @@ public class IntroPagerAdapter extends PagerAdapter {
         this.list = list;
     }
 
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {

@@ -21,8 +21,6 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import java.util.Calendar;
-
 import ahmedt.buruhid.Main.modelToken.FirebaseModel;
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.utils.SessionPrefs;
@@ -37,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Calendar calendar = Calendar.getInstance();
-        Prefs.putInt(SessionPrefs.YEAR, calendar.get(Calendar.YEAR));
-        Prefs.putInt(SessionPrefs.MONTH, calendar.get(Calendar.MONTH));
-        Prefs.putInt(SessionPrefs.DATE, calendar.get(Calendar.DAY_OF_MONTH));
+//        Calendar calendar = Calendar.getInstance();
+//        Prefs.putInt(SessionPrefs.YEAR, calendar.get(Calendar.YEAR));
+//        Prefs.putInt(SessionPrefs.MONTH, calendar.get(Calendar.MONTH));
+//        Prefs.putInt(SessionPrefs.DATE, calendar.get(Calendar.DAY_OF_MONTH));
         Toolbar toolbar = findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");

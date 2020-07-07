@@ -107,10 +107,6 @@ public class HomeFragment extends Fragment {
         setAdapter1();
         setAdapter2();
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateBadge, new IntentFilter(FirebaseMessagingService.INFO_UPDATE));
-        if (Prefs.getString(SessionPrefs.isLogin, "").isEmpty()) {
-            getCount(true);
-            Prefs.putString(SessionPrefs.isLogin, "1");
-        }
     }
 
     private void findView(View view) {
@@ -217,7 +213,8 @@ public class HomeFragment extends Fragment {
         list.add(new WhatsNewItem(R.drawable.whatsnew));
         list.add(new WhatsNewItem(R.drawable.covid));
         list.add(new WhatsNewItem(R.drawable.kodepromo));
-        mAdapter_1.updateList(list);
+        rc_WN.setAdapter(mAdapter_1);
+        mAdapter_1.notifyDataSetChanged();
     }
 
     private void setAdapter2() {
@@ -225,7 +222,8 @@ public class HomeFragment extends Fragment {
         list2.add(new OtherItem(getString(R.string.secure_transc), R.drawable.securetrans));
         list2.add(new OtherItem(getString(R.string.howTouse), R.drawable.load_screen_3));
         list2.add(new OtherItem(getString(R.string.aboud_us), R.drawable.launcherrounded));
-        mAdapter_2.updateList(list2);
+        rc_Other.setAdapter(mAdapter_2);
+        mAdapter_2.notifyDataSetChanged();
     }
 
 
@@ -241,6 +239,11 @@ public class HomeFragment extends Fragment {
                 onOptionsItemSelected(notifItem);
             }
         });
+        txtBadgeNotif.setVisibility(View.GONE);
+        if (Prefs.getString(SessionPrefs.isLogin, "").isEmpty()) {
+            getCount(true);
+            Prefs.putString(SessionPrefs.isLogin, "1");
+        }
         setupBadgeNotif();
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -301,9 +304,11 @@ public class HomeFragment extends Fragment {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), NOTIFICATION_CHANNEL_ID);
         builder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.mipmap.ic_launcher_new)
                 .setContentTitle(title)
                 .setContentText(message)
+                .setStyle(new NotificationCompat.InboxStyle().addLine(message))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(intent);
 
         manager.notify(notification_ID, builder.build());
@@ -325,7 +330,7 @@ public class HomeFragment extends Fragment {
                                 countPromo = response.getCountPromo();
                                 setupBadgeNotif();
                                 if (notif) {
-                                    if (response.getCountNotif() > 0 && txtBadgeNotif.getVisibility() != View.VISIBLE) {
+                                    if (response.getCountNotif() > 0) {
                                         for (int i = 0; i < response.getData().size(); i++) {
                                             showNotification(response.getData().get(i).getTitle(), response.getData().get(i).getMessage());
                                         }

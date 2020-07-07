@@ -5,7 +5,6 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -13,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ahmedt.buruhid.R;
+import ahmedt.buruhid.utils.ViewPageFixed;
 
 public class HowToActivity extends AppCompatActivity {
-    private ViewPager viewPager;
+    private ViewPageFixed viewPager;
     private HowToPagerAdapter introPagerAdapter;
     private TabLayout tabLayout;
     private int positionTab = 0;

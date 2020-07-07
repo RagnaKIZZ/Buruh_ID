@@ -118,6 +118,7 @@ public class PromoActivity extends AppCompatActivity {
                                     items.setIsiPromo(response.getData().get(i).getIsiPromo());
                                     items.setKodePromo(response.getData().get(i).getKodePromo());
                                     items.setMinHarga(response.getData().get(i).getMinHarga());
+                                    items.setBanner(response.getData().get(i).getBanner());
                                     list.add(items);
                                 }
                                 setResult(RESULT_OK);

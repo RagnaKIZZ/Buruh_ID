@@ -66,7 +66,7 @@ public class MakeOrderActivity extends AppCompatActivity {
     private RatingBar ratingWorker;
     private RelativeLayout rlNoWorker, rlIsWorker;
     private CardView cvSelectWorker;
-    private ImageButton btnImgBack, btnHour, btnEndDate, btnCity, btnSubdis, btnVill;
+    private ImageButton btnImgBack;
     private EditText edtStartDate, edtStartHour, edtEndDate, edtAdd, edtCit, edtJob, edtSubs, edtVille;
     private Button btnPlus, btnMinus, btnMakeOrder;
     private TextView txtCounter;
@@ -80,6 +80,7 @@ public class MakeOrderActivity extends AppCompatActivity {
     String id_kota = "";
     String id_vill = "";
     String token = "";
+    Calendar calendar = Calendar.getInstance();
     long start, end;
     int th;
     int bl;
@@ -104,18 +105,13 @@ public class MakeOrderActivity extends AppCompatActivity {
         edtStartDate = findViewById(R.id.edt_mo_start);
         edtStartHour = findViewById(R.id.edt_mo_start_hour);
         edtEndDate = findViewById(R.id.edt_mo_end);
-        btnEndDate = findViewById(R.id.btn_end_date);
-        btnHour = findViewById(R.id.btn_hour);
         btnMakeOrder = findViewById(R.id.btn_make_order);
         edtAddress = findViewById(R.id.txt_mo_address);
         edtCity = findViewById(R.id.txt_mo_city);
         edtJobdesk = findViewById(R.id.txt_mo_jobdesk);
         edtCit = findViewById(R.id.edt_mo_city);
         edtSubs = findViewById(R.id.edt_mo_subdis);
-        btnCity = findViewById(R.id.btn_city);
-        btnSubdis = findViewById(R.id.btn_subdis);
         edtSubdis = findViewById(R.id.txt_mo_subdis);
-        btnVill = findViewById(R.id.btn_vill);
         edtVill = findViewById(R.id.txt_mo_vill);
         edtVille = findViewById(R.id.edt_mo_vill);
 
@@ -272,49 +268,21 @@ public class MakeOrderActivity extends AppCompatActivity {
         });
 
         edtStartDate.setEnabled(false);
-        edtStartHour.setEnabled(false);
-        edtEndDate.setEnabled(false);
-        edtVille.setEnabled(false);
-        edtCity.getEditText().setEnabled(false);
-        edtSubdis.getEditText().setEnabled(false);
-        getTomorrow(edtStartDate);
-        th = Prefs.getInt(SessionPrefs.YEAR, 0);
-        bl = Prefs.getInt(SessionPrefs.MONTH, 0);
-        hr = Prefs.getInt(SessionPrefs.DATE, 0);
-
-        btnEndDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateDialog(edtEndDate);
-            }
-        });
-
-        btnHour.setOnClickListener(new View.OnClickListener() {
+//        edtStartHour.setEnabled(false);
+        edtStartHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showHourDialog(edtStartHour);
             }
         });
-
-        btnCity.setOnClickListener(new View.OnClickListener() {
+//        edtEndDate.setEnabled(false);
+        edtEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCityDialog(edtCit, UrlServer.URL_GET_KAB, id_prov);
+                showDateDialog(edtEndDate);
             }
         });
-
-        btnSubdis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!edtCit.getText().toString().isEmpty()) {
-                    showSubsDialog(edtSubs, UrlServer.URL_GET_KAC, id_kota);
-                } else {
-                    Toasty.warning(MakeOrderActivity.this, "Districts/City can't be empty!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        btnVill.setOnClickListener(new View.OnClickListener() {
+        edtVille.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!edtCit.getText().toString().isEmpty() && !edtSubs.getText().toString().isEmpty()) {
@@ -324,6 +292,32 @@ public class MakeOrderActivity extends AppCompatActivity {
                 }
             }
         });
+
+        edtCit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCityDialog(edtCit, UrlServer.URL_GET_KAB, id_prov);
+            }
+        });
+
+        edtSubs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!edtCit.getText().toString().isEmpty()) {
+                    showSubsDialog(edtSubs, UrlServer.URL_GET_KAC, id_kota);
+                } else {
+                    Toasty.warning(MakeOrderActivity.this, "Districts/City can't be empty!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+//        edtVille.setEnabled(false);
+//        edtCity.getEditText().setEnabled(false);
+//        edtSubdis.getEditText().setEnabled(false);
+
+        th = Calendar.getInstance().get(Calendar.YEAR);
+        bl = Calendar.getInstance().get(Calendar.MONTH);
+        hr = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        getTomorrow(edtStartDate);
 
         btnImgBack.setOnClickListener(new View.OnClickListener() {
             @Override

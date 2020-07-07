@@ -126,6 +126,11 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void setAdapter(String id, final String token, final boolean isBackground) {
+        if (isBackground) {
+
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
+        }
         AndroidNetworking.post(UrlServer.URL_NOTIF)
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
@@ -145,6 +150,7 @@ public class NotificationActivity extends AppCompatActivity {
                                     items.setCreateDate(response.getData().get(i).getCreateDate());
                                     items.setMessage(response.getData().get(i).getMessage());
                                     items.setTitle(response.getData().get(i).getTitle());
+                                    items.setIsRead(response.getData().get(i).getIsRead());
                                     list.add(items);
                                 }
                                 setResult(RESULT_OK);

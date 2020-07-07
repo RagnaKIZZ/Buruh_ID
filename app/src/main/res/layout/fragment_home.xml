@@ -124,6 +124,7 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_5sdp"/>
 
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_whats_new"
                     android:layout_width="match_parent"
