@@ -45,7 +45,7 @@ import ahmedt.buruhid.make_order.MakeOrderActivity;
 import ahmedt.buruhid.notification.NotificationActivity;
 import ahmedt.buruhid.promotion.PromoActivity;
 import ahmedt.buruhid.ui.home.about.AboutActivity;
-import ahmedt.buruhid.ui.home.corona.CovidActivity;
+import ahmedt.buruhid.ui.home.cvid.CovidActivity;
 import ahmedt.buruhid.ui.home.howtouse.HowToActivity;
 import ahmedt.buruhid.ui.home.modelCounter.CounterModel;
 import ahmedt.buruhid.ui.home.securetrans.SecureTransActivity;

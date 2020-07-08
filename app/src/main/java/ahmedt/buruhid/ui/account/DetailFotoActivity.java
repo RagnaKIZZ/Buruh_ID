@@ -114,7 +114,6 @@ public class DetailFotoActivity extends AppCompatActivity {
                 .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(DetailFotoActivity.this, "Yes", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });

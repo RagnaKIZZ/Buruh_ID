@@ -1,4 +1,4 @@
-package ahmedt.buruhid.ui.home.corona.modelprevention;
+package ahmedt.buruhid.ui.home.cvid.modelprevention;
 
 public class PreventionModel {
     private String desc;

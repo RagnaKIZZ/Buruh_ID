@@ -42,7 +42,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActBar" />
         <activity
-            android:name=".ui.home.corona.CovidActivity"
+            android:name=".ui.home.cvid.CovidActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActBar" />
         <activity

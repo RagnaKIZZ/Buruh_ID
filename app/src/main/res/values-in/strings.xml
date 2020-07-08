@@ -182,7 +182,7 @@
     <string name = "call_us">Hubungi kami</string>
     <string name="desc_secure">Terjamin nya keamanan data Anda terhadap kami, data pribadi Anda akan kami jaga kerahasiannya baik itu data pribadi ataupun data transaksi, namun kami dapat tetap menyediakan dan menyimpan data tersebut baik untuk bukti untuk kasus terkait kedepannya</string>
     <string name="desc_wnew">1. Update fitur notifikasi\n2.Tambahan 2 bahasa\n3. Bug fix</string>
-    <string name="v1">versi 1.0.0</string>
+    <string name="v1">versi 1.0.1</string>
     <string name="ht1_desc">Masuk Ke aplikasi buruh Id dan pilih pekerja yang Anda butuhkan, individu untuk peorangan dan team untuk lebih dari 1 orang</string>
     <string name="ht2_desc">Isi data-data, jumlah pekerja yang Anda butuhkan dan pilih pekerja yang Anda mau, juga isi deskripsi pekerjaan.</string>
     <string name="ht3_desc">Pilih pekerja yang Anda mau</string>

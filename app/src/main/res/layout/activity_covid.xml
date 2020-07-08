@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.home.corona.CovidActivity">
+    tools:context=".ui.home.cvid.CovidActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_alignParentTop="true"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:elevation="0dp">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

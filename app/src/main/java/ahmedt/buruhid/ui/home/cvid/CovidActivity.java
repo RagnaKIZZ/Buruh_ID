@@ -1,4 +1,4 @@
-package ahmedt.buruhid.ui.home.corona;
+package ahmedt.buruhid.ui.home.cvid;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +18,8 @@ import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
 import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
-import ahmedt.buruhid.ui.home.corona.modelcorona.CoronaModel;
-import ahmedt.buruhid.ui.home.corona.modelprevention.PreventionModel;
+import ahmedt.buruhid.ui.home.cvid.modelprevention.PreventionModel;
+import ahmedt.buruhid.ui.home.cvid.sickmodel.SickModel;
 import ahmedt.buruhid.utils.UrlServer;
 import es.dmoral.toasty.Toasty;
 import okhttp3.Response;
@@ -71,10 +71,10 @@ public class CovidActivity extends AppCompatActivity {
     private void getCountCorona(){
         AndroidNetworking.get(UrlServer.URL_COVID)
                 .build()
-                .getAsOkHttpResponseAndObject(CoronaModel.class, new OkHttpResponseAndParsedRequestListener<CoronaModel>() {
+                .getAsOkHttpResponseAndObject(SickModel.class, new OkHttpResponseAndParsedRequestListener<SickModel>() {
                     @Override
-                    public void onResponse(Response okHttpResponse, CoronaModel response) {
-                        if (okHttpResponse.isSuccessful()){
+                    public void onResponse(Response okHttpResponse, SickModel response) {
+                        if (okHttpResponse.isSuccessful()) {
                             txtKonfirm.setText(String.valueOf(response.getJumlahKasus()));
                             txtMeninggal.setText(String.valueOf(response.getMeninggal()));
                             txtPengawasan.setText(String.valueOf(response.getPerawatan()));

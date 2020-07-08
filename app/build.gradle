@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        releaseburuhid {
+            storeFile file('E:\\Ahmedt\\keystore\\keystoreburuhid.jks')
+            keyAlias 'BuruhID'
+            storePassword 'buruhid19559A'
+            keyPassword 'keystore@BuruhID19'
+        }
+    }
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -10,12 +18,14 @@ android {
         versionCode 2
         versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.releaseburuhid
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseburuhid
         }
     }
 }
@@ -54,15 +64,10 @@ dependencies {
     //lib untuk get set image
     implementation 'com.github.dhaval2404:imagepicker-support:1.5'
 
-    //fix anotation pojo generator
-//    implementation 'org.glassfish:javax.annotation:10.0-b28'
-
     implementation 'com.github.GrenderG:Toasty:1.4.2'
 
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     implementation 'com.github.sujithkanna:smileyrating:2.0.0'
-
-    implementation 'com.infstory:proguard-snippets:1.0.0'
 
 }

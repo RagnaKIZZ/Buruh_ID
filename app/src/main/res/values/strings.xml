@@ -166,7 +166,7 @@
     <string name="call_us">Call us</string>
     <string name="desc_wnew"> 1. Update notification feature \n2.Add 2 languages \n3. Bug fix </string>
     <string name="desc_secure"> The security of your data against us is guaranteed, your personal data will be kept confidential whether it is personal data or transaction data, but we can continue to provide and store that data both for evidence for future related cases </string>
-    <string name="v1">version 1.0.0</string>
+    <string name="v1">version 1.0.1</string>
     <string name="ht1_desc">Enter the Buruh Id application and select the workers you need, individuals for individuals and teams for more than 1 person </string>
     <string name="ht2_desc">Fill in the data, the number of workers you need and select the workers you want, also fill in the job description. </string>
     <string name="ht3_desc">Select the worker you want </string>

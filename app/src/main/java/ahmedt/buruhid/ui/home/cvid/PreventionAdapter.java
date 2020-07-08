@@ -1,4 +1,4 @@
-package ahmedt.buruhid.ui.home.corona;
+package ahmedt.buruhid.ui.home.cvid;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ahmedt.buruhid.R;
-import ahmedt.buruhid.ui.home.corona.modelprevention.PreventionModel;
+import ahmedt.buruhid.ui.home.cvid.modelprevention.PreventionModel;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PreventionAdapter extends RecyclerView.Adapter<PreventionAdapter.ViewHolder> {
