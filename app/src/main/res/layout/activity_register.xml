@@ -50,7 +50,7 @@
                 android:fontFamily="@font/open_sans"
                 android:hint="@string/name"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 

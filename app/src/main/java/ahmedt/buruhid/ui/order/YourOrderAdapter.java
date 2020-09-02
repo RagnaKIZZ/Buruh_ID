@@ -92,7 +92,7 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
                         .apply(new RequestOptions().override(120, 120))
                         .into(genericViewHolder.imgYourOrder);
             } else {
-                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgYourOrder);
+                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgYourOrder, R.drawable.blank_profile);
             }
         }
     }

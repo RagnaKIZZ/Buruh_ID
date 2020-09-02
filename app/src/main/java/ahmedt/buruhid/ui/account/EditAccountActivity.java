@@ -118,7 +118,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
     private void changeEmail(String code) {
         String email = txtEmail.getEditText().getText().toString().trim();
-        String pass = txtPass.getEditText().getText().toString().trim();
+        String pass = txtPass.getEditText().getText().toString().trim().toLowerCase();
         if (!email.isEmpty() && !pass.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             changeProfile(UrlServer.URL_CHANGE_EMAIL, "email", email, pass, SessionPrefs.EMAIL, code);
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

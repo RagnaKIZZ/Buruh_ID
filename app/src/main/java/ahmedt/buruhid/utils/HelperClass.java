@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +21,14 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.material.textfield.TextInputLayout;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import ahmedt.buruhid.R;
+import es.dmoral.toasty.Toasty;
 
 public class HelperClass {
     public static void expand(LinearLayout mLinearLayout){
@@ -92,32 +96,35 @@ public class HelperClass {
         textView.setText(context.getString(R.string.nointernett));
     }
 
-    public static void emptyError(LinearLayout linearLayout, ImageView img, TextView textView, String msg){
+    public static void emptyError(LinearLayout linearLayout, ImageView img, TextView textView, String msg) {
         linearLayout.setVisibility(View.VISIBLE);
         img.setImageResource(R.drawable.noworker);
         textView.setText(msg);
     }
-    public static void getDate (Date date, String time, TextView txt){
+
+    public static void getDate(Context context, Date date, String time, TextView txt) {
         long now = System.currentTimeMillis();
         if (Math.abs(now - date.getTime()) > TimeUnit.MINUTES.toMillis(1)) {
             time = String.valueOf(DateUtils.getRelativeTimeSpanString(date.getTime(), now,
                     DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
                             | DateUtils.FORMAT_NUMERIC_DATE));
         } else {
-            time = "just now";
+            time = context.getString(R.string.now);
         }
         txt.setText(time);
     }
 
-    public static void loadGambar(Context context, String url, final ProgressBar progressBar, final ImageView img) {
+    public static void loadGambar(final Context context, String url, final ProgressBar progressBar, final ImageView img, int error_img) {
         progressBar.setVisibility(View.VISIBLE);
         Glide.with(context)
                 .load(url)
+                .error(error_img)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         progressBar.setVisibility(View.GONE);
-                        img.setImageResource(R.drawable.blank_profile);
+//                        img.setImageResource(R.drawable.blank_profile);
+                        Toasty.error(context, "Failed to load image", Toasty.LENGTH_SHORT).show();
                         return false;
                     }
 
@@ -130,12 +137,34 @@ public class HelperClass {
                 .into(img);
     }
 
-    public static void loading(KProgressHUD hud, String judul, String deskripsi, boolean cancelable){
-        if (judul==null){
-            judul="Loading";
+    public static void turnOffError(final TextInputLayout txt) {
+        txt.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (txt.isErrorEnabled()) {
+                    txt.setErrorEnabled(false);
+                    txt.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    public static void loading(KProgressHUD hud, String judul, String deskripsi, boolean cancelable) {
+        if (judul == null) {
+            judul = "Loading";
         }
-        if (deskripsi==null){
-            deskripsi="Please Wait";
+        if (deskripsi == null) {
+            deskripsi = "Please Wait";
         }
         hud.setLabel(judul);
         hud.setDimAmount(0.5f);

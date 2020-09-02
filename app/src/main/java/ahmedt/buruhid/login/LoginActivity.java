@@ -82,6 +82,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        HelperClass.turnOffError(edtEmail);
+        HelperClass.turnOffError(edtPassword);
 
     }
 
@@ -106,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             edtPassword.setError(getString(R.string.cant_empty));
         } else {
             edtPassword.setErrorEnabled(false);
+            edtPassword.setError(null);
         }
     }
 

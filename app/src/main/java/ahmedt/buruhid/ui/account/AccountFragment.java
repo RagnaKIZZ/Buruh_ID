@@ -107,6 +107,8 @@ public class AccountFragment extends Fragment {
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
+        Log.d(TAG, "findView: " + Prefs.getString(SessionPrefs.TOKEN_LOGIN, ""));
+
         String nama = Prefs.getString(SessionPrefs.NAMA, "");
         String email = Prefs.getString(SessionPrefs.EMAIL, "");
         String telepon = Prefs.getString(SessionPrefs.TELEPON, "");
@@ -117,7 +119,7 @@ public class AccountFragment extends Fragment {
         txtHi.setText("Hi " + nama + ",");
 
         if (!foto.isEmpty()) {
-            HelperClass.loadGambar(getActivity(), UrlServer.URL_FOTO + foto, progressBar, imgAcc);
+            HelperClass.loadGambar(getActivity(), UrlServer.URL_FOTO + foto, progressBar, imgAcc, R.drawable.blank_profile);
         } else {
             Glide.with(getActivity())
                     .load(R.drawable.blank_profile)
@@ -204,7 +206,8 @@ public class AccountFragment extends Fragment {
 //                                    Toasty.success(getActivity(),R.string.suc_logout, Toast.LENGTH_SHORT, true).show();
                                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
-                                    Prefs.clear();
+                                    Prefs.clear().commit();
+                                    Log.d(TAG, "onResponse: " + Prefs.getString(SessionPrefs.isLogin, ""));
                                     startActivity(intent);
                                     getActivity().finish();
                                 } else {
@@ -306,7 +309,7 @@ public class AccountFragment extends Fragment {
             Log.d(TAG, "onResume: kosong: " + Prefs.getString(SessionPrefs.FOTO, ""));
         } else {
             if (!foto.equals(Prefs.getString(SessionPrefs.FOTO, ""))) {
-                HelperClass.loadGambar(getActivity(), UrlServer.URL_FOTO + Prefs.getString(SessionPrefs.FOTO, ""), progressBar, imgAcc);
+                HelperClass.loadGambar(getActivity(), UrlServer.URL_FOTO + Prefs.getString(SessionPrefs.FOTO, ""), progressBar, imgAcc, R.drawable.blank_profile);
                 Log.d(TAG, "onResume: beda" + foto);
                 Log.d(TAG, "onResume: beda: " + Prefs.getString(SessionPrefs.FOTO, ""));
             }

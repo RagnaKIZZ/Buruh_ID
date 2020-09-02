@@ -92,8 +92,10 @@ public class OrderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setAdapter2(id, token, "1", false);
-        setAdapter(id, token, "1", false);
+        if (isAdded()) {
+            setAdapter2(id, token, "1", false);
+            setAdapter(id, token, "1", false);
+        }
         param = 1;
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateBadge, new IntentFilter(FirebaseMessagingService.INFO_UPDATE));
     }
@@ -266,12 +268,14 @@ public class OrderFragment extends Fragment {
                             } else {
                                 param_yo = 3;
                                 if (param == 1) {
-                                    if (isBackground) {
-                                        list.clear();
-                                        adapter.updateList(list);
-                                        HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
-                                    } else {
-                                        HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                                    if (isAdded()) {
+                                        if (isBackground) {
+                                            list.clear();
+                                            adapter.updateList(list);
+                                            HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                                        } else {
+                                            HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                                        }
                                     }
                                 }
 //                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();
@@ -353,13 +357,16 @@ public class OrderFragment extends Fragment {
                                 adapter2.updateList(list2);
                             } else {
                                 param_history = 3;
-                                if (param == 2) {
-                                    if (isBackground) {
-                                        list2.clear();
-                                        adapter2.updateList(list2);
-                                        HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
-                                    } else {
-                                        HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                                if (isAdded()) {
+                                    if (param == 2) {
+                                        if (isBackground) {
+                                            list2.clear();
+                                            adapter2.updateList(list2);
+                                            HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                                        } else {
+
+                                            HelperClass.emptyError(lay_include, imgMsg, txtMsg, getString(R.string.blm_order));
+                                        }
                                     }
                                 }
 //                                Toasty.warning(getActivity(), R.string.something_wrong, Toasty.LENGTH_SHORT).show();

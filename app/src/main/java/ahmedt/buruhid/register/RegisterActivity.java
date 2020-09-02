@@ -78,6 +78,13 @@ public class RegisterActivity extends AppCompatActivity {
         txtPass = findViewById(R.id.txt_password_register);
         txtRePass = findViewById(R.id.txt_repassword_register);
         checkBox = findViewById(R.id.checkbox_register);
+        HelperClass.turnOffError(txtName);
+        HelperClass.turnOffError(txtEmail);
+        HelperClass.turnOffError(txtPass);
+        HelperClass.turnOffError(txtPhone);
+        HelperClass.turnOffError(txtRePass);
+
+
     }
 
     private void validateRegister() {

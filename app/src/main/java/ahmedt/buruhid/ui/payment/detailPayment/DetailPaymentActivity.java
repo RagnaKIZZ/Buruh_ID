@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,8 @@ public class DetailPaymentActivity extends AppCompatActivity {
     private Button btnHelp, btnPay;
     private ImageButton btnBack;
     private File file;
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +59,7 @@ public class DetailPaymentActivity extends AppCompatActivity {
         callMethode();
     }
 
-    private void findView(){
+    private void findView() {
         txtTgl = findViewById(R.id.txt_tgl_payment);
         txtCode = findViewById(R.id.txt_code_payment);
         txtNominal = findViewById(R.id.txt_price_payment);
@@ -67,6 +70,8 @@ public class DetailPaymentActivity extends AppCompatActivity {
         btnPay = findViewById(R.id.btn_pay);
         btnBack = findViewById(R.id.btn_detail_order_back);
         img_proof = findViewById(R.id.proof_img);
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
     }
 
     private void callMethode(){
@@ -122,9 +127,7 @@ public class DetailPaymentActivity extends AppCompatActivity {
                     .load(R.drawable.blankimg)
                     .into(img_proof);
         }else {
-            Glide.with(this)
-                    .load(UrlServer.URL_FOTO_PAYMENT+bukti)
-                    .into(img_proof);
+            HelperClass.loadGambar(this, UrlServer.URL_FOTO_PAYMENT + bukti, progressBar, img_proof, R.drawable.error_image);
         }
 
         cd_select.setOnClickListener(new View.OnClickListener() {

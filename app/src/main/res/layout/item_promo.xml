@@ -13,8 +13,8 @@
         android:id="@+id/img_promo_banner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        tools:src="@drawable/panjangggg" />
+        android:scaleType="centerCrop"
+        tools:src="@drawable/error_image" />
 
     <ProgressBar
         android:id="@+id/progress_bar_promo"

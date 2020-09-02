@@ -85,7 +85,7 @@ public class HistoryPaymentAdapter extends RecyclerView.Adapter<HistoryPaymentAd
                 Log.d("ASD", "onBindViewHolder: "+e.getMessage());
             }
 
-            HelperClass.getDate(date, waktu, genericViewHolder.txtDate);
+            HelperClass.getDate(context, date, waktu, genericViewHolder.txtDate);
             genericViewHolder.txtStatus.setTextColor(color);
             genericViewHolder.txtStatus.setText(status);
             genericViewHolder.txtType.setText(type);

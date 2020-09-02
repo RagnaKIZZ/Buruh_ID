@@ -24,6 +24,7 @@
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="match_parent"
                 android:src="@drawable/logo"/>
+
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -188,13 +189,20 @@
                     app:cardCornerRadius="@dimen/_10sdp"
                     android:elevation="@dimen/_3sdp"
                     android:layout_height="@dimen/_220sdp">
+
                     <ImageView
                         android:scaleType="centerCrop"
                         android:id="@+id/proof_img"
                         android:contentDescription="@string/proofofpayment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/blankimg"/>
+                        android:src="@drawable/blankimg" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
 
                 </androidx.cardview.widget.CardView>
 

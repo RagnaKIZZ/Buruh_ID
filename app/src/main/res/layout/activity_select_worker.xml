@@ -61,20 +61,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_layout"
         android:orientation="vertical">
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <include
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_70sdp"
-            layout="@layout/msg_layout"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="wrap_content" />
-
         <com.xw.repo.widget.BounceScrollView
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_width="match_parent"
@@ -89,11 +75,24 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rv_select_worker"/>
+                    android:id="@+id/rv_select_worker" />
 
             </LinearLayout>
         </com.xw.repo.widget.BounceScrollView>
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_70sdp"
+            layout="@layout/msg_layout"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="wrap_content" />
 
 
     </RelativeLayout>

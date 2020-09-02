@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1482DD</color>
+
+<color name="colorPrimary">#1482DD</color>
     <color name="colorPrimaryDark">#0B63AD</color>
     <color name="colorAccent">#009cdf</color>
     <color name="colorOther">#00B0FF</color>
@@ -14,4 +15,5 @@
     <color name="ucrop_color_widget_active">@color/colorAccent</color>
     <color name="yellowww">#ffd600</color>
     <color name="greeen">#00c853</color>
+
 </resources>

@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
@@ -61,7 +62,7 @@ public class DetailFotoActivity extends AppCompatActivity {
                     .load(R.drawable.blank_profile)
                     .into(photoView);
         } else {
-            HelperClass.loadGambar(DetailFotoActivity.this, UrlServer.URL_FOTO + foto, progressBar, photoView);
+            HelperClass.loadGambar(DetailFotoActivity.this, UrlServer.URL_FOTO + foto, progressBar, photoView, R.drawable.blank_profile);
 
         }
 
@@ -127,6 +128,7 @@ public class DetailFotoActivity extends AppCompatActivity {
                 .addMultipartParameter("id", id)
                 .addMultipartParameter("token_login", token)
                 .addMultipartFile("foto", file)
+                .setPriority(Priority.HIGH)
                 .build()
                 .setUploadProgressListener(new UploadProgressListener() {
                     @Override
@@ -140,7 +142,7 @@ public class DetailFotoActivity extends AppCompatActivity {
                         hud.dismiss();
                         if (okHttpResponse.isSuccessful()) {
                             if (response.getCode() == 200) {
-                                HelperClass.loadGambar(DetailFotoActivity.this, UrlServer.URL_FOTO + response.getFoto(), progressBar, photoView);
+                                HelperClass.loadGambar(DetailFotoActivity.this, UrlServer.URL_FOTO + response.getFoto(), progressBar, photoView, R.drawable.blank_profile);
 //                                Glide.with(DetailFotoActivity.this)
 //                                        .load(UrlServer.URL_FOTO + response.getFoto())
 //                                        .into(photoView);
@@ -175,6 +177,7 @@ public class DetailFotoActivity extends AppCompatActivity {
         AndroidNetworking.post(UrlServer.URL_DELETE_FOTO)
                 .addBodyParameter("id", id)
                 .addBodyParameter("token_login", token)
+                .setPriority(Priority.HIGH)
                 .build()
                 .getAsOkHttpResponseAndObject(EditModel.class, new OkHttpResponseAndParsedRequestListener<EditModel>() {
                     @Override

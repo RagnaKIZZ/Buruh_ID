@@ -87,7 +87,7 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
             } catch (Exception e) {
                 Log.d("ASD", "onBindViewHolder: " + e.getMessage());
             }
-            HelperClass.getDate(date, waktu, genericViewHolder.txtDate);
+            HelperClass.getDate(context, date, waktu, genericViewHolder.txtDate);
             genericViewHolder.txtType.setText(type);
             genericViewHolder.txtDesc.setText(item.getJobdesk());
             genericViewHolder.txtStatus.setText(status);
@@ -100,7 +100,7 @@ public class HistoryOrderAdapter extends RecyclerView.Adapter<HistoryOrderAdapte
                         .apply(new RequestOptions().override(120, 120))
                         .into(genericViewHolder.imgHistoryOrder);
             } else {
-                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgHistoryOrder);
+                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgHistoryOrder, R.drawable.blank_profile);
 
             }
 

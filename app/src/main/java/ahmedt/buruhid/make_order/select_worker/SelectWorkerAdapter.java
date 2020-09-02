@@ -67,7 +67,7 @@ public class SelectWorkerAdapter extends RecyclerView.Adapter<SelectWorkerAdapte
             genericViewHolder.progressBar.setVisibility(View.GONE);
 
             if (!foto.isEmpty()) {
-                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgHistoryOrder);
+                HelperClass.loadGambar(context, UrlServer.URL_FOTO_TUKANG + item.getFoto(), genericViewHolder.progressBar, genericViewHolder.imgHistoryOrder, R.drawable.blank_profile);
             } else {
                 Glide.with(context)
                         .load(R.drawable.blank_profile)

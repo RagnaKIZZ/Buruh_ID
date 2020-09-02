@@ -65,10 +65,10 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.ViewHolder> 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 date = format.parse(time);
+                HelperClass.getDate(context, date, time, genericViewHolder.txtDate);
             } catch (Exception e) {
                 Log.d("ASD", "onBindViewHolder: " + e.getMessage());
             }
-            HelperClass.getDate(date, time, genericViewHolder.txtDate);
         }
     }
 

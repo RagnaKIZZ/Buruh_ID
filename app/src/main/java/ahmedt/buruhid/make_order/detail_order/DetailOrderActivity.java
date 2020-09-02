@@ -123,7 +123,9 @@ public class DetailOrderActivity extends AppCompatActivity {
             countWorker = i.getStringExtra("counter");
             workerAndDays = Integer.parseInt(countWorker) * Integer.parseInt(amountDays);
             edtCount.setVisibility(View.VISIBLE);
-            edtCount.setText(countWorker + R.string.people);
+            String people = getString(R.string.people);
+            edtCount.setText(String.valueOf(countWorker) + " " + people);
+            Log.d(TAG, "findView: jumlah worker" + i.getStringExtra("counter"));
         } else {
             countWorker = i.getStringExtra("counter");
             edtCount.setVisibility(View.GONE);

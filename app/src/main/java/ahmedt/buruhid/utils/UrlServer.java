@@ -2,7 +2,7 @@ package ahmedt.buruhid.utils;
 
 public class UrlServer {
 
-    public static String BASE_URL = "https://buruhidd.000webhostapp.com/";
+    public static String BASE_URL = "http://buruhid.com/buruhid_api/public/";
     public static String URL_COVID = "https://indonesia-covid-19.mathdro.id/api";
 
     public static String URL_REGISTER               = BASE_URL+"user/register_customer";
@@ -26,9 +26,9 @@ public class UrlServer {
     public static String URL_UPDATE_FIREBASE        = BASE_URL+"user/update_firebase_token";
     public static String URL_CANCEL_ORDER           = BASE_URL+"user/cancel_order";
     public static String URL_FINISH_ORDER           = BASE_URL+"user/finish_order";
-    public static String URL_GIVE_RATING            = BASE_URL+"user/give_rating";
-    public static String URL_GIVE_SARAN            = BASE_URL+"user/give_apprespon";
-    public static String URL_PAY_ORDER              = BASE_URL+"user/bayar_order";
+    public static String URL_GIVE_RATING = BASE_URL + "user/give_rating";
+    public static String URL_GIVE_SARAN = BASE_URL + "user/give_apprespon";
+    public static String URL_PAY_ORDER = BASE_URL + "user/bayar_order";
     public static String URL_COUNT                  = BASE_URL+"user/getCountPromoAndNotif";
     public static String URL_NOTIF                  = BASE_URL+"user/getNotif";
     public static String URL_LIST_PROMO = BASE_URL + "user/getListPromo";

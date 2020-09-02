@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 import ahmedt.buruhid.R;
 import ahmedt.buruhid.ui.payment.modelPayment.DataItem;
+import ahmedt.buruhid.utils.HelperClass;
 import ahmedt.buruhid.utils.UrlServer;
 
 public class DetailHistoryPaymentActivity extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class DetailHistoryPaymentActivity extends AppCompatActivity {
     private TextView txtTgl, txtCode, txtNominal, txtStatus;
     private ImageView img_proof;
     private ImageButton btnBack;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +38,15 @@ public class DetailHistoryPaymentActivity extends AppCompatActivity {
         findView();
     }
 
-    private void findView(){
+    private void findView() {
         txtTgl = findViewById(R.id.txt_tgl_payment);
         txtCode = findViewById(R.id.txt_code_payment);
         txtNominal = findViewById(R.id.txt_price_payment);
         txtStatus = findViewById(R.id.txt_status_payment);
         btnBack = findViewById(R.id.btn_detail_order_back);
         img_proof = findViewById(R.id.proof_img);
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
         callMethode();
     }
 
@@ -77,9 +82,7 @@ public class DetailHistoryPaymentActivity extends AppCompatActivity {
                     .load(R.drawable.blankimg)
                     .into(img_proof);
         }else {
-            Glide.with(this)
-                    .load(UrlServer.URL_FOTO_PAYMENT+bukti)
-                    .into(img_proof);
+            HelperClass.loadGambar(this, UrlServer.URL_FOTO_PAYMENT + bukti, progressBar, img_proof, R.drawable.error_image);
         }
 
 

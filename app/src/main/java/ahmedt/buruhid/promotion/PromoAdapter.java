@@ -45,7 +45,11 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
         if (holder instanceof ViewHolder) {
             final DataItem item = getItem(position);
             ViewHolder genericViewHolder = (ViewHolder) holder;
-            HelperClass.loadGambar(context, UrlServer.URL_FOTO_PROMO + item.getBanner(), genericViewHolder.progressBar, genericViewHolder.imgBanner);
+            if (item.getBanner() == null) {
+                genericViewHolder.imgBanner.setImageResource(R.drawable.error_image);
+            } else {
+                HelperClass.loadGambar(context, UrlServer.URL_FOTO_PROMO + item.getBanner(), genericViewHolder.progressBar, genericViewHolder.imgBanner, R.drawable.error_image);
+            }
         }
     }
 

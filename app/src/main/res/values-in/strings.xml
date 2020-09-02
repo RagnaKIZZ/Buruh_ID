@@ -179,10 +179,10 @@
     <string name="blmpromo">Belum ada promo, tunggu promonya ya!</string>
     <string name="blmadamitra">Yah, mohon maaf didaerah Anda belum tersedia mitra kami</string>
     <string name="desc_about">adalah platform buatan anak bangsa yang dikhususkan untuk memudahkan para pekerja bangunan harian dalam mencari pekerjaan dan untuk mempermudah orang-orang menemukan pekerja terbaik untuk proyek mereka</string>
-    <string name = "call_us">Hubungi kami</string>
+    <string name="call_us">Hubungi kami</string>
     <string name="desc_secure">Terjamin nya keamanan data Anda terhadap kami, data pribadi Anda akan kami jaga kerahasiannya baik itu data pribadi ataupun data transaksi, namun kami dapat tetap menyediakan dan menyimpan data tersebut baik untuk bukti untuk kasus terkait kedepannya</string>
-    <string name="desc_wnew">1. Update fitur notifikasi\n2.Tambahan 2 bahasa\n3. Bug fix</string>
-    <string name="v1">versi 1.0.1</string>
+    <string name="desc_wnew">1. Update fitur notifikasi\n2. Tambahan 2 bahasa\n3. Bug fix</string>
+    <string name="v1">versi 1.0.3</string>
     <string name="ht1_desc">Masuk Ke aplikasi buruh Id dan pilih pekerja yang Anda butuhkan, individu untuk peorangan dan team untuk lebih dari 1 orang</string>
     <string name="ht2_desc">Isi data-data, jumlah pekerja yang Anda butuhkan dan pilih pekerja yang Anda mau, juga isi deskripsi pekerjaan.</string>
     <string name="ht3_desc">Pilih pekerja yang Anda mau</string>
@@ -192,14 +192,26 @@
     <string name="ht7_desc">Saat ordermu telah sampai kepada pekerja kami Anda akan mendapat notifikasi dari kami, bila order diterima cek ke menu pembayaran dan segera lakukan pembayaran</string>
     <string name="ht8_desc">Setelah lakukan pembayaran, segera upload bukti pemabayaran Anda dan tekan tombol bayar, SELESAI!!!  selamat kamu berhasil melakukan order.</string>
     <string name="ht9_desc">Anda bisa cek terus status orderan Anda dihalaman pesanan</string>
-    <string name = "any_question">Ada pertanyaan? </string>
-    <string name = "transfer_to_bank_account">Transfer ke Rekening Bank: </string>
-    <string name = "how_to_transfer">Cara mentransfer </string>
+    <string name="any_question">Ada pertanyaan? </string>
+    <string name="transfer_to_bank_account">Transfer ke Rekening Bank: </string>
+    <string name="how_to_transfer">Cara Transfer </string>
     <string name="tutor_transs">1. Masukan kartu ATM dan Pin Anda\n2. Pilih menu transfer ke Bank lain\n3. Pilih transfer ke Bank BRI\n4. Masukan No. rekening\n5. Masukan jumlah transfer\n6. Pastikan jumlah transfer dan No. rekening sesuai\n7. Transfer uang, dan upload bukti transfer pada aplikasi</string>
-    <string name = "comment">Komentar</string>
-    <string name = "thanks">Terima kasih telah memberikan saran kepada kami </string>
-    <string name = "your_message">Pesan Anda ... </string>
+    <string name="comment">Komentar</string>
+    <string name="thanks">Terima kasih telah memberikan saran kepada kami </string>
+    <string name="your_message">Pesan Anda ... </string>
     <string name="kritik_dan_saran">Kritik dan saran</string>
     <string name="title_respon">Seberapa Puas Anda terhadap sistem dan aplikasi Buruh Id?</string>
     <string name="announcebeta">Aplikasi ini adalah versi BETA, jadi beberapa fitur mungkin tidak berjalan lancar</string>
+    <string name="update">Update</string>
+    <string name="nothx">Tidak, Terimakasih</string>
+    <string name="newupdate">Versi Baru Tersedia</string>
+    <string name="plzupdate">Mohon update untuk melanjutkan penggunaan</string>
+    <string name="fail_img">Gagal memuat gambar</string>
+    <string name="now">Baru saja</string>
+    <string name="reachMax">Jangkau jumlah pekerja maksimum</string>
+    <string name="reachMin">Jangkau jumlah pekerja minimum</string>
+    <string name="subEmpty">Kabupaten / Kota dan Kecamatan tidak boleh kosong!</string>
+    <string name="cityEmpty">Kabupaten / Kota tidak boleh kosong!</string>
+
+
 </resources>

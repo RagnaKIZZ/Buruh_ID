@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         releaseburuhid {
-            storeFile file('E:\\Ahmedt\\keystore\\keystoreburuhid.jks')
+            storeFile file('E:\\Ahmedt\\keystore\\buruh_id\\keystoreburuhid.jks')
             keyAlias 'BuruhID'
             storePassword 'buruhid19559A'
             keyPassword 'keystore@BuruhID19'
@@ -15,8 +15,8 @@ android {
         applicationId "ahmedt.buruhid"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.releaseburuhid
     }
@@ -43,6 +43,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-messaging:20.1.7'
+    implementation 'com.google.firebase:firebase-config:16.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
@@ -62,12 +63,14 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
 
     //lib untuk get set image
-    implementation 'com.github.dhaval2404:imagepicker-support:1.5'
+    implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
 
     implementation 'com.github.GrenderG:Toasty:1.4.2'
 
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     implementation 'com.github.sujithkanna:smileyrating:2.0.0'
+
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
 }

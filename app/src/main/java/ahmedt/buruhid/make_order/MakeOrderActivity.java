@@ -232,7 +232,7 @@ public class MakeOrderActivity extends AppCompatActivity {
                     counter++;
                     txtCounter.setText(String.valueOf(counter));
                 } else if (counter >= 7) {
-                    Toasty.warning(MakeOrderActivity.this, "Reach number of maximum worker", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(MakeOrderActivity.this, getString(R.string.reachMax), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -244,7 +244,7 @@ public class MakeOrderActivity extends AppCompatActivity {
                     counter--;
                     txtCounter.setText(String.valueOf(counter));
                 } else if (counter <= 3) {
-                    Toasty.warning(MakeOrderActivity.this, "Reach number of minimum worker", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(MakeOrderActivity.this, getString(R.string.reachMin), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -288,7 +288,7 @@ public class MakeOrderActivity extends AppCompatActivity {
                 if (!edtCit.getText().toString().isEmpty() && !edtSubs.getText().toString().isEmpty()) {
                     showVillDialog(edtVille, UrlServer.URL_GET_VIL, id_vill);
                 } else {
-                    Toasty.warning(MakeOrderActivity.this, "Districts/City and sub districts can't be empty!", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(MakeOrderActivity.this, getString(R.string.subEmpty), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -306,7 +306,7 @@ public class MakeOrderActivity extends AppCompatActivity {
                 if (!edtCit.getText().toString().isEmpty()) {
                     showSubsDialog(edtSubs, UrlServer.URL_GET_KAC, id_kota);
                 } else {
-                    Toasty.warning(MakeOrderActivity.this, "Districts/City can't be empty!", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(MakeOrderActivity.this, getString(R.string.cityEmpty), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -378,13 +378,14 @@ public class MakeOrderActivity extends AppCompatActivity {
                     } else {
                         tipe = getString(R.string.team_worker);
                     }
+                    Log.d(TAG, "onActivityResult: jumlah anggota" + type);
                     txtName.setText(name);
                     txtTypeWorker.setText(tipe);
                     txtAddress.setText(address);
                     txtRating.setText("(" + String.valueOf(rating) + ")");
                     ratingWorker.setRating(Float.parseFloat(rating));
                     if (!img.isEmpty()) {
-                        HelperClass.loadGambar(MakeOrderActivity.this, UrlServer.URL_FOTO_TUKANG + img, progbar, imgSelectWorker);
+                        HelperClass.loadGambar(MakeOrderActivity.this, UrlServer.URL_FOTO_TUKANG + img, progbar, imgSelectWorker, R.drawable.blank_profile);
                     } else {
                         Glide.with(MakeOrderActivity.this)
                                 .load(R.drawable.blank_profile)
